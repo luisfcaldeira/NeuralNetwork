@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ConsoleApp.Tests.Nets
+namespace MyNeuralNetwork.Domain.Entities.Nets.Collections.IO.Outputs
 {
-    internal class Neuron
+    public class OutputCollection
     {
     }
 }
