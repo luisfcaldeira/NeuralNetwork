@@ -1,12 +1,10 @@
 ﻿using MyNeuralNetwork.Domain.Entities.Nets.Collections.IO.Inputs;
 using MyNeuralNetwork.Domain.Entities.Nets.Collections.IO.Outputs;
 using MyNeuralNetwork.Domain.Entities.Nets.Collections.Layers;
-using MyNeuralNetwork.Domain.Entities.Nets.IO.Inputs;
-using MyNeuralNetwork.Domain.Entities.Nets.IO.Outputs;
 using System;
-using System.Collections.Generic;
+using System.Linq;
 
-namespace MyNeuralNetwork.Domain.Entities.Nets
+namespace MyNeuralNetwork.Domain.Entities.Nets.Networks
 {
     public class NeuralNetwork : IComparable<NeuralNetwork>
     {
@@ -18,9 +16,10 @@ namespace MyNeuralNetwork.Domain.Entities.Nets
             Layers = layers;
         }
 
-        public void Predict(InputCollection inputs)
+        public float Predict(InputCollection inputs)
         {
             Layers.Predict(inputs);
+            return Layers.Last().Output;
         }
 
         public void Fit(InputCollection inputs)
@@ -28,9 +27,9 @@ namespace MyNeuralNetwork.Domain.Entities.Nets
             Layers.FeedForward(inputs);
         }
 
-        public void Backpropagation(ExpectedCollection expectedCollection)
+        public void Backpropagate(ExpectedCollection expectedCollection)
         {
-            Layers.BackPropagation(expectedCollection);
+            Layers.BackPropagate(expectedCollection);
         }
 
         public void PrintLayers()

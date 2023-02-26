@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\MyNeuralNetwork.Domain\MyNeuralNetwork.Domain.csproj" />
+    <ProjectReference Include="..\MyNeuralNetwork.Domain\MyNeuralNetwork.Domain.csproj" />
   </ItemGroup>
 
 </Project>

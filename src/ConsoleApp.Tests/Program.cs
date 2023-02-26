@@ -1,10 +1,11 @@
 ﻿using Microsoft.Win32;
-using MyNeuralNetwork.Domain.Entities.Nets;
 using MyNeuralNetwork.Domain.Entities.Nets.Collections.IO.Outputs;
 using MyNeuralNetwork.Domain.Entities.Nets.Collections.Layers;
 using MyNeuralNetwork.Domain.Entities.Nets.Collections.Neurons;
 using MyNeuralNetwork.Domain.Entities.Nets.IO.Inputs;
 using MyNeuralNetwork.Domain.Entities.Nets.IO.Outputs;
+using MyNeuralNetwork.Domain.Entities.Nets.Layers;
+using MyNeuralNetwork.Domain.Entities.Nets.Networks;
 using MyNeuralNetwork.Domain.Entities.Nets.Neurons;
 using MyNeuralNetwork.Domain.Entities.Nets.Neurons.Activations;
 using System;
@@ -24,30 +25,37 @@ namespace ConsoleApp.Tests
             expecteds.Add(new Expected(0.02f));
 
             NeuralNetwork neuralNetwork = GenerateNeuralNetwork();
-            ExampleNeuralNetwork exampleNeuralNetwork = new ExampleNeuralNetwork(new int[] { 2, 2, 1 }, new string[] { "tanh", "tanh", "tanh" });
+            ExampleNeuralNetwork exampleNeuralNetwork = new ExampleNeuralNetwork(new int[] { 2, 5, 1 }, new string[] { "tanh", "tanh", "tanh" });
 
             Fit(inputManager, expecteds, neuralNetwork);
 
             PrintResult(neuralNetwork, exampleNeuralNetwork);
 
-            for (var i = 0; i < 200000; i++)
+            for (var i = 0; i < 100000; i++)
             {
                 Fit(exampleNeuralNetwork);
                 Fit(inputManager, expecteds, neuralNetwork);
             }
 
-            //neuralNetwork.Predict(inputManager.Inputs);
-            Fit(inputManager, expecteds, neuralNetwork);
+            //Fit(inputManager, expecteds, neuralNetwork);
             PrintResult(neuralNetwork, exampleNeuralNetwork);
 
             PlayNotificationSound();
+
+            inputManager = new InputManager();
+            inputManager.AddInput(0.08f);
+            inputManager.AddInput(0.08f);
+
+            var result = neuralNetwork.Predict(inputManager.Inputs);
+            Console.WriteLine("\n-- result --");
+            Console.WriteLine(result);
         }
 
         
         private static void Fit(InputManager inputManager, ExpectedCollection expecteds, NeuralNetwork neuralNetwork)
         {
             neuralNetwork.Fit(inputManager.Inputs);
-            neuralNetwork.Backpropagation(expecteds);
+            neuralNetwork.Backpropagate(expecteds);
         }
 
         private static void Fit(ExampleNeuralNetwork exampleNeuralNetwork)
@@ -70,6 +78,18 @@ namespace ConsoleApp.Tests
             foreach (var o in output)
             {
                 Console.WriteLine(o);
+            }
+
+            Console.WriteLine("Neurons: ");
+            foreach(var n in exampleNeuralNetwork.neurons)
+            {
+                Console.WriteLine("");
+                var comma = "";
+                foreach(var o in n)
+                {
+                    Console.Write(comma + o);
+                    comma = ", ";
+                }
             }
         }
 
@@ -98,7 +118,7 @@ namespace ConsoleApp.Tests
             var neurons = new NeuronCollection();
             for(var i = 0; i < v; i++)
             {
-                neurons.Add(new Neuron(new Tanh()) { LearningRate = 0.1f });
+                neurons.Add(new Neuron(new Tanh()) { LearningRate = 0.01f });
             }
             return neurons;
         }

@@ -1,6 +1,7 @@
 ﻿using MyNeuralNetwork.Domain.Entities.Nets.Collections.IO.Inputs;
 using MyNeuralNetwork.Domain.Entities.Nets.IO.Outputs;
 using MyNeuralNetwork.Domain.Entities.Nets.Neurons;
+using MyNeuralNetwork.Domain.Entities.Nets.Neurons.Parts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,7 +27,12 @@ namespace MyNeuralNetwork.Domain.Entities.Nets.Collections.Neurons
 
         public float SumGammaDotFloat(float multiplier)
         {
-            return this.Sum(n => n.Gamma * multiplier);
+            return this.Sum(n => n.Gamma.Value * multiplier);
+        }
+
+        internal float SumGammaDotWeigth()
+        {
+            return this.Sum(n => n.Gamma.Value * n.Weight.Value);
         }
 
         internal void Predict(InputCollection inputs)
@@ -46,5 +52,6 @@ namespace MyNeuralNetwork.Domain.Entities.Nets.Collections.Neurons
                 this[i].Predict(inputs[i]);
             }
         }
+
     }
 }

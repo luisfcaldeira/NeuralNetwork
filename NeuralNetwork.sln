@@ -5,11 +5,17 @@ VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ConsoleApps", "ConsoleApps", "{47CFA51E-C9D4-4998-8020-00979098541C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp.Tests", "src\ConsoleApp.Tests\ConsoleApp.Tests.csproj", "{F0016DC8-7741-4587-9DEB-FF97738E92CD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleApp.Tests", "src\ConsoleApp.Tests\ConsoleApp.Tests.csproj", "{F0016DC8-7741-4587-9DEB-FF97738E92CD}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{82AEB37F-4827-4169-9211-E15BBF1C25B6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyNeuralNetwork.Domain", "MyNeuralNetwork.Domain\MyNeuralNetwork.Domain.csproj", "{7F154D27-E060-43AE-A5EC-E03E5C793C17}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{FF87C1B0-0A95-4CD5-9BAC-3A075828B2F1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{6A619A9D-B538-43E1-8D17-31B143F4EB0C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyNeuralNetwork.Domain.Tests", "src\MyNeuralNetwork.Domain.Tests\MyNeuralNetwork.Domain.Tests.csproj", "{21A874F5-C707-4F49-A3C4-BAE426CBAD48}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyNeuralNetwork.Domain", "src\MyNeuralNetwork.Domain\MyNeuralNetwork.Domain.csproj", "{57432E0F-C182-4C00-AE0C-DF4B0E8AE279}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,17 +27,23 @@ Global
 		{F0016DC8-7741-4587-9DEB-FF97738E92CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F0016DC8-7741-4587-9DEB-FF97738E92CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F0016DC8-7741-4587-9DEB-FF97738E92CD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7F154D27-E060-43AE-A5EC-E03E5C793C17}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7F154D27-E060-43AE-A5EC-E03E5C793C17}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7F154D27-E060-43AE-A5EC-E03E5C793C17}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7F154D27-E060-43AE-A5EC-E03E5C793C17}.Release|Any CPU.Build.0 = Release|Any CPU
+		{21A874F5-C707-4F49-A3C4-BAE426CBAD48}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{21A874F5-C707-4F49-A3C4-BAE426CBAD48}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{21A874F5-C707-4F49-A3C4-BAE426CBAD48}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{21A874F5-C707-4F49-A3C4-BAE426CBAD48}.Release|Any CPU.Build.0 = Release|Any CPU
+		{57432E0F-C182-4C00-AE0C-DF4B0E8AE279}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{57432E0F-C182-4C00-AE0C-DF4B0E8AE279}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{57432E0F-C182-4C00-AE0C-DF4B0E8AE279}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{57432E0F-C182-4C00-AE0C-DF4B0E8AE279}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{F0016DC8-7741-4587-9DEB-FF97738E92CD} = {47CFA51E-C9D4-4998-8020-00979098541C}
-		{7F154D27-E060-43AE-A5EC-E03E5C793C17} = {82AEB37F-4827-4169-9211-E15BBF1C25B6}
+		{6A619A9D-B538-43E1-8D17-31B143F4EB0C} = {FF87C1B0-0A95-4CD5-9BAC-3A075828B2F1}
+		{21A874F5-C707-4F49-A3C4-BAE426CBAD48} = {6A619A9D-B538-43E1-8D17-31B143F4EB0C}
+		{57432E0F-C182-4C00-AE0C-DF4B0E8AE279} = {82AEB37F-4827-4169-9211-E15BBF1C25B6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1DB7C8AB-DC9B-4CE9-91F9-C9F5AD8427F8}

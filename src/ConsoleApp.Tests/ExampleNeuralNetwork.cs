@@ -9,7 +9,7 @@ namespace ConsoleApp.Tests
     {
         //fundamental 
         private int[] layers;//layers
-        private float[][] neurons;//neurons
+        public float[][] neurons;//neurons
         private float[][] biases;//biasses
         private float[][][] weights;//weights
         private int[] activations;//layers
@@ -157,7 +157,7 @@ namespace ConsoleApp.Tests
 
             CalculateLastLayerWeightAndBias(gamma);
 
-            CalculateWeightAndBiasOfAnyelseLayer(gamma);
+            CalculateWeightAndBiasOfHiddenLayers(gamma);
         }
 
         private float[][] CreateGamma()
@@ -174,43 +174,47 @@ namespace ConsoleApp.Tests
         private void CalculateGamma(float[] expected, float[] output, float[][] gamma)
         {
             int layer = layers.Length - 2;
-            for (int i = 0; i < output.Length; i++)
+            for (int numNeuron = 0; numNeuron < output.Length; numNeuron++)
             {
-                gamma[layers.Length - 1][i] = (output[i] - expected[i]) * activateDer(output[i], layer);//Gamma calculation
+                gamma[layers.Length - 1][numNeuron] = (output[numNeuron] - expected[numNeuron]) * activateDer(output[numNeuron], layer);//Gamma calculation
             }
         }
         private void CalculateLastLayerWeightAndBias(float[][] gamma)
         {
-            for (int i = 0; i < layers[layers.Length - 1]; i++)//calculates the w' and b' for the last layer in the network
+            int lastLayer = layers.Length - 1;
+            int hiddenLayer = layers.Length - 2;
+            for (int neuronIndex = 0; neuronIndex < layers[lastLayer]; neuronIndex++)//calculates the w' and b' for the last layer in the network
             {
-                biases[layers.Length - 2][i] -= gamma[layers.Length - 1][i] * learningRate;
-                for (int j = 0; j < layers[layers.Length - 2]; j++)
+                for (int hiddenNeuronIndex = 0; hiddenNeuronIndex < layers[hiddenLayer]; hiddenNeuronIndex++)
                 {
-                    float v = gamma[layers.Length - 1][i] * neurons[layers.Length - 2][j] * learningRate;
-                    weights[layers.Length - 2][i][j] -= v;//*learning 
+                    biases[hiddenLayer][hiddenNeuronIndex] -= gamma[lastLayer][neuronIndex] * learningRate;
+                    weights[hiddenLayer][neuronIndex][hiddenNeuronIndex] -= gamma[lastLayer][neuronIndex] * neurons[hiddenLayer][hiddenNeuronIndex] * learningRate; 
                 }
             }
         }
-        private void CalculateWeightAndBiasOfAnyelseLayer(float[][] gamma)
+        private void CalculateWeightAndBiasOfHiddenLayers(float[][] gamma)
         {
-            for (int i = layers.Length - 2; i > 0; i--)//runs on all hidden layers
+            int lastHiddenLayerIndex = layers.Length - 2;
+            for (int hiddenLayerIndex = lastHiddenLayerIndex; hiddenLayerIndex > 0; hiddenLayerIndex--)//runs on all hidden layers
             {
-                var layer = i - 1;
-                for (int j = 0; j < layers[i]; j++)//outputs
+                var previousLayerIndex = hiddenLayerIndex - 1;
+                var nextHiddenLayerIndex = hiddenLayerIndex + 1;
+
+                for (int hiddenNeuronIndex = 0; hiddenNeuronIndex < layers[hiddenLayerIndex]; hiddenNeuronIndex++)//outputs
                 {
-                    gamma[i][j] = 0;
-                    for (int k = 0; k < gamma[i + 1].Length; k++)
+                    float gammaSum = 0;
+                    for (int nextGammaIndex = 0; nextGammaIndex < gamma[nextHiddenLayerIndex].Length; nextGammaIndex++)
                     {
-                        gamma[i][j] += gamma[i + 1][k] * weights[i][k][j];
+                        gammaSum += gamma[nextHiddenLayerIndex][nextGammaIndex] * weights[hiddenLayerIndex][nextGammaIndex][hiddenNeuronIndex];
                     }
-                    gamma[i][j] *= activateDer(neurons[i][j], layer);//calculate gamma
+                    gamma[hiddenLayerIndex][hiddenNeuronIndex] = gammaSum * activateDer(neurons[hiddenLayerIndex][hiddenNeuronIndex], previousLayerIndex);//calculate gamma
                 }
-                for (int j = 0; j < layers[i]; j++)//itterate over outputs of layer
+                for (int j = 0; j < layers[hiddenLayerIndex]; j++)//itterate over outputs of layer
                 {
-                    biases[i - 1][j] -= gamma[i][j] * learningRate;//modify biases of network
-                    for (int k = 0; k < layers[i - 1]; k++)//itterate over inputs to layer
+                    for (int k = 0; k < layers[previousLayerIndex]; k++)//itterate over inputs to layer
                     {
-                        weights[i - 1][j][k] -= gamma[i][j] * neurons[i - 1][k] * learningRate;//modify weights of network
+                        biases[previousLayerIndex][k] -= gamma[hiddenLayerIndex][j] * learningRate;//modify biases of network
+                        weights[previousLayerIndex][j][k] -= gamma[hiddenLayerIndex][j] * neurons[previousLayerIndex][k] * learningRate;//modify weights of network
                     }
                 }
             }

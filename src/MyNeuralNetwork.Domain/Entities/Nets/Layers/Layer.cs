@@ -5,67 +5,94 @@ using MyNeuralNetwork.Domain.Entities.Nets.IO.Inputs;
 using MyNeuralNetwork.Domain.Entities.Nets.IO.Outputs;
 using MyNeuralNetwork.Domain.Entities.Nets.Neurons;
 using System;
-using System.Linq;
 using System.Text;
 
-namespace MyNeuralNetwork.Domain.Entities.Nets
+namespace MyNeuralNetwork.Domain.Entities.Nets.Layers
 {
     public class Layer
     {
         public NeuronCollection Neurons { get; set; }
         public Layer PreviousLayer { get; set; }
         public Layer NextLayer { get; set; }
-        
+        public float Output { get; private set; }
+
+        private static int _labelCounter = 0;
+        public int Label { get; }
+
         public Layer(NeuronCollection neurons)
         {
             Neurons = neurons;
+            Label = _labelCounter++;
         }
 
         public void Feedforward(InputCollection inputs)
         {
             Neurons.Feed(inputs);
-            NextLayer?.HideFeedforward(Neurons.SumOutput());
+            Output = Neurons.SumOutput();
+            NextLayer?.FeedFoward(Output);
         }
 
-        private void HideFeedforward(float output)
+        private void FeedFoward(float output)
         {
             Neurons.ForEach(neuron =>
             {
                 neuron.FeedForward(new Input(output));
             });
 
-            NextLayer?.HideFeedforward(Neurons.SumOutput());
+            Output = Neurons.SumOutput();
+            NextLayer?.FeedFoward(Output);
         }
 
-        public void BackPropagation(ExpectedCollection expecteds)
+        public void BackPropagate(ExpectedCollection expecteds)
         {
             if (Neurons.Count != expecteds.Count)
                 throw new ArgumentException($"Number of {nameof(expecteds)} must be the same as number of {nameof(Neurons)}.");
 
-            for(int i = 0; i < Neurons.Count; i++)
+            UpdateOutputGamma(expecteds);
+
+            UpdatePreviousLayers();
+        }
+
+        internal void UpdateOutputGamma(ExpectedCollection expecteds)
+        {
+            for (int i = 0; i < Neurons.Count; i++)
             {
                 Expected expected = expecteds[i];
                 Feedback feedback = new Feedback(Neurons[i].GetOutput(), expected);
 
-                Neurons[i].BackPropagation(feedback);
+                Neurons[i].UpdateGamma(feedback);
             }
-
-            PreviousLayer?.HideBackPropagation(Neurons);
         }
 
-        internal void HideBackPropagation(NeuronCollection neurons)
+        private void UpdatePreviousLayers()
+        {
+            if(PreviousLayer  != null)
+            {
+                foreach (var neuron in PreviousLayer.Neurons)
+                {
+                    neuron.SumGama(this);
+                    neuron.UpdateValuesAndWeights(this);
+                }
+
+                PreviousLayer.UpdateNeurons();
+            }
+        }
+
+        internal void UpdateNeurons()
         {
             Neurons.ForEach(neuron =>
             {
-                neuron.HideBackPropagation(neurons);
+                neuron.CommitGamma();
+                neuron.UpdateHiddenBackPropagation(this);
             });
 
-            PreviousLayer?.HideBackPropagation(Neurons);
+            PreviousLayer?.UpdateNeurons();
         }
 
         public override string ToString()
         {
             var stringBuilder = new StringBuilder();
+            stringBuilder.AppendLine($"{Label}: ");
             var comma = "";
 
             foreach (Neuron neuron in Neurons)
@@ -80,7 +107,7 @@ namespace MyNeuralNetwork.Domain.Entities.Nets
 
         internal void Predict(InputCollection inputs)
         {
-            Neurons.Predict(inputs);
+            Feedforward(inputs);
         }
     }
 }
