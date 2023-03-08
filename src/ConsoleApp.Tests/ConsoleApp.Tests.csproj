@@ -7,11 +7,12 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Win32.Registry" Version="5.0.0" />
+    <PackageReference Include="Plotly.NET" Version="4.0.0" />
     <PackageReference Include="System.Windows.Extensions" Version="6.0.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\MyNeuralNetwork.Domain\MyNeuralNetwork.Domain.csproj" />
+    <ProjectReference Include="..\Infra\Infra.csproj" />
     <ProjectReference Include="..\MyNeuralNetwork.Domain\MyNeuralNetwork.Domain.csproj" />
   </ItemGroup>
 

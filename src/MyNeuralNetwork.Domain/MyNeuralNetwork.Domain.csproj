@@ -4,4 +4,14 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="Entities\Nets\Neurons\Parts\Bias.cs" />
+    <Compile Remove="Entities\Nets\Neurons\Parts\Gamma.cs" />
+    <Compile Remove="Entities\Nets\Neurons\Parts\Weight.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Entities\Nets\Collections\Neurons\Parts\" />
+  </ItemGroup>
+
 </Project>

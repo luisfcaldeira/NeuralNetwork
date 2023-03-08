@@ -1,18 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MyNeuralNetwork.Domain.Entities.Commons.Fields.Numerics;
 
 namespace MyNeuralNetwork.Domain.Entities.Nets.IO.Inputs
 {
-    public class Input
+    public class Input : FloatNeuralValue
     {
-        public float Value { get; private set; }
-
-        public Input(float value)
+        public Input() : base(0)
         {
-            Value = value;
+        }
+
+        public Input(float value) : base(value)
+        {
         }
     }
 }

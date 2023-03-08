@@ -5,7 +5,6 @@ namespace MyNeuralNetwork.Domain.Entities.Nets.Neurons.Parts
 {
     public class Weight : FloatField
     {
-
         public Weight()
         {
             Value = MyRandom.Range(-0.5f, 0.5f);
@@ -15,6 +14,11 @@ namespace MyNeuralNetwork.Domain.Entities.Nets.Neurons.Parts
         internal void Fix(float value)
         {
             Value -= value;
+        }
+
+        public override string ToString()
+        {
+            return $"w:{Value}";
         }
     }
 }

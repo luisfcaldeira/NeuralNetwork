@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 using MyNeuralNetwork.Domain.Entities.Support;
 using System.Diagnostics;
 
-namespace MyNeuralNetwork.Domain.Tests.Support
+namespace MyNeuralNetwork.Domain.Tests.Entities.Support
 {
     public class MyRandomTests
     {
@@ -25,7 +25,7 @@ namespace MyNeuralNetwork.Domain.Tests.Support
         {
             var values = new List<float>();
 
-            for(var i = 0; i < 1000; i++)
+            for (var i = 0; i < 1000; i++)
             {
                 values.Add(MyRandom.Range(0, 1));
             }

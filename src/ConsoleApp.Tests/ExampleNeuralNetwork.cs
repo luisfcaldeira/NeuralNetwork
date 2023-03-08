@@ -1,11 +1,15 @@
-﻿using MyNeuralNetwork.Domain.Entities.Support;
+﻿using MyNeuralNetwork.Domain.Entities.Nets.Collections.Layers;
+using MyNeuralNetwork.Domain.Entities.Nets.Interfaces.Networks;
+using MyNeuralNetwork.Domain.Entities.Nets.IO.Inputs;
+using MyNeuralNetwork.Domain.Entities.Support;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 
 namespace ConsoleApp.Tests
 {
-    public class ExampleNeuralNetwork : IComparable<ExampleNeuralNetwork>
+    public class ExampleNeuralNetwork : IComparable<ExampleNeuralNetwork>, INeuralNetwork
     {
         //fundamental 
         private int[] layers;//layers
@@ -24,6 +28,8 @@ namespace ConsoleApp.Tests
         private float[][] deltaBiases;//biasses
         private float[][][] deltaWeights;//weights
         private int deltaCount;
+
+        public LayerCollection Layers { get; private set; } = new LayerCollection();
 
         public ExampleNeuralNetwork(int[] layers, string[] layerActivations)
         {
@@ -108,6 +114,18 @@ namespace ConsoleApp.Tests
                 weightsList.Add(layerWeightsList.ToArray());
             }
             weights = weightsList.ToArray();
+        }
+
+        public float[] Predict(Input[] inputs)
+        {
+            float[] inputsInFloat = new float[inputs.Length];
+
+            for (int i = 0; i < inputs.Length; i++)
+            {
+                inputsInFloat[i] = inputs[i].Value;
+            }
+
+            return FeedForward(inputsInFloat);
         }
 
         public float[] FeedForward(float[] inputs)//feed forward, inputs >==> outputs.
@@ -387,6 +405,30 @@ namespace ConsoleApp.Tests
                 }
             }
             writer.Close();
+        }
+
+        public override string ToString()
+        {
+            var stringBuilder = new StringBuilder();
+
+            for(var layerCount = 0; layerCount < neurons.Length; layerCount++)
+            {
+                stringBuilder.Append($"L{layerCount}:");
+                float[] neuronsOfThisLayer = neurons[layerCount];
+                for (var neuronCount = 0; neuronCount < neuronsOfThisLayer.Length; neuronCount++)
+                {
+                    stringBuilder.Append($"N{neuronCount}:v:{neuronsOfThisLayer[neuronCount]};");
+                    if(layerCount > 0)
+                    {
+                        stringBuilder.Append($"w1:{weights[layerCount - 1][neuronCount][0]};");
+                        stringBuilder.Append($"w2:{weights[layerCount - 1][neuronCount][1]};");
+                    }
+                    stringBuilder.Append($"b:{biases[layerCount][neuronCount]};");
+                }
+                stringBuilder.AppendLine("");
+            }
+
+            return stringBuilder.ToString();
         }
     }
 }

@@ -3,7 +3,7 @@ using System;
 
 namespace MyNeuralNetwork.Domain.Entities.Nets.Neurons.Activations
 {
-    public class Tanh : IActivation
+    public class Tanh : IActivator
     {
         public float Activate(float x)
         {

@@ -2,11 +2,10 @@
 
 namespace MyNeuralNetwork.Domain.Entities.Nets.IO.Outputs
 {
-    public class Expected : FloatField
+    public class Expected : FloatNeuralValue
     {
-        public Expected(float value) 
+        public Expected(float value) : base(value)
         {
-            Value = value;
         }
     }
 }

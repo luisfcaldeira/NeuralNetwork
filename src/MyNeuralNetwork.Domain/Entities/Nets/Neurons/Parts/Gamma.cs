@@ -1,9 +1,6 @@
 ﻿using MyNeuralNetwork.Domain.Entities.Commons.Fields.Numerics;
-using MyNeuralNetwork.Domain.Entities.Nets.Collections.Neurons;
 using MyNeuralNetwork.Domain.Entities.Nets.Interfaces.Neurons.Activations;
 using MyNeuralNetwork.Domain.Entities.Nets.IO.Inputs;
-using System;
-using System.ComponentModel;
 
 namespace MyNeuralNetwork.Domain.Entities.Nets.Neurons.Parts
 {
@@ -21,14 +18,5 @@ namespace MyNeuralNetwork.Domain.Entities.Nets.Neurons.Parts
             Value = feedback.Value * Activation.Derivative(neuron.Value);
         }
 
-        public void IncrementGamma(NeuronCollection nextLayerNeurons, Neuron neuron)
-        {
-            Value *= Activation.Derivative(neuron.Value) * nextLayerNeurons.SumGammaDotWeigth();
-        }
-
-        internal void UpdateValue(Gamma gamma, Weight weight)
-        {
-            Value += gamma * weight;
-        }
     }
 }

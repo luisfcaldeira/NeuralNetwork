@@ -1,16 +1,18 @@
-﻿using Microsoft.Win32;
-using MyNeuralNetwork.Domain.Entities.Nets.Collections.IO.Outputs;
-using MyNeuralNetwork.Domain.Entities.Nets.Collections.Layers;
-using MyNeuralNetwork.Domain.Entities.Nets.Collections.Neurons;
+﻿using Infra.Services.Logs.Files;
+using MyNeuralNetwork.Domain.Entities.Nets.Generators;
+using MyNeuralNetwork.Domain.Entities.Nets.Interfaces.Networks;
 using MyNeuralNetwork.Domain.Entities.Nets.IO.Inputs;
-using MyNeuralNetwork.Domain.Entities.Nets.IO.Outputs;
-using MyNeuralNetwork.Domain.Entities.Nets.Layers;
+using MyNeuralNetwork.Domain.Entities.Nets.IO.Managers;
 using MyNeuralNetwork.Domain.Entities.Nets.Networks;
 using MyNeuralNetwork.Domain.Entities.Nets.Neurons;
 using MyNeuralNetwork.Domain.Entities.Nets.Neurons.Activations;
+using MyNeuralNetwork.Domain.Entities.Nets.Neurons.Parts;
+using MyNeuralNetwork.Domain.Entities.Nets.Trainers;
+using MyNeuralNetwork.Domain.Interfaces.Services.Logs;
+using Plotly.NET;
+using Plotly.NET.LayoutObjects;
 using System;
-using System.Diagnostics;
-using System.Media;
+using System.Collections.Generic;
 
 namespace ConsoleApp.Tests
 {
@@ -18,58 +20,77 @@ namespace ConsoleApp.Tests
     {
         static void Main(string[] args)
         {
-            var inputManager = new InputManager();
-            inputManager.AddInput(0.01f);
-            inputManager.AddInput(0.01f);
-            var expecteds = new ExpectedCollection();
-            expecteds.Add(new Expected(0.02f));
+            // Salvar em arquivo de texto valores dos neurônios, pesos e bias e comparar as duas redes depois de treinadas. 
+            // Estão apresentando predições diferentes. 
 
-            NeuralNetwork neuralNetwork = GenerateNeuralNetwork();
-            ExampleNeuralNetwork exampleNeuralNetwork = new ExampleNeuralNetwork(new int[] { 2, 5, 1 }, new string[] { "tanh", "tanh", "tanh" });
+            int[] layers = new int[] { 2, 2, 1 };
+            ExampleNeuralNetwork exampleNeuralNetwork = new ExampleNeuralNetwork(layers, new string[] { "tanh", "tanh", "tanh" });
 
-            Fit(inputManager, expecteds, neuralNetwork);
+            var watch = new System.Diagnostics.Stopwatch();
 
-            PrintResult(neuralNetwork, exampleNeuralNetwork);
+            watch.Start();
 
-            for (var i = 0; i < 100000; i++)
+            const int epochs = 5;
+            var traceLog = new FileTraceLogService();
+            for (var i = 0; i < epochs; i++)
             {
-                Fit(exampleNeuralNetwork);
-                Fit(inputManager, expecteds, neuralNetwork);
+                Fit(exampleNeuralNetwork, traceLog);
             }
 
-            //Fit(inputManager, expecteds, neuralNetwork);
+            watch.Stop();
+            Console.WriteLine($"\nTraining Time (example code): {watch.ElapsedMilliseconds} ms");
+
+            var neuralNetwork = Fit(epochs, layers);
+
+            FinishWithResults(exampleNeuralNetwork, neuralNetwork);
+        }
+
+        private static void FinishWithResults(ExampleNeuralNetwork exampleNeuralNetwork, NeuralNetwork neuralNetwork)
+        {
             PrintResult(neuralNetwork, exampleNeuralNetwork);
 
-            PlayNotificationSound();
+            const int TotalOfIteractions = 100;
+            var yValues = GenerateY(TotalOfIteractions);
+            var myNnPredictions = Predict(neuralNetwork, TotalOfIteractions);
 
-            inputManager = new InputManager();
-            inputManager.AddInput(0.08f);
-            inputManager.AddInput(0.08f);
+            var expectedData = GenerateExpectedData(TotalOfIteractions);
+            var examplePredictions = Predict(exampleNeuralNetwork, TotalOfIteractions);
 
-            var result = neuralNetwork.Predict(inputManager.Inputs);
-            Console.WriteLine("\n-- result --");
-            Console.WriteLine(result);
+            //PlotChart(myNnPredictions, expectedData, yValues);
+            //PlotChart(examplePredictions, expectedData, yValues);
         }
 
-        
-        private static void Fit(InputManager inputManager, ExpectedCollection expecteds, NeuralNetwork neuralNetwork)
+        private static NeuralNetwork Fit(int epochs, int[] layers)
         {
-            neuralNetwork.Fit(inputManager.Inputs);
-            neuralNetwork.Backpropagate(expecteds);
+            var dataManager = new DataManager();
+            dataManager.Inputs(2).AddInput(0.01f).AddInput(0.01f);
+            dataManager.Expecteds(1).AddExpected(0.02f);
+            var nNGen = new NNGenerator(new NeuronGenerator());
+
+            var neuralNetwork = nNGen.GenerateDefault(layers);
+            var trainer = new Trainer(dataManager, neuralNetwork, new FileTraceLogService());
+
+            trainer.Fit(epochs);
+
+            Console.WriteLine($"\nTraining Time (my code): {trainer.TimeOfTraining} ms");
+
+            return neuralNetwork;
         }
 
-        private static void Fit(ExampleNeuralNetwork exampleNeuralNetwork)
+        private static void Fit(ExampleNeuralNetwork exampleNeuralNetwork, ITraceLog traceLog)
         {
             exampleNeuralNetwork.FeedForward(new float[] { 0.01f, 0.01f });
             exampleNeuralNetwork.BackPropagate(new float[] { 0.01f, 0.01f }, new float[] { 0.02f });
+            traceLog.Log(exampleNeuralNetwork.ToString());
         }
 
         private static void PrintResult(NeuralNetwork neuralNetwork, ExampleNeuralNetwork exampleNeuralNetwork)
         {
             Console.WriteLine("-------------");
-            neuralNetwork.PrintLayers();
+            Console.WriteLine(neuralNetwork);
             Console.WriteLine("- ex:");
-            PrintOutput(exampleNeuralNetwork);
+            Console.WriteLine(exampleNeuralNetwork.ToString());
+            //PrintOutput(exampleNeuralNetwork);
         }
 
         private static void PrintOutput(ExampleNeuralNetwork exampleNeuralNetwork)
@@ -93,59 +114,97 @@ namespace ConsoleApp.Tests
             }
         }
 
-        private static NeuralNetwork GenerateNeuralNetwork()
+        private static List<float> GenerateY(int totalOfIteractions)
         {
-            var layers = new LayerCollection();
+            var yValues = new List<float>();
 
-            Layer layer1 = new Layer(GenerateNeurons(2));
-            Layer layer2 = new Layer(GenerateNeurons(5));
-            Layer layer3 = new Layer(GenerateNeurons(1));
+            for (float i = 0; i < totalOfIteractions; i++)
+            {
+                float input = i / totalOfIteractions;
+                yValues.Add(input);
+            }
 
-            layer1.NextLayer = layer2;
-            layer2.NextLayer = layer3;
-
-            layer2.PreviousLayer = layer1;
-            layer3.PreviousLayer = layer2;
-
-            layers.Add(layer1);
-            layers.Add(layer2);
-            layers.Add(layer3);
-            return new NeuralNetwork(layers);
+            return yValues;
         }
 
-        private static NeuronCollection GenerateNeurons(int v)
+
+        private static List<float> Predict(INeuralNetwork neuralNetwork, int totalOfIterations)
         {
-            var neurons = new NeuronCollection();
-            for(var i = 0; i < v; i++)
+            var listResult = new List<float>();
+
+            for (float i = 0; i < totalOfIterations; i++)
             {
-                neurons.Add(new Neuron(new Tanh()) { LearningRate = 0.01f });
+                float input = i / totalOfIterations;
+                var inputManager = new InputInserter(2);
+                inputManager.AddInput(input);
+                inputManager.AddInput(input);
+
+                var result = neuralNetwork.Predict(inputManager.Get());
+                listResult.Add(result[0]);
             }
-            return neurons;
+
+            return listResult;
         }
 
-        public static void PlayNotificationSound()
+        private static List<float> GenerateExpectedData(int totalOfIteractions)
         {
-            bool found = false;
-            try
+            var expectedResults = new List<float>();
+
+            for(float i = 0; i < totalOfIteractions; i++)
             {
-                using (RegistryKey key = Registry.CurrentUser.OpenSubKey(@"AppEvents\Schemes\Apps\.Default\Notification.Default\.Current"))
-                {
-                    if (key != null)
-                    {
-                        Object o = key.GetValue(null); // pass null to get (Default)
-                        if (o != null)
-                        {
-                            SoundPlayer theSound = new SoundPlayer((String)o);
-                            theSound.Play();
-                            found = true;
-                        }
-                    }
-                }
+                float input = i / totalOfIteractions;
+                expectedResults.Add(input * 2);
             }
-            catch
-            { }
-            if (!found)
-                SystemSounds.Beep.Play(); // consolation prize
+
+            return expectedResults;
+        }
+
+        private static void PlotChart(List<float> listResult, List<float> listOfExpectedResults, List<float> yValues)
+        {
+            float[] xValues = listResult.ToArray();
+            float[] xValues2 = listOfExpectedResults.ToArray();
+            
+            var chart = GenerateChart(xValues, yValues.ToArray(), "results");
+            var chart2 = GenerateChart(xValues2, yValues.ToArray(), "expected");
+            var chartList = new List<GenericChart.GenericChart>();
+
+            chartList.Add(chart);
+            chartList.Add(chart2);
+
+            var combinedChart = Chart.Combine(chartList);
+
+            combinedChart.Show();
+        }
+
+        private static GenericChart.GenericChart GenerateChart(float[] xValues, float[] yValues, string legend)
+        {
+            Plotly.NET.Trace trace;
+
+            LinearAxis xAxis = new LinearAxis();
+            xAxis.SetValue("title", "xAxis");
+            xAxis.SetValue("showgrid", false);
+            xAxis.SetValue("showline", true);
+
+            LinearAxis yAxis = new LinearAxis();
+            yAxis.SetValue("title", "yAxis");
+            yAxis.SetValue("showgrid", false);
+            yAxis.SetValue("showline", true);
+
+            var layout = new Layout();
+            layout.SetValue("xaxis", xAxis);
+            layout.SetValue("yaxis", yAxis);
+            layout.SetValue("showlegend", true);
+
+            trace = new Plotly.NET.Trace("scatter");
+            trace.SetValue("x", xValues);
+            trace.SetValue("y", yValues);
+
+            trace.SetValue("mode", "markers");
+            trace.SetValue("name", legend);
+
+            return GenericChart
+                            .ofTraceObject(true, trace)
+                            .WithLayout(layout);
         }
     }
 }
