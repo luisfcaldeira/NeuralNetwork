@@ -1,5 +1,7 @@
 ﻿using MyNeuralNetwork.Domain.Entities.Nets.Collections.Layers;
 using MyNeuralNetwork.Domain.Entities.Nets.Interfaces.Networks;
+using MyNeuralNetwork.Domain.Entities.Nets.Interfaces.Networks.Circuits.Backward;
+using MyNeuralNetwork.Domain.Entities.Nets.Interfaces.Networks.Circuits.Forward;
 using MyNeuralNetwork.Domain.Entities.Nets.IO.Inputs;
 using MyNeuralNetwork.Domain.Entities.Support;
 using System;
@@ -30,6 +32,10 @@ namespace ConsoleApp.Tests
         private int deltaCount;
 
         public LayerCollection Layers { get; private set; } = new LayerCollection();
+
+        public ICircuitForward CircuitForward => throw new NotImplementedException();
+
+        public ICircuitBackward CircuitBackward => throw new NotImplementedException();
 
         public ExampleNeuralNetwork(int[] layers, string[] layerActivations)
         {
@@ -430,5 +436,6 @@ namespace ConsoleApp.Tests
 
             return stringBuilder.ToString();
         }
+
     }
 }

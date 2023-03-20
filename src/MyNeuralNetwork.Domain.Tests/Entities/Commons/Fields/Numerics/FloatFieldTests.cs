@@ -5,7 +5,7 @@ namespace MyNeuralNetwork.Domain.Tests.Entities.Commons.Fields.Numerics
 {
     public class FloatFieldTests
     {
-        class FloatFieldTest : FloatNeuralValue 
+        class FloatFieldTest : NeuralFloatValue 
         {
             public FloatFieldTest() : base(0)
             {

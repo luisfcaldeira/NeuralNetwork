@@ -43,92 +43,23 @@ namespace MyNeuralNetwork.Domain.Entities.Nets.Layers
             Label = layerCounter.Counter;
         }
 
-        public void Send(Input[] inputs)
+        internal bool IsLast()
         {
-            Neurons.Feed(inputs);
-            UpdateOutput();
+            return NextLayer == null;
         }
 
-        public void Feedforward(Input[] inputs)
+        public void Add(Input[] inputs)
         {
             Neurons.Feed(inputs);
-            UpdateOutput();
-            float output = Neurons.SumOutputDotWeight(NextLayer?.Neurons);
-            NextLayer?.FeedFoward(output);
         }
 
-        private void UpdateOutput()
+        public void UpdateOutput()
         {
             Output = new List<float>();
             foreach (var neuron in Neurons)
             {
-                Output.Add(neuron.Value);
+                Output.Add(neuron.Value.Value);
             }
-        }
-
-        private void FeedFoward(float output)
-        {
-            Neurons.ForEach(neuron =>
-            {
-                neuron.FeedForward(new Input(output));
-            });
-
-            UpdateOutput();
-            NextLayer?.FeedFoward(Neurons.SumOutputDotWeight(NextLayer.Neurons));
-        }
-
-        public void BackPropagate(Expected[] expecteds)
-        {
-            if (Neurons.Count != expecteds.Length)
-                throw new ArgumentException($"Number of {nameof(expecteds)} must be the same as number of {nameof(Neurons)}.");
-
-            UpdateOutputGamma(expecteds);
-
-            UpdatePreviousLayers();
-        }
-
-        internal void UpdateOutputGamma(Expected[] expecteds)
-        {
-            for (int i = 0; i < Neurons.Count; i++)
-            {
-                Expected expected = expecteds[i];
-                Neurons.ForEach(theirNeuron =>
-                {
-                    Feedback feedback = new Feedback(Neurons[i].Value, expected);
-                    Neurons[i].UpdateGamma(feedback);
-                });
-            }
-        }
-
-        private void UpdatePreviousLayers()
-        {
-            if(PreviousLayer  != null)
-            {
-                foreach (var neuron in PreviousLayer.Neurons)
-                {
-                    Neurons.ForEach(myNeuron =>
-                    {
-                        neuron.SumGama(this, myNeuron);
-                        neuron.UpdateValuesAndWeights(this, myNeuron);
-                    });
-                }
-
-                PreviousLayer.UpdateNeurons();
-            }
-        }
-
-        internal void UpdateNeurons()
-        {
-            Neurons.ForEach(myNeuron =>
-            {
-                NextLayer.Neurons.ForEach(theirNeuron =>
-                {
-                    myNeuron.CommitGamma();
-                    myNeuron.UpdateHiddenBackPropagation(this, theirNeuron);
-                });
-            });
-
-            PreviousLayer?.UpdateNeurons();
         }
 
         public override string ToString()
@@ -144,9 +75,5 @@ namespace MyNeuralNetwork.Domain.Entities.Nets.Layers
             return stringBuilder.ToString();
         }
 
-        internal void Predict(Input[] inputs)
-        {
-            Feedforward(inputs);
-        }
     }
 }

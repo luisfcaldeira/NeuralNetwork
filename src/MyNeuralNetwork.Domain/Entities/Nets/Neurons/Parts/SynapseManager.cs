@@ -26,24 +26,40 @@ namespace MyNeuralNetwork.Domain.Entities.Nets.Neurons.Parts
         public float GetWeight(Neuron neighborNeuron)
         {
             return GetSynapse(neighborNeuron)
-                 .Weight;
+                 .Weight.Value;
         }
 
         public List<float> GetWeights(Neuron neighborNeuron)
         {
-           return Synapses.Where(x => x.NeighborNeuron.Equals(neighborNeuron)).Select(x => x.Weight).ToList();
+           return Synapses.Where(x => x.NeighborNeuron.Equals(neighborNeuron)).Select(x => x.Weight.Value).ToList();
         }
 
-        public Output GetOutput(Neuron neighborNeuron)
+        public NeuralFloatValue GetOutput(Neuron neighborNeuron)
         {
             var synapse = GetSynapse(neighborNeuron);
-            return new Output(synapse.GetOutput());
+            return synapse.GetOutput();
         }
 
         public Synapse GetSynapse(Neuron neighborNeuron)
         {
             return Synapses.Where(n => n.NeighborNeuron.Equals(neighborNeuron))
                              .First();
+        }
+
+        public NeuralFloatValue GetWeightFor(Neuron neighborNeuron)
+        {
+            return GetSynapse(neighborNeuron).Weight;
+        }
+
+        public void TransmitTo(Neuron target)
+        {
+            var sumOfOutputs = Synapses.Where(s => s.NeighborNeuron.Equals(target))
+                .Sum(s =>
+                {
+                    return s.GetOutput().Value;
+                });
+
+            target.Feed(new Transmition(sumOfOutputs));
         }
     }
 }

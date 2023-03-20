@@ -1,21 +1,24 @@
 ﻿using MyNeuralNetwork.Domain.Entities.Commons.Fields.Numerics;
+using MyNeuralNetwork.Domain.Entities.Nets.Interfaces.Networks.Circuits.Forward;
 using MyNeuralNetwork.Domain.Entities.Nets.IO.Inputs;
 using MyNeuralNetwork.Domain.Entities.Nets.IO.Outputs;
 using MyNeuralNetwork.Domain.Entities.Nets.Layers;
-using MyNeuralNetwork.Domain.Entities.Nets.Networks;
-using MyNeuralNetwork.Domain.Interfaces.Services.Circuits.Forward;
 
-namespace Infra.Services.Circuits.Forward
+namespace MyNeuralNetwork.Domain.Entities.Nets.Networks.Circuits.Forward
 {
     public class FeedForward : ICircuitForward
     {
         public void Send(NeuralNetwork neuralNetwork, Input[] inputs)
         {
-            foreach(var layer in neuralNetwork.GetNextLayer())
+            foreach (var layer in neuralNetwork.GetNextLayer())
             {
-                layer.Send(inputs);
+                if(layer.Label == 0)
+                {
+                    layer.Add(inputs);
+                }
 
                 FeedNextLayer(layer);
+                layer.UpdateOutput();
             }
         }
 
@@ -23,16 +26,15 @@ namespace Infra.Services.Circuits.Forward
         {
             var nextLayer = layer.NextLayer;
 
-            if (nextLayer == null)
+            if (nextLayer != null)
             {
                 layer.Neurons.ForEach(myNeuron =>
                 {
-                    FloatNeuralValue output = new Output();
+                    NeuralFloatValue output = new Output();
 
                     nextLayer.Neurons.ForEach(itsNeuron =>
                     {
-                        output = output + myNeuron.Synapses.GetOutput(itsNeuron);
-                        itsNeuron.Feed(output);
+                        myNeuron.Synapses.TransmitTo(itsNeuron);
                     });
                 });
             }

@@ -1,16 +1,18 @@
 ﻿using MyNeuralNetwork.Domain.Entities.Nets.Collections.Layers;
+using MyNeuralNetwork.Domain.Entities.Nets.Interfaces.Networks.Circuits.Forward;
 using MyNeuralNetwork.Domain.Entities.Nets.Interfaces.Neurons;
 using MyNeuralNetwork.Domain.Entities.Nets.Layers;
 using MyNeuralNetwork.Domain.Entities.Nets.Networks;
+using MyNeuralNetwork.Domain.Entities.Nets.Networks.Circuits.Forward;
 using MyNeuralNetwork.Domain.Entities.Nets.Neurons.Activations;
 using MyNeuralNetwork.Domain.Entities.Nets.Neurons.Parts;
-using System;
 
 namespace MyNeuralNetwork.Domain.Entities.Nets.Generators
 {
     public class NNGenerator
     {
         private readonly INeuronGenerator _neuronGenerator;
+        public ICircuitForward CircuitForward { get; set; } = new FeedForward();
 
         public NNGenerator(INeuronGenerator neuronGenerator)
         {
@@ -30,7 +32,6 @@ namespace MyNeuralNetwork.Domain.Entities.Nets.Generators
                 if (previousLayer != null)
                 {
                     layer.PreviousLayer = previousLayer;
-
                 }
 
                 if (i > 0)
@@ -42,7 +43,7 @@ namespace MyNeuralNetwork.Domain.Entities.Nets.Generators
                 previousLayer = layer;
             }
 
-            return new NeuralNetwork(layers);
+            return new NeuralNetwork(layers, CircuitForward);
         }
 
         public NeuralNetwork GenerateDefault(int[] formatLayers)

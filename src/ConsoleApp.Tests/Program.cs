@@ -4,9 +4,9 @@ using MyNeuralNetwork.Domain.Entities.Nets.Interfaces.Networks;
 using MyNeuralNetwork.Domain.Entities.Nets.IO.Inputs;
 using MyNeuralNetwork.Domain.Entities.Nets.IO.Managers;
 using MyNeuralNetwork.Domain.Entities.Nets.Networks;
+using MyNeuralNetwork.Domain.Entities.Nets.Networks.Circuits.Backward;
+using MyNeuralNetwork.Domain.Entities.Nets.Networks.Circuits.Forward;
 using MyNeuralNetwork.Domain.Entities.Nets.Neurons;
-using MyNeuralNetwork.Domain.Entities.Nets.Neurons.Activations;
-using MyNeuralNetwork.Domain.Entities.Nets.Neurons.Parts;
 using MyNeuralNetwork.Domain.Entities.Nets.Trainers;
 using MyNeuralNetwork.Domain.Interfaces.Services.Logs;
 using Plotly.NET;
@@ -23,14 +23,14 @@ namespace ConsoleApp.Tests
             // Salvar em arquivo de texto valores dos neurônios, pesos e bias e comparar as duas redes depois de treinadas. 
             // Estão apresentando predições diferentes. 
 
-            int[] layers = new int[] { 2, 2, 1 };
+            int[] layers = new int[] { 2, 4, 1 };
             ExampleNeuralNetwork exampleNeuralNetwork = new ExampleNeuralNetwork(layers, new string[] { "tanh", "tanh", "tanh" });
 
             var watch = new System.Diagnostics.Stopwatch();
 
             watch.Start();
 
-            const int epochs = 5;
+            const int epochs = 1;
             var traceLog = new FileTraceLogService();
             for (var i = 0; i < epochs; i++)
             {
@@ -41,6 +41,11 @@ namespace ConsoleApp.Tests
             Console.WriteLine($"\nTraining Time (example code): {watch.ElapsedMilliseconds} ms");
 
             var neuralNetwork = Fit(epochs, layers);
+
+            var prediction = neuralNetwork.Predict(new Input[] { new Input(0.01f), new Input(0.01f) });
+
+            Console.WriteLine("Predicion test: ");
+            Console.WriteLine(prediction[0]);
 
             FinishWithResults(exampleNeuralNetwork, neuralNetwork);
         }
@@ -56,8 +61,8 @@ namespace ConsoleApp.Tests
             var expectedData = GenerateExpectedData(TotalOfIteractions);
             var examplePredictions = Predict(exampleNeuralNetwork, TotalOfIteractions);
 
-            //PlotChart(myNnPredictions, expectedData, yValues);
-            //PlotChart(examplePredictions, expectedData, yValues);
+            PlotChart(myNnPredictions, expectedData, yValues);
+            PlotChart(examplePredictions, expectedData, yValues);
         }
 
         private static NeuralNetwork Fit(int epochs, int[] layers)
@@ -65,10 +70,14 @@ namespace ConsoleApp.Tests
             var dataManager = new DataManager();
             dataManager.Inputs(2).AddInput(0.01f).AddInput(0.01f);
             dataManager.Expecteds(1).AddExpected(0.02f);
-            var nNGen = new NNGenerator(new NeuronGenerator());
+            NeuronGenerator neuronGenerator = new NeuronGenerator();
+            neuronGenerator.WeightConfiguration.SetMaxAndMin(1, 1);
+            neuronGenerator.BiasConfiguration.SetMaxAndMin(1, 1);
+
+            var nNGen = new NNGenerator(neuronGenerator);
 
             var neuralNetwork = nNGen.GenerateDefault(layers);
-            var trainer = new Trainer(dataManager, neuralNetwork, new FileTraceLogService());
+            var trainer = new Trainer(dataManager, neuralNetwork, new FeedForward(), new Backpropagation(), new FileTraceLogService());
 
             trainer.Fit(epochs);
 
@@ -90,7 +99,7 @@ namespace ConsoleApp.Tests
             Console.WriteLine(neuralNetwork);
             Console.WriteLine("- ex:");
             Console.WriteLine(exampleNeuralNetwork.ToString());
-            //PrintOutput(exampleNeuralNetwork);
+            PrintOutput(exampleNeuralNetwork);
         }
 
         private static void PrintOutput(ExampleNeuralNetwork exampleNeuralNetwork)

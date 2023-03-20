@@ -4,21 +4,21 @@ namespace MyNeuralNetwork.Domain.Entities.Nets.Neurons.Parts
 {
     public class Synapse
     {
-        private Neuron _neuronSource;
 
-        public float Weight { get; internal set; }
+        public NeuralFloatValue Weight { get; internal set; }
+        public Neuron NeuronSource { get; private set; }
         public Neuron NeighborNeuron { get; private set; }
 
         public Synapse(RandomFloatValue weight, Neuron neuronSource, Neuron neighborNeuron)
         {
-            Weight = weight.Value;
+            Weight = weight;
             NeighborNeuron = neighborNeuron;
-            _neuronSource = neuronSource;
+            NeuronSource = neuronSource;
         }
 
-        public float GetOutput()
+        public NeuralFloatValue GetOutput()
         {
-            return _neuronSource.Value * Weight;
+            return NeuronSource.Value * Weight;
         }
     }
 }

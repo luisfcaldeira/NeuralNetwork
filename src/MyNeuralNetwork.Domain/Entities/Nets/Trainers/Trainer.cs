@@ -1,4 +1,6 @@
-﻿using MyNeuralNetwork.Domain.Entities.Nets.IO.Inputs;
+﻿using MyNeuralNetwork.Domain.Entities.Nets.Interfaces.Networks.Circuits.Backward;
+using MyNeuralNetwork.Domain.Entities.Nets.Interfaces.Networks.Circuits.Forward;
+using MyNeuralNetwork.Domain.Entities.Nets.IO.Inputs;
 using MyNeuralNetwork.Domain.Entities.Nets.IO.Managers;
 using MyNeuralNetwork.Domain.Entities.Nets.IO.Outputs;
 using MyNeuralNetwork.Domain.Entities.Nets.Networks;
@@ -8,17 +10,21 @@ using System.Diagnostics;
 
 namespace MyNeuralNetwork.Domain.Entities.Nets.Trainers
 {
-    public class Trainer
+    public class Trainer 
     {
         private NeuralNetwork _neuralNetwork;
+        private readonly ICircuitForward _circuitForward;
+        private readonly ICircuitBackward _circuitBackward;
         private readonly ITraceLog _traceLog;
 
         public DataManager DataManager { get; }
         public long TimeOfTraining { get; private set; }
 
-        public Trainer(DataManager dataManager, NeuralNetwork neuralNetwork, ITraceLog traceLog)
+        public Trainer(DataManager dataManager, NeuralNetwork neuralNetwork, ICircuitForward circuitForward, ICircuitBackward circuitBackward, ITraceLog traceLog)
         {
             _neuralNetwork = neuralNetwork;
+            _circuitForward = circuitForward;
+            _circuitBackward = circuitBackward;
             _traceLog = traceLog;
             DataManager = dataManager;
         }
@@ -44,10 +50,9 @@ namespace MyNeuralNetwork.Domain.Entities.Nets.Trainers
         {
             for (var j = 0; j < inputInserters.Count; j++)
             {
-                _neuralNetwork.Fit(inputInserters[j].Get(), inputExpecteds[j].Get());
-                
+                _circuitForward.Send(_neuralNetwork, inputInserters[j].Get());
+                _circuitBackward.Send(_neuralNetwork, inputExpecteds[j].Get());
             }
         }
-
     }
 }

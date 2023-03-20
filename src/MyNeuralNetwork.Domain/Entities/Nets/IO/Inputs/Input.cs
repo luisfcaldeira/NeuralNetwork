@@ -2,7 +2,7 @@
 
 namespace MyNeuralNetwork.Domain.Entities.Nets.IO.Inputs
 {
-    public class Input : FloatNeuralValue
+    public class Input : NeuralFloatValue
     {
         public Input() : base(0)
         {

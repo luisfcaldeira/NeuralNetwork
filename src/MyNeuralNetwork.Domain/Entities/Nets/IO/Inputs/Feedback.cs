@@ -3,7 +3,7 @@ using MyNeuralNetwork.Domain.Entities.Nets.IO.Outputs;
 
 namespace MyNeuralNetwork.Domain.Entities.Nets.IO.Inputs
 {
-    public class Feedback : FloatNeuralValue
+    public class Feedback : NeuralFloatValue
     {
         public Feedback(float value, Expected expected) : base(value - expected.Value)
         {

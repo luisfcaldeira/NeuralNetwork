@@ -29,11 +29,13 @@ namespace MyNeuralNetwork.Domain.Tests.Entities.Nets.Layers
 
             var layerCounter = new LayerCounter();
             var layer = new Layer(layerCounter, neuronCollection);
-            layer.Send(new Input[] 
+            layer.Add(new Input[] 
             { 
                 new Input(0.5f),
                 new Input(1),
             });
+
+            layer.UpdateOutput();
 
             Assert.That(layer.Output[0], Is.EqualTo(0.5));
             Assert.That(layer.Output[1], Is.EqualTo(1));

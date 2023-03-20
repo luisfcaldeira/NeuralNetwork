@@ -13,12 +13,12 @@ namespace MyNeuralNetwork.Domain.Entities.Nets.Neurons
 {
     public class Neuron
     {
-        public float Value { get; private set; } = 0;
+        public NeuralFloatValue Value { get; private set; } = new NeuralFloatValue();
 
         public Guid Guid { get; }
-        public float Bias { get; private set; }
+        public float Bias { get; set; }
         public IActivator Activation { get; }
-        public float Gamma { get; private set; }
+        public float Gamma { get; set; }
         public ISynapseManager Synapses { get; }
 
         public float LearningRate { get; set; } = 0.01f;
@@ -41,71 +41,30 @@ namespace MyNeuralNetwork.Domain.Entities.Nets.Neurons
             Synapses.Add(this, layer1Neuron);
         }
 
-        public void Feed(FloatNeuralValue input)
+        public void Feed(Input input)
         {
-            Value = input.Value;
+            Value.Set(input.Value);
         }
 
-        public void Predict(Input input)
+        internal void Feed(Transmition transmition)
         {
-            Value = input.Value;
+            Value.Set(Activation.Activate(transmition.Value));
         }
 
-        internal Output GetOutput(Neuron neightborNeuron)
+        internal void UpdateGamma(NeuralFloatValue gamma)
+        {
+            Gamma = Activation.Derivative(Value.Value) * gamma.Value;
+        }
+
+        internal NeuralFloatValue GetOutput(Neuron neightborNeuron)
         {
             float _weight = GetWeight(neightborNeuron);
-            return new Output(Value * _weight);
-        }
-
-        public void FeedForward(Input input)
-        {
-            Value = Activation.Activate(input.Value + Bias);
-        }
-
-        public void UpdateGamma(Feedback feedback)
-        {
-            Gamma = feedback.Value * Activation.Derivative(Value);
-        }
-
-        internal void UpdateValuesAndWeights(Layer previousLayer, Neuron neightborNeuron)
-        {
-            if(previousLayer != null)
-            {
-                previousLayer.Neurons.ForEach(n =>
-                {
-                    Bias -= n.Gamma * LearningRate;
-                    Synapses.GetSynapse(neightborNeuron).Weight -= n.Gamma * Value * LearningRate;
-                });
-            }
-        }
-
-        internal void SumGama(Layer nextLayer, Neuron neightborNeuron)
-        {
-            if (nextLayer != null)
-            {
-                nextLayer.Neurons.ForEach(nextNeuron =>
-                {
-                    Gamma += GetWeight(neightborNeuron) * nextNeuron.Gamma;
-                });
-            }
-        }
-
-        internal void CommitGamma()
-        {
-            Gamma = Gamma * Activation.Derivative(Value);
-        }
-
-        internal void UpdateHiddenBackPropagation(Layer actualLayer, Neuron neightborNeuron)
-        {
-            var nextLayerNeurons = actualLayer.NextLayer.Neurons;
-
-            Bias -= nextLayerNeurons.SumGammaDotFloat(LearningRate);
-            Synapses.GetSynapse(neightborNeuron).Weight -= nextLayerNeurons.SumGammaDotFloat(LearningRate * Value);
+            return Value * _weight;
         }
 
         private float GetWeight(Neuron neightborNeuron)
         {
-            return Synapses.GetSynapse(neightborNeuron).Weight;
+            return Synapses.GetSynapse(neightborNeuron).Weight.Value;
         }
 
         public override string ToString()
@@ -135,6 +94,5 @@ namespace MyNeuralNetwork.Domain.Entities.Nets.Neurons
         {
             return HashCode.Combine(Guid);
         }
-
     }
 }

@@ -1,4 +1,5 @@
 ﻿using MyNeuralNetwork.Domain.Entities.Nets.Generators;
+using MyNeuralNetwork.Domain.Entities.Nets.IO.Inputs;
 using MyNeuralNetwork.Domain.Entities.Nets.Networks;
 using MyNeuralNetwork.Domain.Entities.Nets.Neurons;
 using MyNeuralNetwork.Domain.Entities.Nets.Neurons.Activations;
@@ -140,8 +141,8 @@ namespace MyNeuralNetwork.Domain.Tests.Nets.Networks
 
             TestContext.WriteLine($"Weight: {firstNeuron.Synapses.Synapses[0].Weight}");
 
-            Assert.That(firstNeuron.Synapses.Synapses[0].Weight, Is.GreaterThan(min));
-            Assert.That(firstNeuron.Synapses.Synapses[0].Weight, Is.LessThan(max));
+            Assert.That(firstNeuron.Synapses.Synapses[0].Weight.Value, Is.GreaterThan(min));
+            Assert.That(firstNeuron.Synapses.Synapses[0].Weight.Value, Is.LessThan(max));
         }
 
 

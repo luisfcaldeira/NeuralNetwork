@@ -12,6 +12,8 @@
 
   <ItemGroup>
     <Folder Include="Entities\Nets\Collections\Neurons\Parts\" />
+    <Folder Include="Entities\Nets\Trainers\Backpropagations\" />
+    <Folder Include="Entities\Nets\Trainers\Feedforwards\" />
   </ItemGroup>
 
 </Project>

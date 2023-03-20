@@ -2,7 +2,7 @@
 
 namespace MyNeuralNetwork.Domain.Entities.Commons.Fields.Numerics
 {
-    public class RandomFloatValue : FloatNeuralValue
+    public class RandomFloatValue : NeuralFloatValue
     {
         public const float DefaultMinimumRange = -0.5f;
         public const float DefaultMaximumRange = 0.5f;
