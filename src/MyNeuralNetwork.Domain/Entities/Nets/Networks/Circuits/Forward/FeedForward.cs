@@ -28,14 +28,17 @@ namespace MyNeuralNetwork.Domain.Entities.Nets.Networks.Circuits.Forward
 
             if (nextLayer != null)
             {
-                layer.Neurons.ForEach(myNeuron =>
+                nextLayer.Neurons.ForEach(itsNeuron =>
                 {
+
                     NeuralFloatValue output = new Output();
 
-                    nextLayer.Neurons.ForEach(itsNeuron =>
+                    layer.Neurons.ForEach(myNeuron =>
                     {
                         myNeuron.Synapses.TransmitTo(itsNeuron);
                     });
+
+                    itsNeuron.Commit();
                 });
             }
         }

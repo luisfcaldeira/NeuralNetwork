@@ -51,15 +51,12 @@ namespace MyNeuralNetwork.Domain.Entities.Nets.Neurons.Parts
             return GetSynapse(neighborNeuron).Weight;
         }
 
+        // TODO Tá errado isso aqui. Ele tem que somar os neurônios de origem, mas ele tá vinculado a uma origem só
         public void TransmitTo(Neuron target)
         {
-            var sumOfOutputs = Synapses.Where(s => s.NeighborNeuron.Equals(target))
-                .Sum(s =>
-                {
-                    return s.GetOutput().Value;
-                });
+            float output = GetSynapse(target).GetOutput().Value;
 
-            target.Feed(new Transmition(sumOfOutputs));
+            target.Transmit(new Transmition(output));
         }
     }
 }

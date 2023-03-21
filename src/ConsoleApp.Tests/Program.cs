@@ -30,7 +30,7 @@ namespace ConsoleApp.Tests
 
             watch.Start();
 
-            const int epochs = 1;
+            const int epochs = 100000;
             var traceLog = new FileTraceLogService();
             for (var i = 0; i < epochs; i++)
             {

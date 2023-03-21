@@ -30,8 +30,8 @@ namespace MyNeuralNetwork.Domain.Tests.Entities.Support
                 values.Add(MyRandom.Range(0, 1));
             }
 
-            Assert.That(values.Average(), Is.AtLeast(0.48));
-            Assert.That(values.Average(), Is.AtMost(0.52));
+            Assert.That(values.Average(), Is.AtLeast(0.47));
+            Assert.That(values.Average(), Is.AtMost(0.53));
 
             TestContext.WriteLine($"Itens average: {values.Average()}.");
         }

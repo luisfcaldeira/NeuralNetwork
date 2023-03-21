@@ -15,13 +15,13 @@ namespace MyNeuralNetwork.Domain.Entities.Nets.Neurons
         public RangeConfiguration WeightConfiguration { get; set; } = new RangeConfiguration();
         public RangeConfiguration BiasConfiguration { get; set; } = new RangeConfiguration();
 
-        public NeuronCollection Generate<T, U>(int quantity) 
+        public NeuronCollection Generate<ISynapseManagerType, IActivatorType>(int quantity) 
         {
             var neurons = new NeuronCollection();
             for (var i = 0; i < quantity; i++)
             {
-                var synapseManager = Activator.CreateInstance(typeof(T)) as ISynapseManager;
-                var activator = Activator.CreateInstance(typeof(U)) as IActivator;
+                var synapseManager = Activator.CreateInstance(typeof(ISynapseManagerType)) as ISynapseManager;
+                var activator = Activator.CreateInstance(typeof(IActivatorType)) as IActivator;
 
                 synapseManager.WeightConfiguration.MaximumRange = WeightConfiguration.MaximumRange;
                 synapseManager.WeightConfiguration.MinimumRange = WeightConfiguration.MinimumRange;

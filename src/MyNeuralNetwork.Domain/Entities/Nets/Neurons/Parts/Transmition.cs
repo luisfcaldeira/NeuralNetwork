@@ -2,7 +2,7 @@
 
 namespace MyNeuralNetwork.Domain.Entities.Nets.Neurons.Parts
 {
-    internal class Transmition : NeuralFloatValue
+    public class Transmition : NeuralFloatValue
     {
         public Transmition()
         {

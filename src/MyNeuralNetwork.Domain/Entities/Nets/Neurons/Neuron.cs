@@ -14,6 +14,7 @@ namespace MyNeuralNetwork.Domain.Entities.Nets.Neurons
     public class Neuron
     {
         public NeuralFloatValue Value { get; private set; } = new NeuralFloatValue();
+        private float _tempValue = 0;
 
         public Guid Guid { get; }
         public float Bias { get; set; }
@@ -22,6 +23,7 @@ namespace MyNeuralNetwork.Domain.Entities.Nets.Neurons
         public ISynapseManager Synapses { get; }
 
         public float LearningRate { get; set; } = 0.01f;
+
         
         public Neuron(IActivator activation, RandomFloatValue bias, ISynapseManager synapseManager)
         {
@@ -46,9 +48,16 @@ namespace MyNeuralNetwork.Domain.Entities.Nets.Neurons
             Value.Set(input.Value);
         }
 
-        internal void Feed(Transmition transmition)
+        internal void Transmit(Transmition transmition)
         {
-            Value.Set(Activation.Activate(transmition.Value));
+            _tempValue += transmition.Value;
+        }
+
+        internal void Commit()
+        {
+            _tempValue = Activation.Activate(_tempValue + Bias);
+            Value.Set(_tempValue);
+            _tempValue = 0;
         }
 
         internal void UpdateGamma(NeuralFloatValue gamma)
@@ -94,5 +103,6 @@ namespace MyNeuralNetwork.Domain.Entities.Nets.Neurons
         {
             return HashCode.Combine(Guid);
         }
+
     }
 }

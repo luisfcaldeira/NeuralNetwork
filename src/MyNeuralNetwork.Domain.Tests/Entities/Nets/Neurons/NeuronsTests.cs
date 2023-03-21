@@ -11,12 +11,9 @@ namespace MyNeuralNetwork.Domain.Tests.Nets.Neurons
 {
     public class NeuronsTests
     {
-        Neuron _neuron;
         [SetUp]
         public void Setup()
         {
-            Tanh activation = new Tanh();
-            _neuron = new Neuron(activation, new RandomFloatValue(), new SynapseManager());
         }
 
         [Test]
@@ -41,11 +38,35 @@ namespace MyNeuralNetwork.Domain.Tests.Nets.Neurons
             neuron.Feed(new Input(1));
 
             Assert.That(method != null, Is.True);
-            
+
             method.Invoke(neuron, new object[] { new NeuralFloatValue(2) });
 
             Assert.That(neuron.Gamma, Is.EqualTo(2));
         }
 
+        [Test]
+        public void TestIfFeedWithBias()
+        {
+            var neuron = MakeANeuron();
+
+            float bias = 2;
+            float trasmition = 3;
+
+            neuron.Bias = bias;
+
+            var method = neuron.GetType().GetMethod("Transmit", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+
+            method.Invoke(neuron, new object[] { new Transmition(trasmition) });
+
+
+            var methodCommit = neuron.GetType().GetMethod("Commit", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+            methodCommit.Invoke(neuron, null);
+            var value = neuron.Value.Value;
+
+            TestContext.Write("Neuron's value: ");
+            TestContext.WriteLine(value);
+
+            Assert.That(value, Is.EqualTo(bias + trasmition));
+        }
     }
 }
