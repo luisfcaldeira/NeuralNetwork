@@ -5,20 +5,20 @@ namespace MyNeuralNetwork.Domain.Entities.Nets.Neurons.Parts
     public class Synapse
     {
 
-        public NeuralFloatValue Weight { get; internal set; }
+        public NeuralDoubleValue Weight { get; internal set; }
         public Neuron NeuronSource { get; private set; }
         public Neuron NeighborNeuron { get; private set; }
 
-        public Synapse(RandomFloatValue weight, Neuron neuronSource, Neuron neighborNeuron)
+        public Synapse(RandomDoubleValue weight, Neuron neuronSource, Neuron neighborNeuron)
         {
-            Weight = weight;
+            Weight = new NeuralDoubleValue(weight.Value);
             NeighborNeuron = neighborNeuron;
             NeuronSource = neuronSource;
         }
 
-        public NeuralFloatValue GetOutput()
+        public NeuralDoubleValue GetOutput()
         {
-            return NeuronSource.Value * Weight;
+            return new(NeuronSource.Value.Value * Weight.Value);
         }
     }
 }

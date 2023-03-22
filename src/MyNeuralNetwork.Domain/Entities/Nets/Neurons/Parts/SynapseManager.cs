@@ -14,7 +14,7 @@ namespace MyNeuralNetwork.Domain.Entities.Nets.Neurons.Parts
 
         public void Add(Neuron neuronSource, Neuron neighborNeuron)
         {
-            RandomFloatValue weight = new RandomFloatValue(WeightConfiguration.MinimumRange, WeightConfiguration.MaximumRange);
+            RandomDoubleValue weight = new RandomDoubleValue(WeightConfiguration.MinimumRange, WeightConfiguration.MaximumRange);
             Synapses.Add(new Synapse(weight, neuronSource, neighborNeuron));
         }
 
@@ -23,18 +23,18 @@ namespace MyNeuralNetwork.Domain.Entities.Nets.Neurons.Parts
             return Synapses.Count;
         }
 
-        public float GetWeight(Neuron neighborNeuron)
+        public double GetWeight(Neuron neighborNeuron)
         {
             return GetSynapse(neighborNeuron)
                  .Weight.Value;
         }
 
-        public List<float> GetWeights(Neuron neighborNeuron)
+        public List<double> GetWeights(Neuron neighborNeuron)
         {
            return Synapses.Where(x => x.NeighborNeuron.Equals(neighborNeuron)).Select(x => x.Weight.Value).ToList();
         }
 
-        public NeuralFloatValue GetOutput(Neuron neighborNeuron)
+        public NeuralDoubleValue GetOutput(Neuron neighborNeuron)
         {
             var synapse = GetSynapse(neighborNeuron);
             return synapse.GetOutput();
@@ -46,7 +46,7 @@ namespace MyNeuralNetwork.Domain.Entities.Nets.Neurons.Parts
                              .First();
         }
 
-        public NeuralFloatValue GetWeightFor(Neuron neighborNeuron)
+        public NeuralDoubleValue GetWeightFor(Neuron neighborNeuron)
         {
             return GetSynapse(neighborNeuron).Weight;
         }
@@ -54,7 +54,7 @@ namespace MyNeuralNetwork.Domain.Entities.Nets.Neurons.Parts
         // TODO Tá errado isso aqui. Ele tem que somar os neurônios de origem, mas ele tá vinculado a uma origem só
         public void TransmitTo(Neuron target)
         {
-            float output = GetSynapse(target).GetOutput().Value;
+            double output = GetSynapse(target).GetOutput().Value;
 
             target.Transmit(new Transmition(output));
         }

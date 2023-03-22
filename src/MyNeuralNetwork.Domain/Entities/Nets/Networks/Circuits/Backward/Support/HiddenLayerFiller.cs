@@ -21,13 +21,13 @@ namespace MyNeuralNetwork.Domain.Entities.Nets.Networks.Circuits.Backward.Suppor
         {
             layer.Neurons.ForEach(myNeuron =>
             {
-                NeuralFloatValue gammaSum = new();
+                NeuralDoubleValue gammaSum = new();
 
                 nextLayer.Neurons.ForEach(itsNeuron =>
                 {
                     UpdateWeightAndBias(myNeuron, itsNeuron);
 
-                    gammaSum += myNeuron.Synapses.GetWeightFor(itsNeuron) * itsNeuron.Gamma;
+                    gammaSum.Increment(myNeuron.Synapses.GetWeightFor(itsNeuron) * itsNeuron.Gamma);
                 });
 
                 myNeuron.UpdateGamma(gammaSum);
@@ -40,7 +40,7 @@ namespace MyNeuralNetwork.Domain.Entities.Nets.Networks.Circuits.Backward.Suppor
             myNeuron.Synapses.GetWeightFor(itsNeuron).Decrement(CalculateGammaDecrement(myNeuron, itsNeuron));
         }
 
-        private static float CalculateGammaDecrement(Neuron myNeuron, Neuron itsNeuron)
+        private static double CalculateGammaDecrement(Neuron myNeuron, Neuron itsNeuron)
         {
             return itsNeuron.Gamma * myNeuron.LearningRate * myNeuron.Value.Value;
         }

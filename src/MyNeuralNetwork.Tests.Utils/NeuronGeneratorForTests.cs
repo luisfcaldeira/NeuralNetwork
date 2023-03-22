@@ -13,7 +13,7 @@ namespace MyNeuralNetwork.Tests.Utils
         {
             return new Neuron(new
                 ActivationTester(), 
-                new RandomFloatValue(),
+                new RandomDoubleValue(),
                 new SynapseManager());
         }
     }

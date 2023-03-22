@@ -2,17 +2,17 @@
 
 namespace MyNeuralNetwork.Domain.Entities.Nets.Neurons.Parts
 {
-    public class Transmition : NeuralFloatValue
+    public class Transmition : NeuralDoubleValue
     {
         public Transmition()
         {
         }
 
-        public Transmition(NeuralFloatValue floatNeuralValue) : base(floatNeuralValue)
+        public Transmition(NeuralDoubleValue v) : base(v.Value)
         {
         }
 
-        public Transmition(float value) : base(value)
+        public Transmition(double value) : base(value)
         {
         }
     }

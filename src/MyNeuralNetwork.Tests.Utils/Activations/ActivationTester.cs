@@ -1,16 +1,27 @@
-﻿using MyNeuralNetwork.Domain.Entities.Nets.Interfaces.Neurons.Activations;
+﻿using MyNeuralNetwork.Domain.Entities.Commons.Fields.Numerics;
+using MyNeuralNetwork.Domain.Entities.Nets.Interfaces.Neurons.Activations;
 
 namespace MyNeuralNetwork.Tests.Utils.Activations
 {
     public class ActivationTester : IActivator
     {
         
-        public float Activate(float x)
+        public double Activate(double x)
         {
             return x;
         }
 
-        public float Derivative(float x)
+        public NeuralDoubleValue Activate(NeuralDoubleValue x)
+        {
+            return x;
+        }
+
+        public double Derivative(double x)
+        {
+            return x;
+        }
+
+        public NeuralDoubleValue Derivative(NeuralDoubleValue x)
         {
             return x;
         }

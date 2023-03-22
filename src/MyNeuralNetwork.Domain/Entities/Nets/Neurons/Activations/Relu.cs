@@ -1,14 +1,13 @@
 ﻿using MyNeuralNetwork.Domain.Entities.Commons.Fields.Numerics;
 using MyNeuralNetwork.Domain.Entities.Nets.Interfaces.Neurons.Activations;
-using System;
 
 namespace MyNeuralNetwork.Domain.Entities.Nets.Neurons.Activations
 {
-    public class Tanh : IActivator
+    public class Relu : IActivator
     {
         public double Activate(double x)
         {
-            return (double)Math.Tanh(x);
+            return (0 >= x) ? 0 : x;
         }
 
         public NeuralDoubleValue Activate(NeuralDoubleValue x)
@@ -18,7 +17,7 @@ namespace MyNeuralNetwork.Domain.Entities.Nets.Neurons.Activations
 
         public double Derivative(double x)
         {
-            return 1 - (x * x);
+            return (0 >= x) ? 0 : 1;
         }
 
         public NeuralDoubleValue Derivative(NeuralDoubleValue x)

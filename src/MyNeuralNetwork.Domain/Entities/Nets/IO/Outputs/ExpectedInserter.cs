@@ -8,7 +8,7 @@ namespace MyNeuralNetwork.Domain.Entities.Nets.IO.Outputs
         {
         }
 
-        public ExpectedInserter AddExpected(float value)
+        public ExpectedInserter AddExpected(double value)
         {
             Add(new Expected(value));
             return this;

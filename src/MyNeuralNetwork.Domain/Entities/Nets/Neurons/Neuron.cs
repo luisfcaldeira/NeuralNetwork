@@ -2,8 +2,6 @@
 using MyNeuralNetwork.Domain.Entities.Nets.Interfaces.Neurons.Activations;
 using MyNeuralNetwork.Domain.Entities.Nets.Interfaces.Neurons.Parts;
 using MyNeuralNetwork.Domain.Entities.Nets.IO.Inputs;
-using MyNeuralNetwork.Domain.Entities.Nets.IO.Outputs;
-using MyNeuralNetwork.Domain.Entities.Nets.Layers;
 using MyNeuralNetwork.Domain.Entities.Nets.Neurons.Parts;
 using System;
 using System.Linq;
@@ -13,19 +11,20 @@ namespace MyNeuralNetwork.Domain.Entities.Nets.Neurons
 {
     public class Neuron
     {
-        public NeuralFloatValue Value { get; private set; } = new NeuralFloatValue();
-        private float _tempValue = 0;
+        public const double DeafultLearningRate = 0.01f;
+        public NeuralDoubleValue Value { get; private set; } = new NeuralDoubleValue();
+        private double _tempValue = 0;
 
         public Guid Guid { get; }
-        public float Bias { get; set; }
+        public double Bias { get; set; }
         public IActivator Activation { get; }
-        public float Gamma { get; set; }
+        public double Gamma { get; set; }
         public ISynapseManager Synapses { get; }
 
-        public float LearningRate { get; set; } = 0.01f;
+        public double LearningRate { get; set; } = DeafultLearningRate;
 
         
-        public Neuron(IActivator activation, RandomFloatValue bias, ISynapseManager synapseManager)
+        public Neuron(IActivator activation, RandomDoubleValue bias, ISynapseManager synapseManager)
         {
             if (bias is null)
             {
@@ -60,18 +59,18 @@ namespace MyNeuralNetwork.Domain.Entities.Nets.Neurons
             _tempValue = 0;
         }
 
-        internal void UpdateGamma(NeuralFloatValue gamma)
+        internal void UpdateGamma(NeuralDoubleValue gamma)
         {
-            Gamma = Activation.Derivative(Value.Value) * gamma.Value;
+            Gamma = (Activation.Derivative(Value) * gamma).Value;
         }
 
-        internal NeuralFloatValue GetOutput(Neuron neightborNeuron)
+        internal double GetOutput(Neuron neightborNeuron)
         {
-            float _weight = GetWeight(neightborNeuron);
-            return Value * _weight;
+            double _weight = GetWeight(neightborNeuron);
+            return Value.Value * _weight;
         }
 
-        private float GetWeight(Neuron neightborNeuron)
+        private double GetWeight(Neuron neightborNeuron)
         {
             return Synapses.GetSynapse(neightborNeuron).Weight.Value;
         }

@@ -6,7 +6,7 @@ namespace MyNeuralNetwork.Domain.Entities.Nets.Collections.IO.Inputs
 {
     public class FeedbackCollection : List<Feedback>
     {
-        internal float SumValues()
+        internal double SumValues()
         {
             return this.Select(f => f.Value).Sum();
         }

@@ -1,11 +1,6 @@
 ﻿using MyNeuralNetwork.Domain.Entities.Commons.Fields.Numerics;
 using MyNeuralNetwork.Domain.Entities.Nets.IO.Outputs;
 using MyNeuralNetwork.Domain.Entities.Nets.Layers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MyNeuralNetwork.Domain.Entities.Nets.Networks.Circuits.Backward.Support
 {
@@ -28,9 +23,9 @@ namespace MyNeuralNetwork.Domain.Entities.Nets.Networks.Circuits.Backward.Suppor
             }
         }
 
-        private static NeuralFloatValue CalculateGamma(NeuralFloatValue neuronValue, NeuralFloatValue expected)
+        private static NeuralDoubleValue CalculateGamma(NeuralDoubleValue neuronValue, NeuralDoubleValue expected)
         {
-            return neuronValue - expected;
+            return new(neuronValue.Value - expected.Value);
         }
     }
 }

@@ -6,6 +6,6 @@ namespace MyNeuralNetwork.Domain.Entities.Nets.Interfaces.Networks
     public interface INeuralNetwork
     {
         LayerCollection Layers { get; }
-        float[] Predict(Input[] inputs);
+        double[] Predict(Input[] inputs);
     }
 }

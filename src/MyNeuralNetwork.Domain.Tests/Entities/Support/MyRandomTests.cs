@@ -1,15 +1,7 @@
-﻿using MyNeuralNetwork.Domain.Entities.Nets.IO.Inputs;
-using MyNeuralNetwork.Domain.Entities.Nets.IO.Outputs;
-using MyNeuralNetwork.Domain.Entities.Nets.Neurons.Activations;
-using MyNeuralNetwork.Domain.Entities.Nets.Neurons;
+﻿using MyNeuralNetwork.Domain.Entities.Support;
 using NUnit.Framework;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MyNeuralNetwork.Domain.Entities.Support;
-using System.Diagnostics;
 
 namespace MyNeuralNetwork.Domain.Tests.Entities.Support
 {
@@ -23,7 +15,7 @@ namespace MyNeuralNetwork.Domain.Tests.Entities.Support
         [Test]
         public void TestIfMyRandomGiveMeAMeanBetweenTwoValues()
         {
-            var values = new List<float>();
+            var values = new List<double>();
 
             for (var i = 0; i < 1000; i++)
             {

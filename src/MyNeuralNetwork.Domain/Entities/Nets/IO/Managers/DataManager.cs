@@ -11,6 +11,11 @@ namespace MyNeuralNetwork.Domain.Entities.Nets.IO.Managers
         private static InputInserter _inputInserter = null;
         private static ExpectedInserter _expectedInserter = null;
 
+        public int InputCount()
+        {
+            return _inputInserters.Count;
+        }
+
         public InputInserter Inputs(int numOfItems)
         {
             _inputInserter = new InputInserter(numOfItems);

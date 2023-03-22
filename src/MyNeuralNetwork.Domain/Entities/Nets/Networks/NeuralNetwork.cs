@@ -37,7 +37,7 @@ namespace MyNeuralNetwork.Domain.Entities.Nets.Networks
             }
         }
 
-        public float[] Predict(Input[] inputs)
+        public double[] Predict(Input[] inputs)
         {
             _circuitForward.Send(this, inputs);
 

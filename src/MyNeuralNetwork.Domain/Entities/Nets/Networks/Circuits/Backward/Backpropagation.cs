@@ -8,6 +8,14 @@ namespace MyNeuralNetwork.Domain.Entities.Nets.Networks.Circuits.Backward
     {
         public void Send(NeuralNetwork neuralNetwork, Expected[] expecteds)
         {
+            neuralNetwork.Layers.ForEach(l =>
+            {
+                l.Neurons.ForEach(n =>
+                {
+                    n.Gamma = 0;
+                });
+            });
+
             foreach (var layer in neuralNetwork.GetBackLayers())
             {
                 LastLayerFiller.UpdateLayerIfItsLastOne(expecteds, layer);

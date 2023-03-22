@@ -27,7 +27,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyNeuralNetwork.Tests.Utils
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{7EFB72A6-8F57-451B-9DC1-A6436DB4B182}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyNeuralNetwork.Services.Tests", "src\MyNeuralNetwork.Services.Tests\MyNeuralNetwork.Services.Tests.csproj", "{4D4E85DA-7A65-44AB-9D96-979A168FA9F3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyNeuralNetwork.Services.Tests", "src\MyNeuralNetwork.Services.Tests\MyNeuralNetwork.Services.Tests.csproj", "{4D4E85DA-7A65-44AB-9D96-979A168FA9F3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

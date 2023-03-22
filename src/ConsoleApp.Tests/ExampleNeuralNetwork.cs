@@ -15,20 +15,20 @@ namespace ConsoleApp.Tests
     {
         //fundamental 
         private int[] layers;//layers
-        public float[][] neurons;//neurons
-        private float[][] biases;//biasses
-        private float[][][] weights;//weights
+        public double[][] neurons;//neurons
+        private double[][] biases;//biasses
+        private double[][][] weights;//weights
         private int[] activations;//layers
 
         //genetic
-        public float fitness = 0;//fitness
+        public double fitness = 0;//fitness
 
         //backprop
-        public float learningRate = 0.01f;//learning rate
-        public float cost = 0;
+        public double learningRate = 0.01f;//learning rate
+        public double cost = 0;
 
-        private float[][] deltaBiases;//biasses
-        private float[][][] deltaWeights;//weights
+        private double[][] deltaBiases;//biasses
+        private double[][][] deltaWeights;//weights
         private int deltaCount;
 
         public LayerCollection Layers { get; private set; } = new LayerCollection();
@@ -75,20 +75,20 @@ namespace ConsoleApp.Tests
 
         private void InitNeurons()//create empty storage array for the neurons in the network.
         {
-            List<float[]> neuronsList = new List<float[]>();
+            List<double[]> neuronsList = new List<double[]>();
             for (int i = 0; i < layers.Length; i++)
             {
-                neuronsList.Add(new float[layers[i]]);
+                neuronsList.Add(new double[layers[i]]);
             }
             neurons = neuronsList.ToArray();
         }
 
         private void InitBiases()//initializes and populates array for the biases being held within the network.
         {
-            List<float[]> biasList = new List<float[]>();
+            List<double[]> biasList = new List<double[]>();
             for (int i = 0; i < layers.Length; i++)
             {
-                float[] bias = new float[layers[i]];
+                double[] bias = new double[layers[i]];
                 for (int j = 0; j < layers[i]; j++)
                 {
                     bias[j] = MyRandom.Range(-0.5f, 0.5f);
@@ -101,17 +101,17 @@ namespace ConsoleApp.Tests
 
         private void InitWeights()//initializes random array for the weights being held in the network.
         {
-            List<float[][]> weightsList = new List<float[][]>();
+            List<double[][]> weightsList = new List<double[][]>();
             for (int i = 1; i < layers.Length; i++)
             {
-                List<float[]> layerWeightsList = new List<float[]>();
+                List<double[]> layerWeightsList = new List<double[]>();
                 int neuronsInPreviousLayer = layers[i - 1];
                 for (int j = 0; j < neurons[i].Length; j++)
                 {
-                    float[] neuronWeights = new float[neuronsInPreviousLayer];
+                    double[] neuronWeights = new double[neuronsInPreviousLayer];
                     for (int k = 0; k < neuronsInPreviousLayer; k++)
                     {
-                        //float sd = 1f / ((neurons[i].Length + neuronsInPreviousLayer) / 2f);
+                        //double sd = 1f / ((neurons[i].Length + neuronsInPreviousLayer) / 2f);
                         neuronWeights[k] = MyRandom.Range(-0.5f, 0.5f);
                         neuronWeights[k] = 1;
                     }
@@ -122,19 +122,19 @@ namespace ConsoleApp.Tests
             weights = weightsList.ToArray();
         }
 
-        public float[] Predict(Input[] inputs)
+        public double[] Predict(Input[] inputs)
         {
-            float[] inputsInFloat = new float[inputs.Length];
+            double[] inputsIndouble = new double[inputs.Length];
 
             for (int i = 0; i < inputs.Length; i++)
             {
-                inputsInFloat[i] = inputs[i].Value;
+                inputsIndouble[i] = inputs[i].Value;
             }
 
-            return FeedForward(inputsInFloat);
+            return FeedForward(inputsIndouble);
         }
 
-        public float[] FeedForward(float[] inputs)//feed forward, inputs >==> outputs.
+        public double[] FeedForward(double[] inputs)//feed forward, inputs >==> outputs.
         {
             for (int i = 0; i < inputs.Length; i++)
             {
@@ -145,7 +145,7 @@ namespace ConsoleApp.Tests
                 int layer = i - 1;
                 for (int j = 0; j < neurons[i].Length; j++)
                 {
-                    float value = 0f;
+                    double value = 0f;
                     for (int k = 0; k < neurons[i - 1].Length; k++)
                     {
                         value += weights[i - 1][j][k] * neurons[i - 1][k];
@@ -156,24 +156,24 @@ namespace ConsoleApp.Tests
             return neurons[neurons.Length - 1];
         }
 
-        public float activate(float value)
+        public double activate(double value)
         {
-            return (float)Math.Tanh(value);
+            return (double)Math.Tanh(value);
         }
 
 
-        public void BackPropagate(float[] inputs, float[] expected)//backpropogation;
+        public void BackPropagate(double[] inputs, double[] expected)//backpropogation;
         {
-            float[] output = FeedForward(inputs);//runs feed forward to ensure neurons are populated correctly
+            double[] output = FeedForward(inputs);//runs feed forward to ensure neurons are populated correctly
 
             cost = 0;
             for (int i = 0; i < output.Length; i++)
             {
-                cost += (float)Math.Pow(output[i] - expected[i], 2);//calculated cost of network
+                cost += (double)Math.Pow(output[i] - expected[i], 2);//calculated cost of network
             }
             cost /= 2;//this value is not used in calculions, rather used to identify the performance of the network
 
-            float[][] gamma;
+            double[][] gamma;
 
             gamma = CreateGamma();
 
@@ -184,18 +184,18 @@ namespace ConsoleApp.Tests
             CalculateWeightAndBiasOfHiddenLayers(gamma);
         }
 
-        private float[][] CreateGamma()
+        private double[][] CreateGamma()
         {
-            float[][] gamma;
-            List<float[]> gammaList = new List<float[]>();
+            double[][] gamma;
+            List<double[]> gammaList = new List<double[]>();
             for (int i = 0; i < layers.Length; i++)
             {
-                gammaList.Add(new float[layers[i]]);
+                gammaList.Add(new double[layers[i]]);
             }
             gamma = gammaList.ToArray();//gamma initialization
             return gamma;
         }
-        private void CalculateGamma(float[] expected, float[] output, float[][] gamma)
+        private void CalculateGamma(double[] expected, double[] output, double[][] gamma)
         {
             int layer = layers.Length - 2;
             for (int numNeuron = 0; numNeuron < output.Length; numNeuron++)
@@ -203,7 +203,7 @@ namespace ConsoleApp.Tests
                 gamma[layers.Length - 1][numNeuron] = (output[numNeuron] - expected[numNeuron]) * activateDer(output[numNeuron], layer);//Gamma calculation
             }
         }
-        private void CalculateLastLayerWeightAndBias(float[][] gamma)
+        private void CalculateLastLayerWeightAndBias(double[][] gamma)
         {
             int lastLayer = layers.Length - 1;
             int hiddenLayer = layers.Length - 2;
@@ -216,7 +216,7 @@ namespace ConsoleApp.Tests
                 }
             }
         }
-        private void CalculateWeightAndBiasOfHiddenLayers(float[][] gamma)
+        private void CalculateWeightAndBiasOfHiddenLayers(double[][] gamma)
         {
             int lastHiddenLayerIndex = layers.Length - 2;
             for (int hiddenLayerIndex = lastHiddenLayerIndex; hiddenLayerIndex > 0; hiddenLayerIndex--)//runs on all hidden layers
@@ -226,7 +226,7 @@ namespace ConsoleApp.Tests
 
                 for (int hiddenNeuronIndex = 0; hiddenNeuronIndex < layers[hiddenLayerIndex]; hiddenNeuronIndex++)//outputs
                 {
-                    float gammaSum = 0;
+                    double gammaSum = 0;
                     for (int nextGammaIndex = 0; nextGammaIndex < gamma[nextHiddenLayerIndex].Length; nextGammaIndex++)
                     {
                         gammaSum += gamma[nextHiddenLayerIndex][nextGammaIndex] * weights[hiddenLayerIndex][nextGammaIndex][hiddenNeuronIndex];
@@ -244,7 +244,7 @@ namespace ConsoleApp.Tests
             }
         }
 
-        public float activateDer(float value, int layer)//all activation function derivatives
+        public double activateDer(double value, int layer)//all activation function derivatives
         {
             switch (activations[layer])
             {
@@ -261,41 +261,41 @@ namespace ConsoleApp.Tests
             }
         }
 
-        public float sigmoid(float x)//activation functions and their corrosponding derivatives
+        public double sigmoid(double x)//activation functions and their corrosponding derivatives
         {
-            float k = (float)Math.Exp(x);
+            double k = (double)Math.Exp(x);
             return k / (1.0f + k);
         }
-        public float tanh(float x)
+        public double tanh(double x)
         {
-            return (float)Math.Tanh(x);
+            return (double)Math.Tanh(x);
         }
-        public float relu(float x)
+        public double relu(double x)
         {
             return (0 >= x) ? 0 : x;
         }
-        public float leakyrelu(float x)
+        public double leakyrelu(double x)
         {
             return (0 >= x) ? 0.01f * x : x;
         }
-        public float sigmoidDer(float x)
+        public double sigmoidDer(double x)
         {
             return x * (1 - x);
         }
-        public float tanhDer(float x)
+        public double tanhDer(double x)
         {
             return 1 - (x * x);
         }
-        public float reluDer(float x)
+        public double reluDer(double x)
         {
             return (0 >= x) ? 0 : 1;
         }
-        public float leakyreluDer(float x)
+        public double leakyreluDer(double x)
         {
             return (0 >= x) ? 0.01f : 1;
         }
 
-        public void Mutate(int chance, float val)//used as a simple mutation function for any genetic implementations.
+        public void Mutate(int chance, double val)//used as a simple mutation function for any genetic implementations.
         {
             for (int i = 0; i < biases.Length; i++)
             {
@@ -368,7 +368,7 @@ namespace ConsoleApp.Tests
                 {
                     for (int j = 0; j < biases[i].Length; j++)
                     {
-                        biases[i][j] = float.Parse(ListLines[index]);
+                        biases[i][j] = double.Parse(ListLines[index]);
                         index++;
                     }
                 }
@@ -379,7 +379,7 @@ namespace ConsoleApp.Tests
                     {
                         for (int k = 0; k < weights[i][j].Length; k++)
                         {
-                            weights[i][j][k] = float.Parse(ListLines[index]); ;
+                            weights[i][j][k] = double.Parse(ListLines[index]); ;
                             index++;
                         }
                     }
@@ -420,7 +420,7 @@ namespace ConsoleApp.Tests
             for(var layerCount = 0; layerCount < neurons.Length; layerCount++)
             {
                 stringBuilder.Append($"L{layerCount}:");
-                float[] neuronsOfThisLayer = neurons[layerCount];
+                double[] neuronsOfThisLayer = neurons[layerCount];
                 for (var neuronCount = 0; neuronCount < neuronsOfThisLayer.Length; neuronCount++)
                 {
                     stringBuilder.Append($"N{neuronCount}:v:{neuronsOfThisLayer[neuronCount]};");

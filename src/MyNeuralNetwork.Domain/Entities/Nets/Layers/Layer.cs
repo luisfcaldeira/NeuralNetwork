@@ -32,13 +32,13 @@ namespace MyNeuralNetwork.Domain.Entities.Nets.Layers
             }
         }
 
-        public List<float> Output { get; private set; }
+        public List<double> Output { get; private set; }
 
         public int Label { get; }
 
         public Layer(LayerCounter layerCounter, NeuronCollection neurons)
         {
-            Output = new List<float>();
+            Output = new List<double>();
             Neurons = neurons;
             Label = layerCounter.Counter;
         }
@@ -55,7 +55,7 @@ namespace MyNeuralNetwork.Domain.Entities.Nets.Layers
 
         public void UpdateOutput()
         {
-            Output = new List<float>();
+            Output = new List<double>();
             foreach (var neuron in Neurons)
             {
                 Output.Add(neuron.Value.Value);

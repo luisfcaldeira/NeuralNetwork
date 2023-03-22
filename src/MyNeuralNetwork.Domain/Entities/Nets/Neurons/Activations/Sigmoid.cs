@@ -4,11 +4,12 @@ using System;
 
 namespace MyNeuralNetwork.Domain.Entities.Nets.Neurons.Activations
 {
-    public class Tanh : IActivator
+    public class Sigmoid : IActivator
     {
         public double Activate(double x)
         {
-            return (double)Math.Tanh(x);
+            double k = (double)Math.Exp(x);
+            return k / (1.0f + k);
         }
 
         public NeuralDoubleValue Activate(NeuralDoubleValue x)
@@ -18,7 +19,7 @@ namespace MyNeuralNetwork.Domain.Entities.Nets.Neurons.Activations
 
         public double Derivative(double x)
         {
-            return 1 - (x * x);
+            return x * (1 - x);
         }
 
         public NeuralDoubleValue Derivative(NeuralDoubleValue x)

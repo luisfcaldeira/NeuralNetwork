@@ -26,7 +26,7 @@ namespace MyNeuralNetwork.Domain.Tests.Nets.Neurons
 
         private static Neuron MakeANeuron()
         {
-            return new Neuron(new ActivationTester(), new RandomFloatValue(), new SynapseManager());
+            return new Neuron(new ActivationTester(), new RandomDoubleValue(), new SynapseManager());
         }
 
         [Test]
@@ -39,7 +39,7 @@ namespace MyNeuralNetwork.Domain.Tests.Nets.Neurons
 
             Assert.That(method != null, Is.True);
 
-            method.Invoke(neuron, new object[] { new NeuralFloatValue(2) });
+            method.Invoke(neuron, new object[] { new NeuralDoubleValue(2) });
 
             Assert.That(neuron.Gamma, Is.EqualTo(2));
         }

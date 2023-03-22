@@ -7,7 +7,7 @@ namespace MyNeuralNetwork.Domain.Entities.Nets.IO.Inputs
 
         public InputInserter(int sizeOfInput) : base(sizeOfInput) { }
 
-        public InputInserter AddInput(float input)
+        public InputInserter AddInput(double input)
         {
             Add(new Input(input));
             return this;

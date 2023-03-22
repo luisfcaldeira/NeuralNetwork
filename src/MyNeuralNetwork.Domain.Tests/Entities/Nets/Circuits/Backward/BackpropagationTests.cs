@@ -78,13 +78,13 @@ namespace MyNeuralNetwork.Domain.Tests.Entities.Nets.Circuits.Backward
 
             HiddenLayerFiller.UpdateValuesIfTheresANextLayer(neuralNetwork.Layers[1]);
 
-            float lastNeuronGamma = lastNeuron.Gamma;
-            float neuronValue = testedNeuron.Value.Value;
-            float learningRate = testedNeuron.LearningRate;
-
-            float expectedWeight = previousWeight - lastNeuronGamma * neuronValue * learningRate;
-            float expectedBias = previousBias - lastNeuronGamma * learningRate;
-            float expectedGamma = lastNeuron.Gamma * testedNeuron.Synapses.GetWeightFor(lastNeuron).Value;
+            double lastNeuronGamma =  lastNeuron.Gamma;
+            double neuronValue = testedNeuron.Value.Value;
+            double learningRate = testedNeuron.LearningRate;
+            
+            double expectedWeight = previousWeight - lastNeuronGamma * neuronValue * learningRate;
+            double expectedBias = previousBias - lastNeuronGamma * learningRate;
+            double expectedGamma = lastNeuron.Gamma * testedNeuron.Synapses.GetWeightFor(lastNeuron).Value;
 
             PropertiesTester.TestWeight(testedNeuron, lastNeuron, expectedWeight);
             PropertiesTester.TestBias(testedNeuron, expectedBias);

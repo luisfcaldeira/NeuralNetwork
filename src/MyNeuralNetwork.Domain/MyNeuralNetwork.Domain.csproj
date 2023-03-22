@@ -5,15 +5,18 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Entities\Nets\Neurons\Parts\Bias.cs" />
-    <Compile Remove="Entities\Nets\Neurons\Parts\Gamma.cs" />
-    <Compile Remove="Entities\Nets\Neurons\Parts\Weight.cs" />
+    <Compile Remove="Entities\Nets\Trainers\Backpropagations\**" />
+    <Compile Remove="Entities\Nets\Trainers\Feedforwards\**" />
+    <EmbeddedResource Remove="Entities\Nets\Trainers\Backpropagations\**" />
+    <EmbeddedResource Remove="Entities\Nets\Trainers\Feedforwards\**" />
+    <None Remove="Entities\Nets\Trainers\Backpropagations\**" />
+    <None Remove="Entities\Nets\Trainers\Feedforwards\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Entities\Nets\Collections\Neurons\Parts\" />
-    <Folder Include="Entities\Nets\Trainers\Backpropagations\" />
-    <Folder Include="Entities\Nets\Trainers\Feedforwards\" />
+    <Compile Remove="Entities\Nets\Neurons\Parts\Bias.cs" />
+    <Compile Remove="Entities\Nets\Neurons\Parts\Gamma.cs" />
+    <Compile Remove="Entities\Nets\Neurons\Parts\Weight.cs" />
   </ItemGroup>
 
 </Project>
