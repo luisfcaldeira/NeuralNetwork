@@ -1,16 +1,13 @@
 ﻿using MyNeuralNetwork.Domain.Interfaces.Services.Logs;
 using System.IO;
 
-namespace Infra.Services.Logs.Files
+namespace Core.Infra.Services.Logs.Files
 {
     public class FileTraceLogService : ITraceLog
     {
         public string FileName { get; } = "log.txt";
 
-        public FileTraceLogService()
-        {
-            
-        }
+        public FileTraceLogService() { }
 
         public FileTraceLogService(string fileName) : this()
         {

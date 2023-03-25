@@ -1,6 +1,6 @@
 ﻿using MyNeuralNetwork.Domain.Entities.Commons.Fields.Numerics;
 
-namespace MyNeuralNetwork.Domain.Entities.Nets.Interfaces.Neurons.Activations
+namespace MyNeuralNetwork.Domain.Interfaces.Neurons.Activations
 {
     public interface IActivator
     {

@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Entities\Nets\Networks\" />
+    <Folder Include="Entities\Nets\Layers\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MyNeuralNetwork.Domain\MyNeuralNetwork.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

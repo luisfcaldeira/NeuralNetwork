@@ -1,7 +1,5 @@
 ﻿using MyNeuralNetwork.Domain.Entities.Commons.Fields.Numerics;
-using MyNeuralNetwork.Domain.Entities.Nets.Interfaces.Neurons.Parts;
-using MyNeuralNetwork.Domain.Entities.Nets.IO.Inputs;
-using MyNeuralNetwork.Domain.Entities.Nets.IO.Outputs;
+using MyNeuralNetwork.Domain.Interfaces.Neurons.Parts;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -10,7 +8,7 @@ namespace MyNeuralNetwork.Domain.Entities.Nets.Neurons.Parts
     public class SynapseManager : ISynapseManager
     {
         public RangeConfiguration WeightConfiguration { get; set; } = new RangeConfiguration();
-        public List<Synapse> Synapses { get; } = new List<Synapse>();
+        public List<Synapse> Synapses { get; set; } = new List<Synapse>();
 
         public void Add(Neuron neuronSource, Neuron neighborNeuron)
         {

@@ -1,7 +1,7 @@
 ﻿using MyNeuralNetwork.Domain.Entities.Nets.IO.Inputs;
 using MyNeuralNetwork.Domain.Entities.Nets.Networks;
 
-namespace MyNeuralNetwork.Domain.Entities.Nets.Interfaces.Networks.Circuits.Forward
+namespace MyNeuralNetwork.Domain.Interfaces.Networks.Circuits.Forward
 {
     public interface ICircuitForward
     {

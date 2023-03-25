@@ -1,8 +1,8 @@
 ﻿using MyNeuralNetwork.Domain.Entities.Commons.Fields.Numerics;
-using MyNeuralNetwork.Domain.Entities.Nets.Interfaces.Neurons.Activations;
-using MyNeuralNetwork.Domain.Entities.Nets.Interfaces.Neurons.Parts;
 using MyNeuralNetwork.Domain.Entities.Nets.IO.Inputs;
 using MyNeuralNetwork.Domain.Entities.Nets.Neurons.Parts;
+using MyNeuralNetwork.Domain.Interfaces.Neurons.Activations;
+using MyNeuralNetwork.Domain.Interfaces.Neurons.Parts;
 using System;
 using System.Linq;
 using System.Text;
@@ -12,7 +12,7 @@ namespace MyNeuralNetwork.Domain.Entities.Nets.Neurons
     public class Neuron
     {
         public const double DeafultLearningRate = 0.01f;
-        public NeuralDoubleValue Value { get; private set; } = new NeuralDoubleValue();
+        public NeuralDoubleValue Value { get; set; } = new NeuralDoubleValue();
         private double _tempValue = 0;
 
         public Guid Guid { get; }
@@ -20,10 +20,8 @@ namespace MyNeuralNetwork.Domain.Entities.Nets.Neurons
         public IActivator Activation { get; }
         public double Gamma { get; set; }
         public ISynapseManager Synapses { get; }
-
         public double LearningRate { get; set; } = DeafultLearningRate;
 
-        
         public Neuron(IActivator activation, RandomDoubleValue bias, ISynapseManager synapseManager)
         {
             if (bias is null)

@@ -1,5 +1,5 @@
 ﻿using MyNeuralNetwork.Domain.Entities.Commons.Fields.Numerics;
-using MyNeuralNetwork.Domain.Entities.Nets.Interfaces.Neurons.Activations;
+using MyNeuralNetwork.Domain.Interfaces.Neurons.Activations;
 
 namespace MyNeuralNetwork.Tests.Utils.Activations
 {

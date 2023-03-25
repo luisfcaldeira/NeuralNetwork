@@ -12,7 +12,7 @@ namespace MyNeuralNetwork.Domain.Entities.Nets.Layers
     {
         public NeuronCollection Neurons { get; set; } = new NeuronCollection();
         public Layer PreviousLayer { get; set; }
-        public Layer _nextLayer;
+        public int Label { get; }
         public Layer NextLayer 
         {
             get
@@ -32,9 +32,8 @@ namespace MyNeuralNetwork.Domain.Entities.Nets.Layers
             }
         }
 
+        private Layer _nextLayer;
         public List<double> Output { get; private set; }
-
-        public int Label { get; }
 
         public Layer(LayerCounter layerCounter, NeuronCollection neurons)
         {

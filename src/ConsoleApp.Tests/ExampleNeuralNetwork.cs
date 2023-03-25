@@ -1,9 +1,10 @@
 ﻿using MyNeuralNetwork.Domain.Entities.Nets.Collections.Layers;
-using MyNeuralNetwork.Domain.Entities.Nets.Interfaces.Networks;
-using MyNeuralNetwork.Domain.Entities.Nets.Interfaces.Networks.Circuits.Backward;
-using MyNeuralNetwork.Domain.Entities.Nets.Interfaces.Networks.Circuits.Forward;
 using MyNeuralNetwork.Domain.Entities.Nets.IO.Inputs;
+using MyNeuralNetwork.Domain.Entities.Nets.Networks;
 using MyNeuralNetwork.Domain.Entities.Support;
+using MyNeuralNetwork.Domain.Interfaces.Networks;
+using MyNeuralNetwork.Domain.Interfaces.Networks.Circuits.Backward;
+using MyNeuralNetwork.Domain.Interfaces.Networks.Circuits.Forward;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -436,6 +437,5 @@ namespace ConsoleApp.Tests
 
             return stringBuilder.ToString();
         }
-
     }
 }

@@ -1,8 +1,8 @@
 ﻿using MyNeuralNetwork.Domain.Entities.Nets.Collections.Neurons;
-using MyNeuralNetwork.Domain.Entities.Nets.Interfaces.Neurons.Activations;
 using MyNeuralNetwork.Domain.Entities.Nets.Neurons.Parts;
+using MyNeuralNetwork.Domain.Interfaces.Neurons.Activations;
 
-namespace MyNeuralNetwork.Domain.Entities.Nets.Interfaces.Neurons
+namespace MyNeuralNetwork.Domain.Interfaces.Neurons
 {
     public interface INeuronGenerator
     {

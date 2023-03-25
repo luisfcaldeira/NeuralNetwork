@@ -1,17 +1,8 @@
-﻿using MyNeuralNetwork.Domain.Entities.Commons.Fields.Numerics;
-using MyNeuralNetwork.Domain.Entities.Nets.Collections.Neurons;
-using MyNeuralNetwork.Domain.Entities.Nets.Interfaces.Neurons.Activations;
+﻿using MyNeuralNetwork.Domain.Entities.Nets.Collections.Neurons;
 using MyNeuralNetwork.Domain.Entities.Nets.IO.Inputs;
 using MyNeuralNetwork.Domain.Entities.Nets.Layers;
-using MyNeuralNetwork.Domain.Entities.Nets.Neurons;
-using MyNeuralNetwork.Domain.Entities.Nets.Neurons.Parts;
 using MyNeuralNetwork.Tests.Utils;
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MyNeuralNetwork.Domain.Tests.Entities.Nets.Layers
 {

@@ -1,12 +1,12 @@
 ﻿using MyNeuralNetwork.Domain.Entities.Nets.Collections.Layers;
-using MyNeuralNetwork.Domain.Entities.Nets.Interfaces.Networks.Circuits.Forward;
-using MyNeuralNetwork.Domain.Entities.Nets.Interfaces.Neurons;
-using MyNeuralNetwork.Domain.Entities.Nets.Interfaces.Neurons.Activations;
 using MyNeuralNetwork.Domain.Entities.Nets.Layers;
 using MyNeuralNetwork.Domain.Entities.Nets.Networks;
 using MyNeuralNetwork.Domain.Entities.Nets.Networks.Circuits.Forward;
 using MyNeuralNetwork.Domain.Entities.Nets.Neurons.Activations;
 using MyNeuralNetwork.Domain.Entities.Nets.Neurons.Parts;
+using MyNeuralNetwork.Domain.Interfaces.Networks.Circuits.Forward;
+using MyNeuralNetwork.Domain.Interfaces.Neurons;
+using MyNeuralNetwork.Domain.Interfaces.Neurons.Activations;
 using System;
 
 namespace MyNeuralNetwork.Domain.Entities.Nets.Generators

@@ -1,7 +1,7 @@
 ﻿using MyNeuralNetwork.Domain.Entities.Nets.Collections.Layers;
 using MyNeuralNetwork.Domain.Entities.Nets.IO.Inputs;
 
-namespace MyNeuralNetwork.Domain.Entities.Nets.Interfaces.Networks
+namespace MyNeuralNetwork.Domain.Interfaces.Networks
 {
     public interface INeuralNetwork
     {

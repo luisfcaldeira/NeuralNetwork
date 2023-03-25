@@ -58,7 +58,6 @@ namespace MyNeuralNetwork.Domain.Tests.Nets.Neurons
 
             method.Invoke(neuron, new object[] { new Transmition(trasmition) });
 
-
             var methodCommit = neuron.GetType().GetMethod("Commit", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
             methodCommit.Invoke(neuron, null);
             var value = neuron.Value.Value;

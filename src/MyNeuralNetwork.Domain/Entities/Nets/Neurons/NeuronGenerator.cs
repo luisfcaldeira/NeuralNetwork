@@ -1,9 +1,9 @@
 ﻿using MyNeuralNetwork.Domain.Entities.Commons.Fields.Numerics;
 using MyNeuralNetwork.Domain.Entities.Nets.Collections.Neurons;
-using MyNeuralNetwork.Domain.Entities.Nets.Interfaces.Neurons;
-using MyNeuralNetwork.Domain.Entities.Nets.Interfaces.Neurons.Activations;
-using MyNeuralNetwork.Domain.Entities.Nets.Interfaces.Neurons.Parts;
 using MyNeuralNetwork.Domain.Entities.Nets.Neurons.Parts;
+using MyNeuralNetwork.Domain.Interfaces.Neurons;
+using MyNeuralNetwork.Domain.Interfaces.Neurons.Activations;
+using MyNeuralNetwork.Domain.Interfaces.Neurons.Parts;
 using System;
 
 namespace MyNeuralNetwork.Domain.Entities.Nets.Neurons

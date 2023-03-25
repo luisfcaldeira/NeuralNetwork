@@ -1,5 +1,4 @@
 ﻿using MyNeuralNetwork.Domain.Entities.Nets.Generators;
-using MyNeuralNetwork.Domain.Entities.Nets.Interfaces.Neurons.Activations;
 using MyNeuralNetwork.Domain.Entities.Nets.IO.Inputs;
 using MyNeuralNetwork.Domain.Entities.Nets.IO.Outputs;
 using MyNeuralNetwork.Domain.Entities.Nets.Layers;
@@ -9,6 +8,7 @@ using MyNeuralNetwork.Domain.Entities.Nets.Networks.Circuits.Backward.Support;
 using MyNeuralNetwork.Domain.Entities.Nets.Networks.Circuits.Forward;
 using MyNeuralNetwork.Domain.Entities.Nets.Neurons;
 using MyNeuralNetwork.Domain.Entities.Nets.Neurons.Parts;
+using MyNeuralNetwork.Domain.Interfaces.Neurons.Activations;
 using MyNeuralNetwork.Domain.Tests.Entities.Support;
 using MyNeuralNetwork.Tests.Utils.Activations;
 using NUnit.Framework;

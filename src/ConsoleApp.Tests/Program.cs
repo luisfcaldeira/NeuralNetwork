@@ -1,7 +1,6 @@
-﻿using Infra.Services.Logs.Files;
+﻿using Core.Infra.IoC.Mappers;
+using Core.Infra.Services.Logs.Files;
 using MyNeuralNetwork.Domain.Entities.Nets.Generators;
-using MyNeuralNetwork.Domain.Entities.Nets.Interfaces.Networks;
-using MyNeuralNetwork.Domain.Entities.Nets.Interfaces.Neurons.Activations;
 using MyNeuralNetwork.Domain.Entities.Nets.IO.Inputs;
 using MyNeuralNetwork.Domain.Entities.Nets.IO.Managers;
 using MyNeuralNetwork.Domain.Entities.Nets.Networks;
@@ -11,7 +10,10 @@ using MyNeuralNetwork.Domain.Entities.Nets.Neurons;
 using MyNeuralNetwork.Domain.Entities.Nets.Neurons.Activations;
 using MyNeuralNetwork.Domain.Entities.Nets.Neurons.Parts;
 using MyNeuralNetwork.Domain.Entities.Nets.Trainers;
+using MyNeuralNetwork.Domain.Interfaces.Networks;
+using MyNeuralNetwork.Domain.Interfaces.Neurons.Activations;
 using MyNeuralNetwork.Domain.Interfaces.Services.Logs;
+using MyNeuralNetwork.Domain.Interfaces.Services.Persistences;
 using Plotly.NET;
 using Plotly.NET.LayoutObjects;
 using System;
@@ -31,7 +33,7 @@ namespace ConsoleApp.Tests
 
             watch.Start();
 
-            const int epochs = 10000;
+            const int epochs = 100;
             var traceLog = new FileTraceLogService();
             for (var i = 0; i < epochs; i++)
             {
@@ -42,8 +44,12 @@ namespace ConsoleApp.Tests
             Console.WriteLine($"\nTraining Time (example code): {watch.ElapsedMilliseconds} ms");
 
             var neuralNetwork = Fit(epochs, layers);
+            var mapperIoc = new IocMapper();
 
+            var persistence = mapperIoc.GetService<INeuralNetworkPersistence>();
             var prediction = neuralNetwork.Predict(new Input[] { new Input(0.01f), new Input(0.01f) });
+
+            persistence.Save((NeuralNetwork)neuralNetwork);
 
             Console.WriteLine("Predicion test: ");       
             Console.WriteLine(prediction[0]);
@@ -51,7 +57,7 @@ namespace ConsoleApp.Tests
             FinishWithResults(exampleNeuralNetwork, neuralNetwork);
         }
 
-        private static void FinishWithResults(NeuralNetwork neuralNetwork)
+        private static void FinishWithResults(INeuralNetwork neuralNetwork)
         {
             PrintResult(neuralNetwork);
 
@@ -64,7 +70,7 @@ namespace ConsoleApp.Tests
             PlotChart(myNnPredictions, expectedData, yValues);
         }
 
-        private static void FinishWithResults(ExampleNeuralNetwork exampleNeuralNetwork, NeuralNetwork neuralNetwork)
+        private static void FinishWithResults(ExampleNeuralNetwork exampleNeuralNetwork, INeuralNetwork neuralNetwork)
         {
             PrintResult(neuralNetwork, exampleNeuralNetwork);
 
@@ -79,7 +85,7 @@ namespace ConsoleApp.Tests
             PlotChart(examplePredictions, expectedData, yValues);
         }
 
-        private static NeuralNetwork Fit(int epochs, int[] layers)
+        private static INeuralNetwork Fit(int epochs, int[] layers)
         {
             var dataManager = new DataManager();
             double maxIter = 1;
@@ -119,14 +125,14 @@ namespace ConsoleApp.Tests
             traceLog.Log(exampleNeuralNetwork.ToString());
         }
 
-        private static void PrintResult(NeuralNetwork neuralNetwork)
+        private static void PrintResult(INeuralNetwork neuralNetwork)
         {
             Console.WriteLine("-------------");
             Console.WriteLine(neuralNetwork);
         }
 
 
-        private static void PrintResult(NeuralNetwork neuralNetwork, ExampleNeuralNetwork exampleNeuralNetwork)
+        private static void PrintResult(INeuralNetwork neuralNetwork, ExampleNeuralNetwork exampleNeuralNetwork)
         {
             Console.WriteLine("-------------");
             Console.WriteLine(neuralNetwork);

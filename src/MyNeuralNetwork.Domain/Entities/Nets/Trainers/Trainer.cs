@@ -1,9 +1,9 @@
-﻿using MyNeuralNetwork.Domain.Entities.Nets.Interfaces.Networks.Circuits.Backward;
-using MyNeuralNetwork.Domain.Entities.Nets.Interfaces.Networks.Circuits.Forward;
-using MyNeuralNetwork.Domain.Entities.Nets.IO.Inputs;
+﻿using MyNeuralNetwork.Domain.Entities.Nets.IO.Inputs;
 using MyNeuralNetwork.Domain.Entities.Nets.IO.Managers;
 using MyNeuralNetwork.Domain.Entities.Nets.IO.Outputs;
 using MyNeuralNetwork.Domain.Entities.Nets.Networks;
+using MyNeuralNetwork.Domain.Interfaces.Networks.Circuits.Backward;
+using MyNeuralNetwork.Domain.Interfaces.Networks.Circuits.Forward;
 using MyNeuralNetwork.Domain.Interfaces.Services.Logs;
 using System.Collections.Generic;
 using System.Diagnostics;

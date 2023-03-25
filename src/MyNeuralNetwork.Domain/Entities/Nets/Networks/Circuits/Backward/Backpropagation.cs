@@ -1,6 +1,6 @@
-﻿using MyNeuralNetwork.Domain.Entities.Nets.Interfaces.Networks.Circuits.Backward;
-using MyNeuralNetwork.Domain.Entities.Nets.IO.Outputs;
+﻿using MyNeuralNetwork.Domain.Entities.Nets.IO.Outputs;
 using MyNeuralNetwork.Domain.Entities.Nets.Networks.Circuits.Backward.Support;
+using MyNeuralNetwork.Domain.Interfaces.Networks.Circuits.Backward;
 
 namespace MyNeuralNetwork.Domain.Entities.Nets.Networks.Circuits.Backward
 {

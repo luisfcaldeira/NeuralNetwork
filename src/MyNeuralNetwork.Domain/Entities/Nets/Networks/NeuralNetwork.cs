@@ -1,9 +1,8 @@
 ﻿using MyNeuralNetwork.Domain.Entities.Nets.Collections.Layers;
-using MyNeuralNetwork.Domain.Entities.Nets.Interfaces.Networks;
-using MyNeuralNetwork.Domain.Entities.Nets.Interfaces.Networks.Circuits.Backward;
-using MyNeuralNetwork.Domain.Entities.Nets.Interfaces.Networks.Circuits.Forward;
 using MyNeuralNetwork.Domain.Entities.Nets.IO.Inputs;
 using MyNeuralNetwork.Domain.Entities.Nets.Layers;
+using MyNeuralNetwork.Domain.Interfaces.Networks;
+using MyNeuralNetwork.Domain.Interfaces.Networks.Circuits.Forward;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,8 +11,10 @@ namespace MyNeuralNetwork.Domain.Entities.Nets.Networks
 {
     public class NeuralNetwork : INeuralNetwork
     {
-        public LayerCollection Layers { get; private set; }
-        private readonly ICircuitForward _circuitForward;
+        public LayerCollection Layers { get; protected set; }
+        protected ICircuitForward _circuitForward;
+
+        protected NeuralNetwork() { }
 
         public NeuralNetwork(LayerCollection layers, ICircuitForward circuitForward)
         {
@@ -54,7 +55,5 @@ namespace MyNeuralNetwork.Domain.Entities.Nets.Networks
 
             return stringBuilder.ToString();
         }
-
     }
-
 }

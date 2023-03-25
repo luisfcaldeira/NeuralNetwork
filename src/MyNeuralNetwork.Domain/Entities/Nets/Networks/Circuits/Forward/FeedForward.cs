@@ -1,8 +1,8 @@
 ﻿using MyNeuralNetwork.Domain.Entities.Commons.Fields.Numerics;
-using MyNeuralNetwork.Domain.Entities.Nets.Interfaces.Networks.Circuits.Forward;
 using MyNeuralNetwork.Domain.Entities.Nets.IO.Inputs;
 using MyNeuralNetwork.Domain.Entities.Nets.IO.Outputs;
 using MyNeuralNetwork.Domain.Entities.Nets.Layers;
+using MyNeuralNetwork.Domain.Interfaces.Networks.Circuits.Forward;
 
 namespace MyNeuralNetwork.Domain.Entities.Nets.Networks.Circuits.Forward
 {
@@ -42,5 +42,6 @@ namespace MyNeuralNetwork.Domain.Entities.Nets.Networks.Circuits.Forward
                 });
             }
         }
+
     }
 }
