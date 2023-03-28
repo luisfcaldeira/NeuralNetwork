@@ -1,4 +1,5 @@
 ﻿using MyNeuralNetwork.Domain.Entities.Nets.Generators;
+using MyNeuralNetwork.Domain.Entities.Nets.Generators.Supports;
 using MyNeuralNetwork.Domain.Entities.Nets.IO.Inputs;
 using MyNeuralNetwork.Domain.Entities.Nets.Neurons;
 using MyNeuralNetwork.Domain.Entities.Nets.Neurons.Parts;
@@ -29,7 +30,7 @@ namespace MyNeuralNetwork.Domain.Tests.Entities.Nets.Networks
             ngen.WeightConfiguration.SetMaxAndMin(1, 1);
             ngen.BiasConfiguration.SetMaxAndMin(0, 0);
 
-            var nngen = new NNGenerator(ngen);
+            var nngen = new NNGenerator(ngen, new LayersLinker());
 
             var neuronNetwork = nngen.Generate<SynapseManager, ActivationTester>(new int[] { 1, 1, 1 });
 

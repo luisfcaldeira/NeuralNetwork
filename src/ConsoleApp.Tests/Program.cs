@@ -1,6 +1,8 @@
 ﻿using Core.Infra.IoC.Mappers;
-using Core.Infra.Services.Logs.Files;
+using Core.Infra.Services.GraphPlotters;
+using Core.Infra.Services.Loggers.OutputWindow;
 using MyNeuralNetwork.Domain.Entities.Nets.Generators;
+using MyNeuralNetwork.Domain.Entities.Nets.Generators.Supports;
 using MyNeuralNetwork.Domain.Entities.Nets.IO.Inputs;
 using MyNeuralNetwork.Domain.Entities.Nets.IO.Managers;
 using MyNeuralNetwork.Domain.Entities.Nets.Networks;
@@ -14,8 +16,6 @@ using MyNeuralNetwork.Domain.Interfaces.Networks;
 using MyNeuralNetwork.Domain.Interfaces.Neurons.Activations;
 using MyNeuralNetwork.Domain.Interfaces.Services.Logs;
 using MyNeuralNetwork.Domain.Interfaces.Services.Persistences;
-using Plotly.NET;
-using Plotly.NET.LayoutObjects;
 using System;
 using System.Collections.Generic;
 
@@ -25,16 +25,15 @@ namespace ConsoleApp.Tests
     {
         static void Main(string[] args)
         {
-
-            int[] layers = new int[] { 2, 2, 2, 1 };
-            ExampleNeuralNetwork exampleNeuralNetwork = new ExampleNeuralNetwork(layers, new string[] { "relu", "relu", "relu", "relu" });
+            int[] layers = new int[] { 2, 4, 1 };
+            ExampleNeuralNetwork exampleNeuralNetwork = new ExampleNeuralNetwork(layers, new string[] { "tanh", "tanh", "tanh" });
 
             var watch = new System.Diagnostics.Stopwatch();
 
             watch.Start();
 
             const int epochs = 100;
-            var traceLog = new FileTraceLogService();
+            var traceLog = new DebuggerLog();
             for (var i = 0; i < epochs; i++)
             {
                 Fit(exampleNeuralNetwork, traceLog);
@@ -67,7 +66,7 @@ namespace ConsoleApp.Tests
 
             var expectedData = GenerateExpectedData(TotalOfIteractions);
 
-            PlotChart(myNnPredictions, expectedData, yValues);
+            GraphPlotter.PlotChart(myNnPredictions, expectedData, yValues);
         }
 
         private static void FinishWithResults(ExampleNeuralNetwork exampleNeuralNetwork, INeuralNetwork neuralNetwork)
@@ -81,8 +80,8 @@ namespace ConsoleApp.Tests
             var expectedData = GenerateExpectedData(TotalOfIteractions);
             var examplePredictions = Predict(exampleNeuralNetwork, TotalOfIteractions);
 
-            PlotChart(myNnPredictions, expectedData, yValues);
-            PlotChart(examplePredictions, expectedData, yValues);
+            GraphPlotter.PlotChart(myNnPredictions, expectedData, yValues);
+            GraphPlotter.PlotChart(examplePredictions, expectedData, yValues);
         }
 
         private static INeuralNetwork Fit(int epochs, int[] layers)
@@ -106,10 +105,10 @@ namespace ConsoleApp.Tests
             neuronGenerator.WeightConfiguration.SetMaxAndMin(1, 1);
             neuronGenerator.BiasConfiguration.SetMaxAndMin(1, 1);
             
-            var nNGen = new NNGenerator(neuronGenerator);
+            var nNGen = new NNGenerator(neuronGenerator, new LayersLinker());
             
-            var neuralNetwork = nNGen.Generate<SynapseManager>(layers, new IActivator[] {new Relu(), new Relu(), new Tanh(), new Tanh() });
-            var trainer = new Trainer(dataManager, neuralNetwork, new FeedForward(), new Backpropagation(), new FileTraceLogService());
+            var neuralNetwork = nNGen.Generate<SynapseManager>(layers, new IActivator[] {new Tanh(), new Tanh(), new Tanh() });
+            var trainer = new Trainer(dataManager, neuralNetwork, new FeedForward(), new Backpropagation(), new DebuggerLog());
 
             trainer.Fit(epochs);
 
@@ -205,54 +204,6 @@ namespace ConsoleApp.Tests
             }
 
             return expectedResults;
-        }
-
-        private static void PlotChart(List<double> listResult, List<double> listOfExpectedResults, List<double> yValues)
-        {
-            double[] xValues = listResult.ToArray();
-            double[] xValues2 = listOfExpectedResults.ToArray();
-            
-            var chart = GenerateChart(xValues, yValues.ToArray(), "results");
-            var chart2 = GenerateChart(xValues2, yValues.ToArray(), "expected");
-            var chartList = new List<GenericChart.GenericChart>();
-
-            chartList.Add(chart);
-            chartList.Add(chart2);
-
-            var combinedChart = Chart.Combine(chartList);
-
-            combinedChart.Show();
-        }
-
-        private static GenericChart.GenericChart GenerateChart(double[] xValues, double[] yValues, string legend)
-        {
-            Plotly.NET.Trace trace;
-
-            LinearAxis xAxis = new LinearAxis();
-            xAxis.SetValue("title", "xAxis");
-            xAxis.SetValue("showgrid", false);
-            xAxis.SetValue("showline", true);
-
-            LinearAxis yAxis = new LinearAxis();
-            yAxis.SetValue("title", "yAxis");
-            yAxis.SetValue("showgrid", false);
-            yAxis.SetValue("showline", true);
-
-            var layout = new Layout();
-            layout.SetValue("xaxis", xAxis);
-            layout.SetValue("yaxis", yAxis);
-            layout.SetValue("showlegend", true);
-
-            trace = new Plotly.NET.Trace("scatter");
-            trace.SetValue("x", xValues);
-            trace.SetValue("y", yValues);
-
-            trace.SetValue("mode", "markers");
-            trace.SetValue("name", legend);
-
-            return GenericChart
-                            .ofTraceObject(true, trace)
-                            .WithLayout(layout);
         }
     }
 }

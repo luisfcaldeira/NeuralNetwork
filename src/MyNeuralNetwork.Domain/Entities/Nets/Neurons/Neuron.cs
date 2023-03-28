@@ -14,22 +14,23 @@ namespace MyNeuralNetwork.Domain.Entities.Nets.Neurons
         public const double DeafultLearningRate = 0.01f;
         public NeuralDoubleValue Value { get; set; } = new NeuralDoubleValue();
         private double _tempValue = 0;
+        private static int index = 0;
 
-        public Guid Guid { get; }
+        public int Index { get; private set; }
         public double Bias { get; set; }
         public IActivator Activation { get; }
         public double Gamma { get; set; }
         public ISynapseManager Synapses { get; }
         public double LearningRate { get; set; } = DeafultLearningRate;
 
-        public Neuron(IActivator activation, RandomDoubleValue bias, ISynapseManager synapseManager)
+        public Neuron(IActivator activation, NeuralDoubleValue bias, ISynapseManager synapseManager)
         {
             if (bias is null)
             {
                 throw new ArgumentNullException(nameof(bias));
             }
 
-            Guid = Guid.NewGuid();
+            Index = index++;
             Bias = bias.Value;
             Synapses = synapseManager ?? throw new ArgumentNullException(nameof(synapseManager));
             Activation = activation ?? throw new ArgumentNullException(nameof(activation));
@@ -93,13 +94,17 @@ namespace MyNeuralNetwork.Domain.Entities.Nets.Neurons
         public override bool Equals(object obj)
         {
             return obj is Neuron neuron &&
-                   Guid.Equals(neuron.Guid);
+                   Index.Equals(neuron.Index);
         }
 
         public override int GetHashCode()
         {
-            return HashCode.Combine(Guid);
+            return HashCode.Combine(Index);
         }
 
+        internal void ChangeIndex(int i)
+        {
+            Index = i;
+        }
     }
 }

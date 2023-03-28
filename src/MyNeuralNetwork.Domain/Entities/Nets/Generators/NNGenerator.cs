@@ -1,9 +1,9 @@
-﻿using MyNeuralNetwork.Domain.Entities.Nets.Collections.Layers;
-using MyNeuralNetwork.Domain.Entities.Nets.Layers;
+﻿using MyNeuralNetwork.Domain.Entities.Nets.Layers;
 using MyNeuralNetwork.Domain.Entities.Nets.Networks;
 using MyNeuralNetwork.Domain.Entities.Nets.Networks.Circuits.Forward;
 using MyNeuralNetwork.Domain.Entities.Nets.Neurons.Activations;
 using MyNeuralNetwork.Domain.Entities.Nets.Neurons.Parts;
+using MyNeuralNetwork.Domain.Interfaces.Generators;
 using MyNeuralNetwork.Domain.Interfaces.Networks.Circuits.Forward;
 using MyNeuralNetwork.Domain.Interfaces.Neurons;
 using MyNeuralNetwork.Domain.Interfaces.Neurons.Activations;
@@ -14,63 +14,31 @@ namespace MyNeuralNetwork.Domain.Entities.Nets.Generators
     public class NNGenerator
     {
         private readonly INeuronGenerator _neuronGenerator;
+        private readonly ILayersLinker _layersLinker;
+
         public ICircuitForward CircuitForward { get; set; } = new FeedForward();
 
-        public NNGenerator(INeuronGenerator neuronGenerator)
+        public NNGenerator(INeuronGenerator neuronGenerator, ILayersLinker layersLinker)
         {
             _neuronGenerator = neuronGenerator;
+            _layersLinker = layersLinker;
         }
 
         public NeuralNetwork Generate<ISynapseManagerImplementation>(int[] formatLayers, IActivator[] activators)
         {
             if (formatLayers.Length != activators.Length) throw new ArgumentException("Size of parameters must be the same.");
 
-            return Generate((i, l) => CreateLayer<ISynapseManagerImplementation>(formatLayers[i], l, activators[i]), formatLayers);
+            return new (_layersLinker.Generate(formatLayers.Length, (i, l) => CreateLayer<ISynapseManagerImplementation>(formatLayers[i], l, activators[i])), CircuitForward);
         }
-
 
         public NeuralNetwork Generate<ISynapseManagerImplementation, IActivatorImplementation>(int[] formatLayers)
         {
-            return Generate((i, l) => CreateLayer<ISynapseManagerImplementation, IActivatorImplementation>(formatLayers[i], l), formatLayers);
-        }
-
-        private NeuralNetwork Generate(Func<int, LayerCounter, Layer> createLayersMethod, int[] formatLayers)
-        {
-            var layers = new LayerCollection();
-            Layer previousLayer = null;
-            LayerCounter layerCounter = new LayerCounter();
-
-            for (int i = 0; i < formatLayers.Length; i++)
-            {
-                Layer layer = createLayersMethod.Invoke(i, layerCounter);
-
-                previousLayer = ConfigLayers(layers, previousLayer, i, layer);
-            }
-
-            return new NeuralNetwork(layers, CircuitForward);
-
-        }
-
-        private static Layer ConfigLayers(LayerCollection layers, Layer previousLayer, int i, Layer layer)
-        {
-            if (previousLayer != null)
-            {
-                layer.PreviousLayer = previousLayer;
-            }
-
-            if (i > 0)
-            {
-                layers[i - 1].NextLayer = layer;
-            }
-
-            layers.Add(layer);
-            previousLayer = layer;
-            return previousLayer;
+            return new (_layersLinker.Generate(formatLayers.Length, (i, l) => CreateLayer<ISynapseManagerImplementation, IActivatorImplementation>(formatLayers[i], l)), CircuitForward);
         }
 
         public NeuralNetwork GenerateDefault(int[] formatLayers)
         {
-            return Generate<SynapseManager,Tanh>(formatLayers);
+            return Generate<SynapseManager, Tanh>(formatLayers);
         }
 
         private Layer CreateLayer<T>(int quantityOfNeurons, LayerCounter layerCounter, IActivator activator)

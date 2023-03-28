@@ -43,8 +43,7 @@ namespace Core.Infra.Services.Persistences
             }
             finally
             {
-                if (reader != null)
-                    reader.Close();
+                reader?.Close();
             }
         }
 

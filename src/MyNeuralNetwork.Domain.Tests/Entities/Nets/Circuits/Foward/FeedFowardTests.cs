@@ -1,4 +1,5 @@
 ﻿using MyNeuralNetwork.Domain.Entities.Nets.Generators;
+using MyNeuralNetwork.Domain.Entities.Nets.Generators.Supports;
 using MyNeuralNetwork.Domain.Entities.Nets.IO.Inputs;
 using MyNeuralNetwork.Domain.Entities.Nets.Networks.Circuits.Forward;
 using MyNeuralNetwork.Domain.Entities.Nets.Neurons;
@@ -18,7 +19,7 @@ namespace MyNeuralNetwork.Domain.Tests.Entities.Nets.Circuits.Foward
             neuronGenerator.WeightConfiguration.SetMaxAndMin(1, 1);
             neuronGenerator.BiasConfiguration.SetMaxAndMin(0, 0);
 
-            NNGenerator nngen = new(neuronGenerator);
+            NNGenerator nngen = new(neuronGenerator, new LayersLinker());
             FeedForward feedFoward = new();
             var neuralNetwork = nngen.Generate<SynapseManager, ActivationTester>(new int[] {1, 1, 1});
             Assert.That(neuralNetwork.Layers.Last().Output.Count, Is.EqualTo(0));

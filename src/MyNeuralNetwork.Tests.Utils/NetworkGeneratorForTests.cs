@@ -1,4 +1,5 @@
 ﻿using MyNeuralNetwork.Domain.Entities.Nets.Generators;
+using MyNeuralNetwork.Domain.Entities.Nets.Generators.Supports;
 using MyNeuralNetwork.Domain.Entities.Nets.Networks;
 using MyNeuralNetwork.Domain.Entities.Nets.Neurons;
 using MyNeuralNetwork.Domain.Entities.Nets.Neurons.Parts;
@@ -17,7 +18,7 @@ namespace MyNeuralNetwork.Tests.Utils
                 neuronGenerator.BiasConfiguration.SetMaxAndMin(0, 0);
             }
 
-            var nNGenerator = new NNGenerator(neuronGenerator);
+            var nNGenerator = new NNGenerator(neuronGenerator, new LayersLinker());
             var network = nNGenerator.Generate<SynapseManager, ActivationTester>(sizeOfLayers);
 
             return network;

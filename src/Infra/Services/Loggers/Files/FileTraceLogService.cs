@@ -1,7 +1,7 @@
 ﻿using MyNeuralNetwork.Domain.Interfaces.Services.Logs;
 using System.IO;
 
-namespace Core.Infra.Services.Logs.Files
+namespace Core.Infra.Services.Loggers.Files
 {
     public class FileTraceLogService : ITraceLog
     {

@@ -1,6 +1,8 @@
-﻿using MyNeuralNetwork.Domain.Entities.Nets.Collections.Neurons;
+﻿using MyNeuralNetwork.Domain.Dtos.Entities.Nets.Neurons;
+using MyNeuralNetwork.Domain.Entities.Nets.Collections.Neurons;
 using MyNeuralNetwork.Domain.Entities.Nets.Neurons.Parts;
 using MyNeuralNetwork.Domain.Interfaces.Neurons.Activations;
+using System.Collections.Generic;
 
 namespace MyNeuralNetwork.Domain.Interfaces.Neurons
 {
@@ -12,5 +14,6 @@ namespace MyNeuralNetwork.Domain.Interfaces.Neurons
 
         NeuronCollection Generate<ISynapseManagerImplementation, IActivatorImplementation>(int quantity);
         NeuronCollection Generate<ISynapseManagerImplementation>(int quantity, IActivator activator);
+        NeuronCollection Generate<ISynapseManagerImplementation>(List<NeuronDto> neuronsDto);
     }
 }

@@ -1,15 +1,9 @@
 ﻿using MyNeuralNetwork.Domain.Entities.Nets.Generators;
-using MyNeuralNetwork.Domain.Entities.Nets.IO.Inputs;
+using MyNeuralNetwork.Domain.Entities.Nets.Generators.Supports;
 using MyNeuralNetwork.Domain.Entities.Nets.Networks;
 using MyNeuralNetwork.Domain.Entities.Nets.Neurons;
-using MyNeuralNetwork.Domain.Entities.Nets.Neurons.Activations;
-using MyNeuralNetwork.Domain.Entities.Nets.Neurons.Parts;
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MyNeuralNetwork.Domain.Tests.Nets.Networks
 {
@@ -22,7 +16,7 @@ namespace MyNeuralNetwork.Domain.Tests.Nets.Networks
         [SetUp]
         public void Setup()
         {
-            _nNGenerator = new NNGenerator(new NeuronGenerator());
+            _nNGenerator = new NNGenerator(new NeuronGenerator(), new LayersLinker());
             _neuralNetwork = _nNGenerator.GenerateDefault(formatLayers);
         }
 
@@ -133,7 +127,7 @@ namespace MyNeuralNetwork.Domain.Tests.Nets.Networks
             Assert.That(neuronGenerator.WeightConfiguration.MinimumRange, Is.EqualTo(min));
             Assert.That(neuronGenerator.WeightConfiguration.MaximumRange, Is.EqualTo(max));
 
-            var nNGen = new NNGenerator(neuronGenerator);
+            var nNGen = new NNGenerator(neuronGenerator, new LayersLinker());
 
             var neuronNetwork = nNGen.GenerateDefault(new int[] { 1, 1 });
 
@@ -157,7 +151,7 @@ namespace MyNeuralNetwork.Domain.Tests.Nets.Networks
             Assert.That(neuronGenerator.BiasConfiguration.MinimumRange, Is.EqualTo(min));
             Assert.That(neuronGenerator.BiasConfiguration.MaximumRange, Is.EqualTo(max));
 
-            var nNGen = new NNGenerator(neuronGenerator);
+            var nNGen = new NNGenerator(neuronGenerator, new LayersLinker());
 
             var neuronNetwork = nNGen.GenerateDefault(new int[] { 1, 1 });
 

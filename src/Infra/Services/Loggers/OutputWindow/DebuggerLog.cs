@@ -1,7 +1,7 @@
 ﻿using MyNeuralNetwork.Domain.Interfaces.Services.Logs;
 using System.Diagnostics;
 
-namespace Core.Infra.Services.Logs.OutputWindow
+namespace Core.Infra.Services.Loggers.OutputWindow
 {
     public class DebuggerLog : ITraceLog
     {

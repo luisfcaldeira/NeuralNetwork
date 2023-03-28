@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Core.Infra.Services.Persistences;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MyNeuralNetwork.Domain.Dtos.Entities.Nets;
@@ -12,11 +11,11 @@ using MyNeuralNetwork.Domain.Entities.Commons.Fields.Numerics;
 using MyNeuralNetwork.Domain.Entities.Nets;
 using MyNeuralNetwork.Domain.Entities.Nets.Layers;
 using MyNeuralNetwork.Domain.Entities.Nets.Networks;
-using MyNeuralNetwork.Domain.Entities.Nets.Networks.Circuits.Forward;
 using MyNeuralNetwork.Domain.Entities.Nets.Neurons;
 using MyNeuralNetwork.Domain.Entities.Nets.Neurons.Parts;
 using MyNeuralNetwork.Domain.Interfaces.Networks;
 using MyNeuralNetwork.Domain.Interfaces.Networks.Circuits.Forward;
+using MyNeuralNetwork.Domain.Interfaces.Neurons.Activations;
 using MyNeuralNetwork.Domain.Interfaces.Neurons.Parts;
 using MyNeuralNetwork.Domain.Interfaces.Services.Persistences;
 using System;
@@ -56,16 +55,16 @@ namespace Core.Infra.IoC.Mappers
                             cfg.CreateMap<NeuralFloatValue, float>().ConvertUsing(f => f.Value);
                             cfg.CreateMap<float, NeuralFloatValue>().ConvertUsing(f => new NeuralFloatValue(f));
 
-                            cfg.CreateMap<Nothing, NothingDto>();
                             cfg.CreateMap<Neuron, NeuronDto>();
+
+                            cfg.CreateMap<IActivator, string>().ConstructUsing(c => c.GetType().FullName);
 
                             cfg.CreateMap<ISynapseManager, SynapseManagerDto>();
 
-                            cfg.CreateMap<NeuralNetwork, NeuralNetworkDto>();
                             cfg.CreateMap<INeuralNetwork, NeuralNetworkDto>();
 
                             cfg.CreateMap<Layer, LayerDto>();
-                            cfg.CreateMap<Synapse, SynapseDto>();
+                            cfg.CreateMap<Synapse, SynapseDto>().ForMember(s => s.TargetGuid, opt => opt.MapFrom((x) => x.NeuronSource.Index));
                         });
                         var executionPlan = mapperConfiguration.BuildExecutionPlan(typeof(NeuralNetwork), typeof(NeuralNetworkDto));
 

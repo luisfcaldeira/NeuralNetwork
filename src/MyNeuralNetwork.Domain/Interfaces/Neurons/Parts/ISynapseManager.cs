@@ -1,4 +1,5 @@
-﻿using MyNeuralNetwork.Domain.Entities.Commons.Fields.Numerics;
+﻿using MyNeuralNetwork.Domain.Dtos.Entities.Nets.Neurons;
+using MyNeuralNetwork.Domain.Entities.Commons.Fields.Numerics;
 using MyNeuralNetwork.Domain.Entities.Nets.Neurons;
 using MyNeuralNetwork.Domain.Entities.Nets.Neurons.Parts;
 using System.Collections.Generic;
@@ -16,5 +17,6 @@ namespace MyNeuralNetwork.Domain.Interfaces.Neurons.Parts
         Synapse GetSynapse(Neuron neighborNeuron);
         NeuralDoubleValue GetWeightFor(Neuron neighborNeuron);
         void TransmitTo(Neuron target);
+        void ChangeWeights(List<NeuronDto> neuronsDto);
     }
 }

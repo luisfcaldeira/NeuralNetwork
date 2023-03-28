@@ -1,4 +1,5 @@
-﻿using MyNeuralNetwork.Domain.Entities.Nets.Collections.Layers;
+﻿using MyNeuralNetwork.Domain.Dtos.Entities.Nets.Networks;
+using MyNeuralNetwork.Domain.Entities.Nets.Collections.Layers;
 using MyNeuralNetwork.Domain.Entities.Nets.IO.Inputs;
 using MyNeuralNetwork.Domain.Entities.Nets.Layers;
 using MyNeuralNetwork.Domain.Interfaces.Networks;
@@ -14,7 +15,10 @@ namespace MyNeuralNetwork.Domain.Entities.Nets.Networks
         public LayerCollection Layers { get; protected set; }
         protected ICircuitForward _circuitForward;
 
-        protected NeuralNetwork() { }
+        public NeuralNetwork(NeuralNetworkDto neuralNetworkDto) 
+        { 
+            Layers = new LayerCollection();
+        }
 
         public NeuralNetwork(LayerCollection layers, ICircuitForward circuitForward)
         {
