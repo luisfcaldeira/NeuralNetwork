@@ -1,15 +1,15 @@
-﻿using MyNeuralNetwork.Domain.Interfaces.Services.Logs;
+﻿using MyNeuralNetwork.Domain.Interfaces.Services.Loggers;
 using System.IO;
 
 namespace Core.Infra.Services.Loggers.Files
 {
-    public class FileTraceLogService : ITraceLog
+    public class FileTraceLoggerService : ITraceLogger
     {
         public string FileName { get; } = "log.txt";
 
-        public FileTraceLogService() { }
+        public FileTraceLoggerService() { }
 
-        public FileTraceLogService(string fileName) : this()
+        public FileTraceLoggerService(string fileName) : this()
         {
             FileName = fileName;
         }

@@ -4,7 +4,7 @@ using MyNeuralNetwork.Domain.Entities.Nets.IO.Outputs;
 using MyNeuralNetwork.Domain.Entities.Nets.Networks;
 using MyNeuralNetwork.Domain.Interfaces.Networks.Circuits.Backward;
 using MyNeuralNetwork.Domain.Interfaces.Networks.Circuits.Forward;
-using MyNeuralNetwork.Domain.Interfaces.Services.Logs;
+using MyNeuralNetwork.Domain.Interfaces.Services.Loggers;
 using System.Collections.Generic;
 using System.Diagnostics;
 
@@ -15,12 +15,12 @@ namespace MyNeuralNetwork.Domain.Entities.Nets.Trainers
         private NeuralNetwork _neuralNetwork;
         private readonly ICircuitForward _circuitForward;
         private readonly ICircuitBackward _circuitBackward;
-        private readonly ITraceLog _traceLog;
+        private readonly ITraceLogger _traceLog;
 
         public DataManager DataManager { get; }
         public long TimeOfTraining { get; private set; }
 
-        public Trainer(DataManager dataManager, NeuralNetwork neuralNetwork, ICircuitForward circuitForward, ICircuitBackward circuitBackward, ITraceLog traceLog)
+        public Trainer(DataManager dataManager, NeuralNetwork neuralNetwork, ICircuitForward circuitForward, ICircuitBackward circuitBackward, ITraceLogger traceLog)
         {
             _neuralNetwork = neuralNetwork;
             _circuitForward = circuitForward;

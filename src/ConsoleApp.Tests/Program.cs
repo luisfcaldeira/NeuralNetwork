@@ -14,7 +14,7 @@ using MyNeuralNetwork.Domain.Entities.Nets.Neurons.Parts;
 using MyNeuralNetwork.Domain.Entities.Nets.Trainers;
 using MyNeuralNetwork.Domain.Interfaces.Networks;
 using MyNeuralNetwork.Domain.Interfaces.Neurons.Activations;
-using MyNeuralNetwork.Domain.Interfaces.Services.Logs;
+using MyNeuralNetwork.Domain.Interfaces.Services.Loggers;
 using MyNeuralNetwork.Domain.Interfaces.Services.Persistences;
 using System;
 using System.Collections.Generic;
@@ -33,7 +33,7 @@ namespace ConsoleApp.Tests
             watch.Start();
 
             const int epochs = 100;
-            var traceLog = new DebuggerLog();
+            var traceLog = new DebugLogger();
             for (var i = 0; i < epochs; i++)
             {
                 Fit(exampleNeuralNetwork, traceLog);
@@ -108,7 +108,7 @@ namespace ConsoleApp.Tests
             var nNGen = new NNGenerator(neuronGenerator, new LayersLinker());
             
             var neuralNetwork = nNGen.Generate<SynapseManager>(layers, new IActivator[] {new Tanh(), new Tanh(), new Tanh() });
-            var trainer = new Trainer(dataManager, neuralNetwork, new FeedForward(), new Backpropagation(), new DebuggerLog());
+            var trainer = new Trainer(dataManager, neuralNetwork, new FeedForward(), new Backpropagation(), new DebugLogger());
 
             trainer.Fit(epochs);
 
@@ -117,7 +117,7 @@ namespace ConsoleApp.Tests
             return neuralNetwork;
         }
 
-        private static void Fit(ExampleNeuralNetwork exampleNeuralNetwork, ITraceLog traceLog)
+        private static void Fit(ExampleNeuralNetwork exampleNeuralNetwork, ITraceLogger traceLog)
         {
             exampleNeuralNetwork.FeedForward(new double[] { 0.01f, 0.01f });
             exampleNeuralNetwork.BackPropagate(new double[] { 0.01f, 0.01f }, new double[] { 0.02f });

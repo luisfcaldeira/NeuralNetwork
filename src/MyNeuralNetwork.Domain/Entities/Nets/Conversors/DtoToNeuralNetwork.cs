@@ -56,9 +56,10 @@ namespace MyNeuralNetwork.Domain.Entities.Nets.Conversors
 
         private static void FixIdentity(System.Collections.Generic.List<NeuronDto> neuronsDto, Collections.Neurons.NeuronCollection neurons)
         {
+
             for (int j = 0; j < neurons.Count; j++)
             {
-                neurons[j].ChangeIndex(neuronsDto[j].Guid);
+                neurons[j].ChangeIndex(neuronsDto[j].Index);
             }
         }
 

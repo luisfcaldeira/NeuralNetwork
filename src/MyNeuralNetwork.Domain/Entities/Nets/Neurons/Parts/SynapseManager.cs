@@ -61,13 +61,13 @@ namespace MyNeuralNetwork.Domain.Entities.Nets.Neurons.Parts
         {
             foreach(var neuron in neuronsDto)
             {
-                var synapses = Synapses.Where(s => s.NeuronSource.Index.ToString().Equals(neuron.Guid));
+                var synapses = Synapses.Where(s => s.NeuronSource.Index.Equals(neuron.Index));
                 
                 if(neuron.Synapses != null)
                 {
                     foreach(var synapseDto in neuron.Synapses?.Synapses)
                     {
-                        var synapse = synapses.Where(s => s.NeighborNeuron.Index.ToString().Equals(synapseDto.TargetGuid)).FirstOrDefault();
+                        var synapse = synapses.Where(s => s.NeighborNeuron.Index.Equals(synapseDto.TargetGuid)).FirstOrDefault();
                         synapse?.ChangeWeight(synapseDto.Weight);
                     }
                 }

@@ -14,7 +14,7 @@ namespace MyNeuralNetwork.Domain.Entities.Nets.Neurons
         public const double DeafultLearningRate = 0.01f;
         public NeuralDoubleValue Value { get; set; } = new NeuralDoubleValue();
         private double _tempValue = 0;
-        private static int index = 0;
+        protected static int index = 0;
 
         public int Index { get; private set; }
         public double Bias { get; set; }
@@ -105,6 +105,11 @@ namespace MyNeuralNetwork.Domain.Entities.Nets.Neurons
         internal void ChangeIndex(int i)
         {
             Index = i;
+        }
+
+        internal static void ResetIndex(int i)
+        {
+            index = i;
         }
     }
 }

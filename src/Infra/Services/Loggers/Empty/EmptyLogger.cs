@@ -1,8 +1,8 @@
-﻿using MyNeuralNetwork.Domain.Interfaces.Services.Logs;
+﻿using MyNeuralNetwork.Domain.Interfaces.Services.Loggers;
 
 namespace Core.Infra.Services.Loggers.Empty
 {
-    public class EmptyLog : ITraceLog
+    public class EmptyLogger : ITraceLogger
     {
         public void Log(object message)
         {

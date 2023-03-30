@@ -2,13 +2,10 @@
 using MyNeuralNetwork.Domain.Dtos.Entities.Nets.Networks;
 using MyNeuralNetwork.Domain.Dtos.Entities.Nets.Neurons;
 using MyNeuralNetwork.Domain.Dtos.Entities.Nets.Neurons.Parts;
-using MyNeuralNetwork.Domain.Entities.Nets.Collections.Neurons;
 using MyNeuralNetwork.Domain.Entities.Nets.Conversors;
 using MyNeuralNetwork.Domain.Entities.Nets.Generators.Supports;
-using MyNeuralNetwork.Domain.Entities.Nets.Layers;
 using MyNeuralNetwork.Domain.Entities.Nets.Neurons.Activations;
 using NUnit.Framework;
-using System;
 using System.Collections.Generic;
 using System.Reflection;
 
@@ -65,7 +62,7 @@ namespace MyNeuralNetwork.Domain.Tests.Entities.Nets.Conversors
 
         private static NeuralNetworkDto GenerateDto()
         {
-            int targetGuid = 2;
+            int targetIndex = 2;
             var layer1 = new LayerDto()
             {
                 Label = 0,
@@ -73,7 +70,7 @@ namespace MyNeuralNetwork.Domain.Tests.Entities.Nets.Conversors
                         {
                             new NeuronDto()
                             {
-                                Guid = 1,
+                                Index = 1,
                                 Activator = GetActivatorFullName(),
                                 Bias = 0.55,
                                 LearningRate = 0.1,
@@ -83,7 +80,7 @@ namespace MyNeuralNetwork.Domain.Tests.Entities.Nets.Conversors
                                         new SynapseDto()
                                         {
                                             Weight = 0.789,
-                                            TargetGuid = targetGuid,
+                                            TargetGuid = targetIndex,
                                         }
                                     }
                                 }
@@ -98,7 +95,7 @@ namespace MyNeuralNetwork.Domain.Tests.Entities.Nets.Conversors
                         {
                             new NeuronDto()
                             {
-                                Guid = targetGuid,
+                                Index = targetIndex,
                                 Activator = GetActivatorFullName(),
                                 Bias = 0.44,
                                 LearningRate = 0.1,
