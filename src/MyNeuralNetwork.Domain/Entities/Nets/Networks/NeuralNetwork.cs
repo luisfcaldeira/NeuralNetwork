@@ -1,5 +1,4 @@
-﻿using MyNeuralNetwork.Domain.Dtos.Entities.Nets.Networks;
-using MyNeuralNetwork.Domain.Entities.Nets.Collections.Layers;
+﻿using MyNeuralNetwork.Domain.Entities.Nets.Collections.Layers;
 using MyNeuralNetwork.Domain.Entities.Nets.IO.Inputs;
 using MyNeuralNetwork.Domain.Entities.Nets.Layers;
 using MyNeuralNetwork.Domain.Interfaces.Networks;
@@ -12,10 +11,11 @@ namespace MyNeuralNetwork.Domain.Entities.Nets.Networks
 {
     public class NeuralNetwork : INeuralNetwork
     {
+        public double Fitness { get; set; }
         public LayerCollection Layers { get; protected set; }
         protected ICircuitForward _circuitForward;
 
-        public NeuralNetwork(NeuralNetworkDto neuralNetworkDto) 
+        public NeuralNetwork() 
         { 
             Layers = new LayerCollection();
         }
@@ -59,5 +59,19 @@ namespace MyNeuralNetwork.Domain.Entities.Nets.Networks
 
             return stringBuilder.ToString();
         }
+
+        public int CompareTo(INeuralNetwork other)
+        {
+            if (other == null) return 1;
+
+            if (Fitness > other.Fitness)
+                return 1;
+
+            if (Fitness < other.Fitness)
+                return -1;
+
+            return 0;
+        }
+
     }
 }

@@ -8,10 +8,13 @@ using MyNeuralNetwork.Domain.Entities.Nets.Neurons;
 using MyNeuralNetwork.Domain.Entities.Nets.Neurons.Activations;
 using MyNeuralNetwork.Domain.Entities.Nets.Neurons.Parts;
 using MyNeuralNetwork.Domain.Entities.Nets.Trainers;
+using MyNeuralNetwork.Domain.Interfaces.Networks;
 using MyNeuralNetwork.Domain.Tests.Entities.Support;
 using MyNeuralNetwork.Tests.Utils;
 using MyNeuralNetwork.Tests.Utils.Activations;
 using NUnit.Framework;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace MyNeuralNetwork.Domain.Tests.Entities.Nets.Networks
 {
@@ -86,6 +89,29 @@ namespace MyNeuralNetwork.Domain.Tests.Entities.Nets.Networks
             var result4 = neuralNetwork.Predict(new Input[] { new Input(1), new Input(1) });
             Assert.That(result4[0], Is.LessThan(0.1));
             TestContext.WriteLine(result4[0]);
+        }
+
+        [Test]
+        public void TestIfItIsSortedCorrectly()
+        {
+            var ngen = new NeuronGenerator();
+            var nngen = new NNGenerator(ngen, new LayersLinker());
+            var fitnessWinnerNet = nngen.Generate<SynapseManager, Tanh>(new int[] { 2, 6, 1 });
+            fitnessWinnerNet.Fitness = 1000;
+            var nets = new List<INeuralNetwork>() { 
+                fitnessWinnerNet,
+                nngen.Generate<SynapseManager, Tanh>(new int[] { 2, 6, 1 }),
+                nngen.Generate<SynapseManager, Tanh>(new int[] { 2, 6, 1 }),
+                nngen.Generate<SynapseManager, Tanh>(new int[] { 2, 6, 1 }),
+                nngen.Generate<SynapseManager, Tanh>(new int[] { 2, 6, 1 }),
+                nngen.Generate<SynapseManager, Tanh>(new int[] { 2, 6, 1 }),
+            };
+
+            Assert.That(nets.Last().Fitness, Is.Not.EqualTo(1000));
+
+            nets.Sort();
+
+            Assert.That(nets.Last().Fitness, Is.EqualTo(1000));
         }
 
     }

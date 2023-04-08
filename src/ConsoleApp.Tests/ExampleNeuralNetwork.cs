@@ -1,6 +1,5 @@
 ﻿using MyNeuralNetwork.Domain.Entities.Nets.Collections.Layers;
 using MyNeuralNetwork.Domain.Entities.Nets.IO.Inputs;
-using MyNeuralNetwork.Domain.Entities.Nets.Networks;
 using MyNeuralNetwork.Domain.Entities.Support;
 using MyNeuralNetwork.Domain.Interfaces.Networks;
 using MyNeuralNetwork.Domain.Interfaces.Networks.Circuits.Backward;
@@ -12,7 +11,7 @@ using System.Text;
 
 namespace ConsoleApp.Tests
 {
-    public class ExampleNeuralNetwork : IComparable<ExampleNeuralNetwork>, INeuralNetwork
+    public class ExampleNeuralNetwork : IComparable<INeuralNetwork>, INeuralNetwork
     {
         //fundamental 
         private int[] layers;//layers
@@ -23,6 +22,18 @@ namespace ConsoleApp.Tests
 
         //genetic
         public double fitness = 0;//fitness
+
+        public double Fitness
+        {
+            get
+            {
+                return fitness;
+            }
+            set
+            {
+                this.fitness = value;
+            }
+        }
 
         //backprop
         public double learningRate = 0.01f;//learning rate
@@ -318,13 +329,13 @@ namespace ConsoleApp.Tests
             }
         }
 
-        public int CompareTo(ExampleNeuralNetwork other) //Comparing For NeuralNetworks performance.
+        public int CompareTo(INeuralNetwork other) //Comparing For NeuralNetworks performance.
         {
             if (other == null) return 1;
 
-            if (fitness > other.fitness)
+            if (Fitness > other.Fitness)
                 return 1;
-            else if (fitness < other.fitness)
+            else if (Fitness < other.Fitness)
                 return -1;
             else
                 return 0;

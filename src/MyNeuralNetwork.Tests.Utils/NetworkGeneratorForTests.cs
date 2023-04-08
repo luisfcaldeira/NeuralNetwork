@@ -9,13 +9,19 @@ namespace MyNeuralNetwork.Tests.Utils
 {
     public class NetworkGeneratorForTests
     {
+
+        public static double FixedMaxWeight = 1;
+        public static double FixedMinWeight = 1;
+        public static double FixedMaxBias = 0;
+        public static double FixedMinBias = 0;
+
         public static NeuralNetwork GiveMeOne(int[] sizeOfLayers, bool random=true)
         {
             var neuronGenerator = new NeuronGenerator();
             if(!random)
             {
-                neuronGenerator.WeightConfiguration.SetMaxAndMin(1, 1);
-                neuronGenerator.BiasConfiguration.SetMaxAndMin(0, 0);
+                neuronGenerator.WeightConfiguration.SetMaxAndMin(FixedMinWeight, FixedMaxWeight);
+                neuronGenerator.BiasConfiguration.SetMaxAndMin(FixedMinBias, FixedMaxBias);
             }
 
             var nNGenerator = new NNGenerator(neuronGenerator, new LayersLinker());

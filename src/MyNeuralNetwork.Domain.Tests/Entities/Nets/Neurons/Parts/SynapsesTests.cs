@@ -1,6 +1,8 @@
-﻿using MyNeuralNetwork.Domain.Entities.Nets.IO.Inputs;
+﻿using MyNeuralNetwork.Domain.Entities.Commons.Fields.Numerics;
+using MyNeuralNetwork.Domain.Entities.Nets.IO.Inputs;
 using MyNeuralNetwork.Domain.Entities.Nets.Layers;
 using MyNeuralNetwork.Domain.Entities.Nets.Neurons;
+using MyNeuralNetwork.Domain.Entities.Nets.Neurons.Activations;
 using MyNeuralNetwork.Domain.Entities.Nets.Neurons.Parts;
 using MyNeuralNetwork.Tests.Utils.Activations;
 using NUnit.Framework;
@@ -13,14 +15,16 @@ namespace MyNeuralNetwork.Domain.Tests.Entities.Nets.Neurons.Parts
         public void TestIfItSumWeightsCorrectly()
         {
             int weightValue = 2;
+            float biasValue = 1f;
+
             var neuronGenerator = new NeuronGenerator();
             neuronGenerator.WeightConfiguration.SetMaxAndMin(weightValue, weightValue);
-            float biasValue = 1f;
             neuronGenerator.BiasConfiguration.SetMaxAndMin(biasValue, biasValue);
 
             var layerCounter = new LayerCounter();
             var layer1 = new Layer(layerCounter, neuronGenerator.Generate<SynapseManager, ActivationTester>(5));
             var layer2 = new Layer(layerCounter, neuronGenerator.Generate<SynapseManager, ActivationTester>(5));
+
             var commitMethod = layer2.Neurons[0].GetType().GetMethod("Commit", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
 
             Assert.That(commitMethod, Is.Not.Null);
@@ -86,6 +90,32 @@ namespace MyNeuralNetwork.Domain.Tests.Entities.Nets.Neurons.Parts
             commitMethod.Invoke(layer2.Neurons[0], null);
 
             Assert.That(layer2.Neurons[0].Value.Value, Is.EqualTo((input1.Value + input2.Value + input3.Value + input4.Value + input5.Value) * weightValue + biasValue));
+        }
+
+        [Test]
+        public void TestIfItMutates()
+        {
+            var synapseToMutate = new SynapseManager();
+            var synapseSource = new SynapseManager();
+            synapseSource.WeightConfiguration.SetMaxAndMin(0.4d, 0.4d);
+
+            var neuronSource = new Neuron(new Tanh(), new NeuralDoubleValue(1), synapseToMutate);
+            var neuronTarget = new Neuron(new Tanh(), new NeuralDoubleValue(1), synapseToMutate);
+            synapseToMutate.Add(neuronSource, neuronTarget);
+
+            TestContext.Write("Value of target synapse: ");
+            TestContext.WriteLine(synapseToMutate.Synapses[0].Weight.Value);
+
+            var neuronSource1 = new Neuron(new Tanh(), new NeuralDoubleValue(0.3), synapseSource);
+            var neuronTarget2 = new Neuron(new Tanh(), new NeuralDoubleValue(0.3), synapseSource);
+            synapseSource.Add(neuronSource1, neuronTarget2);
+
+            TestContext.Write("Value of source synapse: ");
+            TestContext.WriteLine(synapseSource.Synapses[0].Weight.Value);
+
+            synapseToMutate.Mutate(synapseSource);
+
+            Assert.That(synapseToMutate.Synapses[0].Weight.Value, Is.EqualTo(0.4d));
         }
     }
 }

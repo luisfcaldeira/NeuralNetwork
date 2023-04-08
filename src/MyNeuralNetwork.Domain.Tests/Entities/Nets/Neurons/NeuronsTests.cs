@@ -11,11 +11,6 @@ namespace MyNeuralNetwork.Domain.Tests.Nets.Neurons
 {
     public class NeuronsTests
     {
-        [SetUp]
-        public void Setup()
-        {
-        }
-
         [Test]
         public void TestIfValuePassThroughNeuron()
         {
@@ -66,6 +61,22 @@ namespace MyNeuralNetwork.Domain.Tests.Nets.Neurons
             TestContext.WriteLine(value);
 
             Assert.That(value, Is.EqualTo(bias + trasmition));
+        }
+
+        [Test]
+        public void TestIfItMutates()
+        {
+            var neuron = MakeANeuron();
+            var neuron2 = new Neuron(new ActivationTester(), new NeuralDoubleValue(0.5), new SynapseManager());
+
+            var method = neuron.GetType().GetMethod("Mutate", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+            Assert.That(method, Is.Not.Null);
+
+            Assert.That(neuron.Bias, Is.Not.EqualTo(0.5));
+
+            method.Invoke(neuron, new object[] { 1, neuron2 });
+
+            Assert.That(neuron.Bias, Is.EqualTo(0.5));
         }
     }
 }

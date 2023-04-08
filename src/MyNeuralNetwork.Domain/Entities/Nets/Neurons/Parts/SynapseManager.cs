@@ -73,5 +73,13 @@ namespace MyNeuralNetwork.Domain.Entities.Nets.Neurons.Parts
                 }
             }
         }
+
+        public void Mutate(ISynapseManager synapses)
+        {
+            for(var i = 0; i < Synapses.Count; i++)
+            {
+                Synapses[i].Weight = synapses.Synapses[i].Weight;
+            }
+        }
     }
 }

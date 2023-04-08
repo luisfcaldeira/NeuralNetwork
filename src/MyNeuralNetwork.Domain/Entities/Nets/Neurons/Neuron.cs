@@ -1,6 +1,7 @@
 ﻿using MyNeuralNetwork.Domain.Entities.Commons.Fields.Numerics;
 using MyNeuralNetwork.Domain.Entities.Nets.IO.Inputs;
 using MyNeuralNetwork.Domain.Entities.Nets.Neurons.Parts;
+using MyNeuralNetwork.Domain.Entities.Support;
 using MyNeuralNetwork.Domain.Interfaces.Neurons.Activations;
 using MyNeuralNetwork.Domain.Interfaces.Neurons.Parts;
 using System;
@@ -110,6 +111,15 @@ namespace MyNeuralNetwork.Domain.Entities.Nets.Neurons
         internal static void ResetIndex(int i)
         {
             index = i;
+        }
+
+        internal void Mutate(double chanceOfMutate, Neuron neuron)
+        {
+            if(MyRandom.Range(0, 1) < chanceOfMutate)
+            {
+                Bias = neuron.Bias;
+                Synapses.Mutate(neuron.Synapses);
+            }
         }
     }
 }

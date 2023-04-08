@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MyNeuralNetwork.Domain.Entities.Nets.Neurons.Parts
+﻿namespace MyNeuralNetwork.Domain.Entities.Nets.Neurons.Parts
 {
     public class RangeConfiguration
     {
-        public float MinimumRange { get; set; } = -0.5f;
-        public float MaximumRange { get; set; } = 0.5f;
+        public double MinimumRange { get; set; } = -0.5f;
+        public double MaximumRange { get; set; } = 0.5f;
 
         public RangeConfiguration()
         {
@@ -22,7 +16,7 @@ namespace MyNeuralNetwork.Domain.Entities.Nets.Neurons.Parts
             MaximumRange = maximumRange;
         }
 
-        public void SetMaxAndMin(float newMin, float newMax)
+        public void SetMaxAndMin(double newMin, double newMax)
         {
             MinimumRange = newMin;
             MaximumRange = newMax;
