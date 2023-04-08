@@ -18,6 +18,6 @@ namespace MyNeuralNetwork.Domain.Interfaces.Neurons.Parts
         NeuralDoubleValue GetWeightFor(Neuron neighborNeuron);
         void TransmitTo(Neuron target);
         void ChangeWeights(List<NeuronDto> neuronsDto);
-        void Mutate(ISynapseManager synapses);
+        void Mutate(ISynapseManager synapses, double min = -0.01, double max = 0.01);
     }
 }

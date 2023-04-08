@@ -8,6 +8,7 @@ namespace MyNeuralNetwork.Domain.Interfaces.Networks
     {
         double Fitness { get; set; }
         LayerCollection Layers { get; }
+        int CounterOfMutations { get; set; }
 
         double[] Predict(Input[] inputs);
     }

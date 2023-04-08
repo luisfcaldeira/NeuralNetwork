@@ -31,7 +31,6 @@ namespace MyNeuralNetwork.Domain.Tests.Entities.Nets.Networks
             }
         }
 
-
         [Test]
         public void TestIfPredictFunctionWorks()
         {
@@ -57,13 +56,24 @@ namespace MyNeuralNetwork.Domain.Tests.Entities.Nets.Networks
 
             var dataManager = new DataManager();
 
-            dataManager.Inputs(2).AddInput(1).AddInput(1);
+            dataManager.Inputs(2)
+                .AddInput(1)
+                .AddInput(1);
             dataManager.Expecteds(1).AddExpected(0);
-            dataManager.Inputs(2).AddInput(0).AddInput(1);
+
+            dataManager.Inputs(2)
+                .AddInput(0)
+                .AddInput(1);
             dataManager.Expecteds(1).AddExpected(1);
-            dataManager.Inputs(2).AddInput(1).AddInput(0);
+
+            dataManager.Inputs(2)
+                .AddInput(1)
+                .AddInput(0);
             dataManager.Expecteds(1).AddExpected(1);
-            dataManager.Inputs(2).AddInput(0).AddInput(0);
+
+            dataManager.Inputs(2)
+                .AddInput(0)
+                .AddInput(0);
             dataManager.Expecteds(1).AddExpected(0);
 
             var trainer = new Trainer(dataManager, neuralNetwork, new FeedForward(), new Backpropagation(), new TestLogger(10000));
@@ -113,6 +123,5 @@ namespace MyNeuralNetwork.Domain.Tests.Entities.Nets.Networks
 
             Assert.That(nets.Last().Fitness, Is.EqualTo(1000));
         }
-
     }
 }

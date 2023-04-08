@@ -1,5 +1,6 @@
 ﻿using MyNeuralNetwork.Domain.Dtos.Entities.Nets.Neurons;
 using MyNeuralNetwork.Domain.Entities.Commons.Fields.Numerics;
+using MyNeuralNetwork.Domain.Entities.Support;
 using MyNeuralNetwork.Domain.Interfaces.Neurons.Parts;
 using System.Collections.Generic;
 using System.Linq;
@@ -74,11 +75,11 @@ namespace MyNeuralNetwork.Domain.Entities.Nets.Neurons.Parts
             }
         }
 
-        public void Mutate(ISynapseManager synapses)
+        public void Mutate(ISynapseManager synapses, double min = -0.01, double max = 0.01)
         {
             for(var i = 0; i < Synapses.Count; i++)
             {
-                Synapses[i].Weight = synapses.Synapses[i].Weight;
+                Synapses[i].Weight.Value = synapses.Synapses[i].Weight.Value + MyRandom.Range(min, max); ;
             }
         }
     }

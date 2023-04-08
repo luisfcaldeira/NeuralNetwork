@@ -113,9 +113,17 @@ namespace MyNeuralNetwork.Domain.Tests.Entities.Nets.Neurons.Parts
             TestContext.Write("Value of source synapse: ");
             TestContext.WriteLine(synapseSource.Synapses[0].Weight.Value);
 
-            synapseToMutate.Mutate(synapseSource);
+            TestContext.WriteLine("-`'´- mutate -`'´-");
+            synapseToMutate.Mutate(synapseSource, -1, 1);
 
-            Assert.That(synapseToMutate.Synapses[0].Weight.Value, Is.EqualTo(0.4d));
+            TestContext.Write("Value of target synapse: ");
+            TestContext.WriteLine(synapseToMutate.Synapses[0].Weight.Value);
+
+            TestContext.Write("Value of source synapse: ");
+            TestContext.WriteLine(synapseSource.Synapses[0].Weight.Value);
+
+            Assert.That(synapseToMutate.Synapses[0].Weight.Value, Is.AtLeast(0.4d - 1));
+            Assert.That(synapseToMutate.Synapses[0].Weight.Value, Is.AtMost(0.4d + 1));
         }
     }
 }

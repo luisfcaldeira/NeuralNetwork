@@ -6,20 +6,41 @@ namespace MyNeuralNetwork.Domain.Entities.Nets.Trainers.Genetics
 {
     public class GeneticTrainer
     {
+        public Mutater Mutater { get; }
 
-        public GeneticTrainer(double chance)
+        public GeneticTrainer(Mutater mutater)
         {
-            Mutater.ChanceOfMutate = chance;
+            Mutater = mutater;
+        }
+
+        public static INeuralNetwork GetTheBestOne(IList<INeuralNetwork> neuralNetworks)
+        {
+            return OrderList(neuralNetworks).First();
         }
 
         public void Mutate(IList<INeuralNetwork> neuralNetworks)
         {
-            var orderedNeuralNetworks = neuralNetworks.OrderByDescending(x => x.Fitness).ToList();
+            List<INeuralNetwork> orderedNeuralNetworks = OrderList(neuralNetworks);
 
-            for(var i = 1; i < orderedNeuralNetworks.Count(); i++)
+            Itarate(orderedNeuralNetworks);
+        }
+
+        private static List<INeuralNetwork> OrderList(IList<INeuralNetwork> neuralNetworks)
+        {
+            return neuralNetworks.OrderBy(x => x.Fitness).ToList();
+        }
+
+        private void Itarate(List<INeuralNetwork> orderedNeuralNetworks)
+        {
+            for (var i = 1; i < orderedNeuralNetworks.Count; i++)
             {
-                Mutater.Mutate(orderedNeuralNetworks[i], orderedNeuralNetworks[0]);
+                Mutate(orderedNeuralNetworks[i], orderedNeuralNetworks[0]);
             }
+        }
+
+        private void Mutate(INeuralNetwork target, INeuralNetwork source)
+        {
+            Mutater.Mutate(target, source);
         }
     }
 }

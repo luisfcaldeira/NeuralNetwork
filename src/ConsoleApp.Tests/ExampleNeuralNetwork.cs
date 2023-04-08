@@ -13,6 +13,7 @@ namespace ConsoleApp.Tests
 {
     public class ExampleNeuralNetwork : IComparable<INeuralNetwork>, INeuralNetwork
     {
+        int INeuralNetwork.CounterOfMutations { get; set; }
         //fundamental 
         private int[] layers;//layers
         public double[][] neurons;//neurons
@@ -48,6 +49,7 @@ namespace ConsoleApp.Tests
         public ICircuitForward CircuitForward => throw new NotImplementedException();
 
         public ICircuitBackward CircuitBackward => throw new NotImplementedException();
+
 
         public ExampleNeuralNetwork(int[] layers, string[] layerActivations)
         {

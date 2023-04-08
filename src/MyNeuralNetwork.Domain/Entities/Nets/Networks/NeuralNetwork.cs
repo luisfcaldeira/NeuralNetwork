@@ -13,6 +13,8 @@ namespace MyNeuralNetwork.Domain.Entities.Nets.Networks
     {
         public double Fitness { get; set; }
         public LayerCollection Layers { get; protected set; }
+        public int CounterOfMutations { get; set; } = 0;
+
         protected ICircuitForward _circuitForward;
 
         public NeuralNetwork() 

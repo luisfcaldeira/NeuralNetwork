@@ -74,7 +74,7 @@ namespace MyNeuralNetwork.Domain.Tests.Nets.Neurons
 
             Assert.That(neuron.Bias, Is.Not.EqualTo(0.5));
 
-            method.Invoke(neuron, new object[] { 1, neuron2 });
+            method.Invoke(neuron, new object[] { neuron2, 0, 0 });
 
             Assert.That(neuron.Bias, Is.EqualTo(0.5));
         }

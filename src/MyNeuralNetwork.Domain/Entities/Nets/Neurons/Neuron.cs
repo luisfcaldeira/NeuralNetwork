@@ -113,13 +113,10 @@ namespace MyNeuralNetwork.Domain.Entities.Nets.Neurons
             index = i;
         }
 
-        internal void Mutate(double chanceOfMutate, Neuron neuron)
+        internal void Mutate(Neuron neuron, double min = -0.01, double max = 0.01)
         {
-            if(MyRandom.Range(0, 1) < chanceOfMutate)
-            {
-                Bias = neuron.Bias;
-                Synapses.Mutate(neuron.Synapses);
-            }
+            Bias = neuron.Bias + MyRandom.Range(min, max);
+            Synapses.Mutate(neuron.Synapses);
         }
     }
 }
