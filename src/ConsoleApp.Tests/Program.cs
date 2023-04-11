@@ -1,16 +1,15 @@
-﻿using MyNeuralNetwork.Domain.Entities.Nets.Generators.Supports;
-using MyNeuralNetwork.Domain.Entities.Nets.Generators;
+﻿using MyNeuralNetwork.Domain.Entities.Nets.Generators;
+using MyNeuralNetwork.Domain.Entities.Nets.Generators.Supports;
 using MyNeuralNetwork.Domain.Entities.Nets.IO.Inputs;
-using MyNeuralNetwork.Domain.Entities.Nets.Neurons.Parts;
-using Plotly.NET.LayoutObjects;
+using MyNeuralNetwork.Domain.Entities.Nets.IO.Managers;
+using MyNeuralNetwork.Domain.Entities.Nets.Networks.Circuits.Backward;
+using MyNeuralNetwork.Domain.Entities.Nets.Networks.Circuits.Forward;
 using MyNeuralNetwork.Domain.Entities.Nets.Neurons;
 using MyNeuralNetwork.Domain.Entities.Nets.Neurons.Activations;
+using MyNeuralNetwork.Domain.Entities.Nets.Neurons.Parts;
 using MyNeuralNetwork.Domain.Entities.Nets.Trainers;
-using MyNeuralNetwork.Domain.Entities.Nets.Networks.Circuits.Forward;
-using MyNeuralNetwork.Domain.Entities.Nets.Networks.Circuits.Backward;
-using MyNeuralNetwork.Domain.Entities.Nets.IO.Managers;
-using System;
 using MyNeuralNetwork.Domain.Interfaces.Networks;
+using System;
 
 namespace ConsoleApp.Example
 {

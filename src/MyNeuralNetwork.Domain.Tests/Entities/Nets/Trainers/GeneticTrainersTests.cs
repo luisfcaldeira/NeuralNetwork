@@ -12,7 +12,7 @@ namespace MyNeuralNetwork.Domain.Tests.Entities.Nets.Trainers
     public class GeneticTrainersTests
     {
 
-        
+
         [Test]
         public void TestIfItMutateTwoNetworks()
         {
@@ -69,14 +69,14 @@ namespace MyNeuralNetwork.Domain.Tests.Entities.Nets.Trainers
 
             var nets = new List<INeuralNetwork>();
 
-            for(int i = 0; i < quantity; i++) 
+            for (int i = 0; i < quantity; i++)
             {
                 nets.Add(NetworkGenerator.GiveMeOne(new int[] { 2, 1 }));
             }
 
-            foreach (var network in nets) 
+            foreach (var network in nets)
             {
-                var result = network.Predict(new Input[] { new Input(1),  new Input(2) });
+                var result = network.Predict(new Input[] { new Input(1), new Input(2) });
                 network.Fitness = Math.Abs(result[0] - expectedResult);
             }
 
@@ -118,11 +118,11 @@ namespace MyNeuralNetwork.Domain.Tests.Entities.Nets.Trainers
         {
             List<INeuralNetwork> nets = new();
             var epochs = 1000;
-            
+
             GenerateAndIncludeNets(nets);
 
             Train(nets, epochs);
-            
+
             var theBestNet = GeneticTrainer.GetTheBestOne(nets);
 
             TryResults(theBestNet);
@@ -139,13 +139,13 @@ namespace MyNeuralNetwork.Domain.Tests.Entities.Nets.Trainers
 
         private static void Train(List<INeuralNetwork> nets, int epochs)
         {
-            GeneticTrainer geneticTrainer = new (new Mutater());
+            GeneticTrainer geneticTrainer = new(new Mutater());
 
             var dataManager = DataManagerGenerator.ForXor();
             double maxFitness = 1;
             int epochsCounter = 0;
 
-            while(maxFitness > 0.01)
+            while (maxFitness > 0.01)
             {
                 foreach (var net in nets)
                 {
@@ -157,7 +157,7 @@ namespace MyNeuralNetwork.Domain.Tests.Entities.Nets.Trainers
                     {
                         double result = net.Predict(inputs[j].Get())[0];
                         double expected = expecteds[j].Get()[0].Value;
-                        
+
                         fitness += Math.Pow(expected - result, 2);
                     }
 

@@ -4,7 +4,7 @@ namespace MyNeuralNetwork.Domain.Entities.Nets.IO.Outputs
 {
     public class Output : NeuralFloatValue
     {
-        public Output()  : base(0)
+        public Output() : base(0)
         {
         }
 

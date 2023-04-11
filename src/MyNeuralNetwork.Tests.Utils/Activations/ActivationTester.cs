@@ -5,7 +5,7 @@ namespace MyNeuralNetwork.Tests.Utils.Activations
 {
     public class ActivationTester : IActivator
     {
-        
+
         public double Activate(double x)
         {
             return x;

@@ -9,16 +9,16 @@
             Value = value;
         }
 
-        public static NeuralValue<T> operator -(NeuralValue<T> v1, NeuralValue<T> v2) 
+        public static NeuralValue<T> operator -(NeuralValue<T> v1, NeuralValue<T> v2)
         {
             T op = (dynamic)v1.Value - (dynamic)v2.Value;
-            return new (op);
+            return new(op);
         }
 
         public static NeuralValue<T> operator +(NeuralValue<T> v1, NeuralValue<T> v2)
         {
             T op = (dynamic)v1.Value + (dynamic)v2.Value;
-            return new (op);
+            return new(op);
         }
 
         public static NeuralValue<T> operator *(NeuralValue<T> v1, NeuralValue<T> v2)

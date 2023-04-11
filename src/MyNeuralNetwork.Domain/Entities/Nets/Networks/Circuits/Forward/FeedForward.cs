@@ -12,7 +12,7 @@ namespace MyNeuralNetwork.Domain.Entities.Nets.Networks.Circuits.Forward
         {
             foreach (var layer in neuralNetwork.GetNextLayer())
             {
-                if(layer.Label == 0)
+                if (layer.Label == 0)
                 {
                     layer.Add(inputs);
                 }

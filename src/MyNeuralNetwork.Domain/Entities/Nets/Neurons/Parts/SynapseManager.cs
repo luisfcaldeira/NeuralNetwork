@@ -31,7 +31,7 @@ namespace MyNeuralNetwork.Domain.Entities.Nets.Neurons.Parts
 
         public List<double> GetWeights(Neuron neighborNeuron)
         {
-           return Synapses.Where(x => x.NeighborNeuron.Equals(neighborNeuron)).Select(x => x.Weight.Value).ToList();
+            return Synapses.Where(x => x.NeighborNeuron.Equals(neighborNeuron)).Select(x => x.Weight.Value).ToList();
         }
 
         public NeuralDoubleValue GetOutput(Neuron neighborNeuron)
@@ -60,13 +60,13 @@ namespace MyNeuralNetwork.Domain.Entities.Nets.Neurons.Parts
 
         public void ChangeWeights(List<NeuronDto> neuronsDto)
         {
-            foreach(var neuron in neuronsDto)
+            foreach (var neuron in neuronsDto)
             {
                 var synapses = Synapses.Where(s => s.NeuronSource.Index.Equals(neuron.Index));
-                
-                if(neuron.Synapses != null)
+
+                if (neuron.Synapses != null)
                 {
-                    foreach(var synapseDto in neuron.Synapses?.Synapses)
+                    foreach (var synapseDto in neuron.Synapses?.Synapses)
                     {
                         var synapse = synapses.Where(s => s.NeighborNeuron.Index.Equals(synapseDto.TargetGuid)).FirstOrDefault();
                         synapse?.ChangeWeight(synapseDto.Weight);
@@ -77,7 +77,7 @@ namespace MyNeuralNetwork.Domain.Entities.Nets.Neurons.Parts
 
         public void Mutate(ISynapseManager synapses, double min = -0.01, double max = 0.01)
         {
-            for(var i = 0; i < Synapses.Count; i++)
+            for (var i = 0; i < Synapses.Count; i++)
             {
                 Synapses[i].Weight.Value = synapses.Synapses[i].Weight.Value + MyRandom.Range(min, max); ;
             }

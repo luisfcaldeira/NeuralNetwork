@@ -10,7 +10,7 @@ namespace MyNeuralNetwork.Domain.Tests.Entities.Support
 
         public TestLogger()
         {
-            
+
         }
 
         public TestLogger(int iteractions)
@@ -21,7 +21,7 @@ namespace MyNeuralNetwork.Domain.Tests.Entities.Support
         public void Log(object message)
         {
             counter++;
-            if(counter % iteractions == 0)
+            if (counter % iteractions == 0)
                 TestContext.WriteLine(message);
         }
     }

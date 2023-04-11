@@ -1,8 +1,6 @@
 ﻿using MyNeuralNetwork.Domain.Entities.Nets.Collections.Neurons;
 using MyNeuralNetwork.Domain.Entities.Nets.IO.Inputs;
-using MyNeuralNetwork.Domain.Entities.Nets.IO.Outputs;
 using MyNeuralNetwork.Domain.Entities.Nets.Neurons;
-using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -13,7 +11,7 @@ namespace MyNeuralNetwork.Domain.Entities.Nets.Layers
         public NeuronCollection Neurons { get; set; } = new NeuronCollection();
         public Layer PreviousLayer { get; set; }
         public int Label { get; }
-        public Layer NextLayer 
+        public Layer NextLayer
         {
             get
             {

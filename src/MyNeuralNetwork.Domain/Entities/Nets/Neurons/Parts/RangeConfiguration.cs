@@ -7,7 +7,7 @@
 
         public RangeConfiguration()
         {
-            
+
         }
 
         public RangeConfiguration(float minimumRange, float maximumRange)

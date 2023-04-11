@@ -4,7 +4,7 @@ using MyNeuralNetwork.Domain.Interfaces.Networks;
 
 namespace MyNeuralNetwork.Domain.Entities.Nets.Trainers.Genetics
 {
-    public class Mutater 
+    public class Mutater
     {
         public double ChanceOfMutate { get; set; } = 0.5;
         public double Min { get; set; } = -0.01;
@@ -23,7 +23,7 @@ namespace MyNeuralNetwork.Domain.Entities.Nets.Trainers.Genetics
 
         public void Mutate(INeuralNetwork targetNetwork, INeuralNetwork sourceNetwork)
         {
-            if (!PassChance()) 
+            if (!PassChance())
             {
                 return;
             }

@@ -10,7 +10,7 @@ namespace MyNeuralNetwork.Domain.Interfaces.Neurons.Parts
     {
         RangeConfiguration WeightConfiguration { get; set; }
         List<Synapse> Synapses { get; }
-        
+
         void Add(Neuron neuronSource, Neuron neighborNeuron);
         int Count();
         NeuralDoubleValue GetOutput(Neuron neighborNeuron);

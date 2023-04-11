@@ -17,8 +17,8 @@ namespace MyNeuralNetwork.Domain.Entities.Nets.Networks
 
         protected ICircuitForward _circuitForward;
 
-        public NeuralNetwork() 
-        { 
+        public NeuralNetwork()
+        {
             Layers = new LayerCollection();
         }
 
@@ -30,13 +30,13 @@ namespace MyNeuralNetwork.Domain.Entities.Nets.Networks
 
         public IEnumerable<Layer> GetNextLayer()
         {
-            for(int i  = 0; i < Layers.Count; i++)
+            for (int i = 0; i < Layers.Count; i++)
             {
                 yield return Layers[i];
             }
         }
 
-        public IEnumerable<Layer> GetBackLayers() 
+        public IEnumerable<Layer> GetBackLayers()
         {
             for (int i = Layers.Count - 1; i >= 0; i--)
             {

@@ -28,12 +28,12 @@ namespace MyNeuralNetwork.Domain.Entities.Nets.Generators
         {
             if (formatLayers.Length != activators.Length) throw new ArgumentException("Size of parameters must be the same.");
 
-            return new (_layersLinker.Generate(formatLayers.Length, (i, l) => CreateLayer<ISynapseManagerImplementation>(formatLayers[i], l, activators[i])), CircuitForward);
+            return new(_layersLinker.Generate(formatLayers.Length, (i, l) => CreateLayer<ISynapseManagerImplementation>(formatLayers[i], l, activators[i])), CircuitForward);
         }
 
         public NeuralNetwork Generate<ISynapseManagerImplementation, IActivatorImplementation>(int[] formatLayers)
         {
-            return new (_layersLinker.Generate(formatLayers.Length, (i, l) => CreateLayer<ISynapseManagerImplementation, IActivatorImplementation>(formatLayers[i], l)), CircuitForward);
+            return new(_layersLinker.Generate(formatLayers.Length, (i, l) => CreateLayer<ISynapseManagerImplementation, IActivatorImplementation>(formatLayers[i], l)), CircuitForward);
         }
 
         public NeuralNetwork GenerateDefault(int[] formatLayers)

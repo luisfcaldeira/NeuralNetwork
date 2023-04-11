@@ -12,7 +12,7 @@ namespace MyNeuralNetwork.Tests.Utils
         public static Neuron MakeEmptyNeuron()
         {
             return new Neuron(new
-                ActivationTester(), 
+                ActivationTester(),
                 new RandomDoubleValue(),
                 new SynapseManager());
         }

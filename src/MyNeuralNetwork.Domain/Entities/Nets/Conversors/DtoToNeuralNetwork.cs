@@ -42,7 +42,7 @@ namespace MyNeuralNetwork.Domain.Entities.Nets.Conversors
                 return new Layer(layerCounter, neurons);
             });
 
-            for(int i = 0; i < neuralNetworkDto.Layers.Count; i++)
+            for (int i = 0; i < neuralNetworkDto.Layers.Count; i++)
             {
                 var layer = layerCollection[i];
                 var layerDto = neuralNetworkDto.Layers[i];
@@ -50,7 +50,7 @@ namespace MyNeuralNetwork.Domain.Entities.Nets.Conversors
                 var neuronsDto = layerDto.Neurons;
                 layer.Neurons.ForEach(n => n.Synapses.ChangeWeights(neuronsDto));
             }
-            
+
             return layerCollection;
         }
 

@@ -21,7 +21,7 @@ namespace MyNeuralNetwork.Domain.Tests.Entities.Nets.Circuits.Foward
 
             NNGenerator nngen = new(neuronGenerator, new LayersLinker());
             FeedForward feedFoward = new();
-            var neuralNetwork = nngen.Generate<SynapseManager, ActivationTester>(new int[] {1, 1, 1});
+            var neuralNetwork = nngen.Generate<SynapseManager, ActivationTester>(new int[] { 1, 1, 1 });
             Assert.That(neuralNetwork.Layers.Last().Output.Count, Is.EqualTo(0));
             feedFoward.Send(neuralNetwork, new Input[] { new Input(1) });
             Assert.That(neuralNetwork.Layers.Last().Output.Count, Is.EqualTo(1));

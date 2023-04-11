@@ -15,10 +15,10 @@ namespace MyNeuralNetwork.Tests.Utils
         public static double FixedMaxBias = 0;
         public static double FixedMinBias = 0;
 
-        public static NeuralNetwork GiveMeOne(int[] sizeOfLayers, bool random=true)
+        public static NeuralNetwork GiveMeOne(int[] sizeOfLayers, bool random = true)
         {
             var neuronGenerator = new Domain.Entities.Nets.Neurons.NeuronGenerator();
-            if(!random)
+            if (!random)
             {
                 neuronGenerator.WeightConfiguration.SetMaxAndMin(FixedMinWeight, FixedMaxWeight);
                 neuronGenerator.BiasConfiguration.SetMaxAndMin(FixedMinBias, FixedMaxBias);

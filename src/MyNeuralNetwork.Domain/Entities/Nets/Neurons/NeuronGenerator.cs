@@ -17,10 +17,10 @@ namespace MyNeuralNetwork.Domain.Entities.Nets.Neurons
         public RangeConfiguration BiasConfiguration { get; set; } = new RangeConfiguration();
         public double LearningRate { get; set; } = Neuron.DeafultLearningRate;
 
-        public NeuronCollection Generate<ISynapseManagerImplementation, IActivatorType>(int quantity) 
+        public NeuronCollection Generate<ISynapseManagerImplementation, IActivatorType>(int quantity)
         {
             var activator = InstantiateActivator(typeof(IActivatorType));
-            return Generate< ISynapseManagerImplementation >(() => activator, quantity);
+            return Generate<ISynapseManagerImplementation>(() => activator, quantity);
         }
 
         public NeuronCollection Generate<ISynapseManagerImplementation>(int quantity, IActivator activator)

@@ -22,7 +22,7 @@ namespace MyNeuralNetwork.Domain.Entities.Nets.IO.Managers
             _inputInserters.Add(_inputInserter);
             return _inputInserter;
         }
-        
+
         public ExpectedInserter Expecteds(int numOfItems)
         {
             _expectedInserter = new ExpectedInserter(numOfItems);

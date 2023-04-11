@@ -8,7 +8,7 @@ namespace MyNeuralNetwork.Domain.Entities.Nets.Collections.Layers
         public LayerCollection() { }
 
         internal LayerCollection(Layer[] layers) : base(layers) { }
-       
+
         internal LayerCollection Copy()
         {
             return new LayerCollection(ToArray());

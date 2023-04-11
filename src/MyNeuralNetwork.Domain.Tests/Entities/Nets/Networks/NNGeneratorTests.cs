@@ -62,7 +62,7 @@ namespace MyNeuralNetwork.Domain.Tests.Nets.Networks
         public void TestIfCreateSynapsesCorrectly()
         {
             int expectedTotalOfSynapses = 0;
-            for(int i = 0; i < _neuralNetwork.Layers.Count - 1; i++)
+            for (int i = 0; i < _neuralNetwork.Layers.Count - 1; i++)
             {
                 int countNeuronsNextLayer = _neuralNetwork.Layers[i + 1].Neurons.Count;
                 int countNeuronsThisLayer = _neuralNetwork.Layers[i].Neurons.Count;
@@ -70,7 +70,7 @@ namespace MyNeuralNetwork.Domain.Tests.Nets.Networks
                 expectedTotalOfSynapses += countNeuronsNextLayer * countNeuronsThisLayer;
                 TestContext.Write("Layer: ");
                 TestContext.WriteLine(i + 1);
-                    
+
                 TestContext.Write("Count Neurons in this Layer: ");
                 TestContext.WriteLine(countNeuronsThisLayer);
 
@@ -87,7 +87,7 @@ namespace MyNeuralNetwork.Domain.Tests.Nets.Networks
 
             TestContext.Write("Expected total of Synapses: ");
             TestContext.WriteLine(expectedTotalOfSynapses);
-            
+
             TestContext.Write("Total of Synapses: ");
             TestContext.WriteLine(totalOfSynapses);
 
@@ -100,7 +100,7 @@ namespace MyNeuralNetwork.Domain.Tests.Nets.Networks
             var quantity = 0;
             var rightNumberOfNeurons = 0;
 
-            for(int i = 0; i < formatLayers.Length; i++)
+            for (int i = 0; i < formatLayers.Length; i++)
             {
                 rightNumberOfNeurons += formatLayers[i];
             }

@@ -8,20 +8,20 @@ namespace MyNeuralNetwork.Domain.Tests.Entities.Nets.Layers
 {
     public class LayersTests
     {
-        
+
         [Test]
         public void TestOutput()
         {
             NeuronCollection neuronCollection = new NeuronCollection
             {
-                NeuronGenerator.MakeEmptyNeuron(), 
-                NeuronGenerator.MakeEmptyNeuron(), 
+                NeuronGenerator.MakeEmptyNeuron(),
+                NeuronGenerator.MakeEmptyNeuron(),
             };
 
             var layerCounter = new LayerCounter();
             var layer = new Layer(layerCounter, neuronCollection);
-            layer.Add(new Input[] 
-            { 
+            layer.Add(new Input[]
+            {
                 new Input(0.5f),
                 new Input(1),
             });

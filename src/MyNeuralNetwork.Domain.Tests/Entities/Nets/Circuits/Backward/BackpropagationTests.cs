@@ -25,7 +25,7 @@ namespace MyNeuralNetwork.Domain.Tests.Entities.Nets.Circuits.Backward
         Input input = new Input(1);
         IActivator _activator = new ActivationTester();
 
-      
+
         private NeuralNetwork GenerateNN(int[] format)
         {
             var ngen = new NeuronGenerator();
@@ -79,10 +79,10 @@ namespace MyNeuralNetwork.Domain.Tests.Entities.Nets.Circuits.Backward
 
             HiddenLayerFiller.UpdateValuesIfTheresANextLayer(neuralNetwork.Layers[1]);
 
-            double lastNeuronGamma =  lastNeuron.Gamma;
+            double lastNeuronGamma = lastNeuron.Gamma;
             double neuronValue = testedNeuron.Value.Value;
             double learningRate = testedNeuron.LearningRate;
-            
+
             double expectedWeight = previousWeight - lastNeuronGamma * neuronValue * learningRate;
             double expectedBias = previousBias - lastNeuronGamma * learningRate;
             double expectedGamma = lastNeuron.Gamma * testedNeuron.Synapses.GetWeightFor(lastNeuron).Value;

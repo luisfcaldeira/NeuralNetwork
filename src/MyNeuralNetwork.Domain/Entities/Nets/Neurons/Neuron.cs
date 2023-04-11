@@ -81,7 +81,7 @@ namespace MyNeuralNetwork.Domain.Entities.Nets.Neurons
             var stringBuilder = new StringBuilder();
             var semicolon = "";
             var count = 1;
-            foreach(var weight in weights)
+            foreach (var weight in weights)
             {
                 stringBuilder.Append(semicolon);
                 stringBuilder.Append($"w{count++}: ");

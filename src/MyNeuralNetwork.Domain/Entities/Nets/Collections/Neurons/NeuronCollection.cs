@@ -1,11 +1,7 @@
-﻿using MyNeuralNetwork.Domain.Entities.Commons.Fields.Numerics;
-using MyNeuralNetwork.Domain.Entities.Nets.IO.Inputs;
-using MyNeuralNetwork.Domain.Entities.Nets.IO.Outputs;
+﻿using MyNeuralNetwork.Domain.Entities.Nets.IO.Inputs;
 using MyNeuralNetwork.Domain.Entities.Nets.Neurons;
-using MyNeuralNetwork.Domain.Entities.Nets.Neurons.Parts;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace MyNeuralNetwork.Domain.Entities.Nets.Collections.Neurons
 {

@@ -11,7 +11,7 @@ using System.Diagnostics;
 
 namespace MyNeuralNetwork.Domain.Entities.Nets.Trainers
 {
-    public class Trainer 
+    public class Trainer
     {
         private NeuralNetwork _neuralNetwork;
         private readonly ICircuitForward _circuitForward;

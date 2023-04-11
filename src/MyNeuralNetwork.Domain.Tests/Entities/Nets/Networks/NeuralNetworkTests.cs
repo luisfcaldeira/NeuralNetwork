@@ -4,7 +4,6 @@ using MyNeuralNetwork.Domain.Entities.Nets.IO.Inputs;
 using MyNeuralNetwork.Domain.Entities.Nets.IO.Managers;
 using MyNeuralNetwork.Domain.Entities.Nets.Networks.Circuits.Backward;
 using MyNeuralNetwork.Domain.Entities.Nets.Networks.Circuits.Forward;
-using MyNeuralNetwork.Domain.Entities.Nets.Neurons;
 using MyNeuralNetwork.Domain.Entities.Nets.Neurons.Activations;
 using MyNeuralNetwork.Domain.Entities.Nets.Neurons.Parts;
 using MyNeuralNetwork.Domain.Entities.Nets.Trainers;
@@ -26,7 +25,8 @@ namespace MyNeuralNetwork.Domain.Tests.Entities.Nets.Networks
             var network = NetworkGenerator.GiveMeOne(new int[] { 1, 1, 1 });
 
             var numberOfLayer = 0;
-            foreach (var layer in network.GetNextLayer()) {
+            foreach (var layer in network.GetNextLayer())
+            {
                 Assert.That(layer.Label, Is.EqualTo(numberOfLayer++));
             }
         }
@@ -89,7 +89,7 @@ namespace MyNeuralNetwork.Domain.Tests.Entities.Nets.Networks
             var nngen = new NNGenerator(ngen, new LayersLinker());
             var fitnessWinnerNet = nngen.Generate<SynapseManager, Tanh>(new int[] { 2, 6, 1 });
             fitnessWinnerNet.Fitness = 1000;
-            var nets = new List<INeuralNetwork>() { 
+            var nets = new List<INeuralNetwork>() {
                 fitnessWinnerNet,
                 nngen.Generate<SynapseManager, Tanh>(new int[] { 2, 6, 1 }),
                 nngen.Generate<SynapseManager, Tanh>(new int[] { 2, 6, 1 }),

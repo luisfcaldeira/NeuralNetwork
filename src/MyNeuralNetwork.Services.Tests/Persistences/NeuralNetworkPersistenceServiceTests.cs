@@ -18,7 +18,7 @@ namespace MyNeuralNetwork.Infra.Services.Tests.Persistences
             var service = GetService();
 
             var neuralNetwork = NetworkGenerator.GiveMeOne(new int[] { 1, 2, 3 });
-            
+
             service.Save(neuralNetwork);
 
             var neuralNetworkDto = ReadResultInFile();
@@ -39,7 +39,7 @@ namespace MyNeuralNetwork.Infra.Services.Tests.Persistences
 
             var expectedDto = ReadResultInFile();
 
-            for(var layerCount = 0; layerCount < expectedDto.Layers.Count; layerCount++)
+            for (var layerCount = 0; layerCount < expectedDto.Layers.Count; layerCount++)
             {
                 Assert.That(resultDto.Layers[layerCount].Label, Is.EqualTo(expectedDto.Layers[layerCount].Label));
 
@@ -76,7 +76,7 @@ namespace MyNeuralNetwork.Infra.Services.Tests.Persistences
 
         private static NeuralNetworkDto ReadResultInFile()
         {
-            var service = GetService(); 
+            var service = GetService();
             var serializer = new XmlSerializer(typeof(NeuralNetworkDto));
             TextReader reader = new StreamReader(service.FullPath);
             var neuralNetworkDto = (NeuralNetworkDto)serializer.Deserialize(reader);

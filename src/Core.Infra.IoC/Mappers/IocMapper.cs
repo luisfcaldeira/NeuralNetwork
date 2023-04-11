@@ -2,13 +2,11 @@
 using Core.Infra.Services.Persistences;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using MyNeuralNetwork.Domain.Dtos.Entities.Nets;
 using MyNeuralNetwork.Domain.Dtos.Entities.Nets.Layers;
 using MyNeuralNetwork.Domain.Dtos.Entities.Nets.Networks;
 using MyNeuralNetwork.Domain.Dtos.Entities.Nets.Neurons;
 using MyNeuralNetwork.Domain.Dtos.Entities.Nets.Neurons.Parts;
 using MyNeuralNetwork.Domain.Entities.Commons.Fields.Numerics;
-using MyNeuralNetwork.Domain.Entities.Nets;
 using MyNeuralNetwork.Domain.Entities.Nets.Layers;
 using MyNeuralNetwork.Domain.Entities.Nets.Networks;
 using MyNeuralNetwork.Domain.Entities.Nets.Neurons;
@@ -41,16 +39,18 @@ namespace Core.Infra.IoC.Mappers
                     //IConfigurationRoot configurationRoot = configuration.Build();
 
                 })
-                .ConfigureServices((_, services) => {
+                .ConfigureServices((_, services) =>
+                {
                     services.AddTransient<INeuralNetworkPersistence, NeuralNetworkPersistenceService>();
-                    
-                    services.AddTransient<IMapper>((x) => {
+
+                    services.AddTransient<IMapper>((x) =>
+                    {
                         var mapperConfiguration = new MapperConfiguration(cfg =>
                         {
                             cfg.CreateMap<NeuralDoubleValue, double>().ConvertUsing(f => f.Value);
                             cfg.CreateMap<double, NeuralDoubleValue>().ConvertUsing(f => new NeuralDoubleValue(f));
 
-                            cfg.CreateMap<ICircuitForward, string>().ConvertUsing(c => c.GetType().Name);   
+                            cfg.CreateMap<ICircuitForward, string>().ConvertUsing(c => c.GetType().Name);
 
                             cfg.CreateMap<NeuralFloatValue, float>().ConvertUsing(f => f.Value);
                             cfg.CreateMap<float, NeuralFloatValue>().ConvertUsing(f => new NeuralFloatValue(f));

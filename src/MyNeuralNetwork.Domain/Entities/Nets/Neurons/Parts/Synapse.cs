@@ -21,7 +21,7 @@ namespace MyNeuralNetwork.Domain.Entities.Nets.Neurons.Parts
             return new(NeuronSource.Value.Value * Weight.Value);
         }
 
-        public void ChangeWeight(double value) 
+        public void ChangeWeight(double value)
         {
             Weight.Value = value;
         }
