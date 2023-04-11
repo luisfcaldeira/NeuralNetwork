@@ -34,7 +34,7 @@ namespace MyNeuralNetwork.Domain.Entities.Nets.Trainers
         {
             var stopWatch = new Stopwatch();
             var inputInserters = DataManager.GetInputInserters();
-            var inputExpecteds = DataManager.GetExpectedInserters();
+            var inputExpecteds = DataManager.GetExpectedResults();
 
             stopWatch.Start();
             for (var epoch = 0; epoch < epochs; epoch++)

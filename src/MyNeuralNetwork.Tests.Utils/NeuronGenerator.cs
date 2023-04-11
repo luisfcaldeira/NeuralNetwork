@@ -6,7 +6,7 @@ using MyNeuralNetwork.Tests.Utils.Activations;
 namespace MyNeuralNetwork.Tests.Utils
 {
 
-    public static class NeuronGeneratorForTests
+    public static class NeuronGenerator
     {
 
         public static Neuron MakeEmptyNeuron()

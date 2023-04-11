@@ -2,8 +2,8 @@
 {
     public class RangeConfiguration
     {
-        public double MinimumRange { get; set; } = -0.5f;
-        public double MaximumRange { get; set; } = 0.5f;
+        public double MinimumRange { get; set; } = -1f;
+        public double MaximumRange { get; set; } = 1f;
 
         public RangeConfiguration()
         {

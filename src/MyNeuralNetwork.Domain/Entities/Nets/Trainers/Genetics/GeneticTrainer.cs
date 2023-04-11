@@ -1,4 +1,5 @@
 ﻿using MyNeuralNetwork.Domain.Interfaces.Networks;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -15,27 +16,34 @@ namespace MyNeuralNetwork.Domain.Entities.Nets.Trainers.Genetics
 
         public static INeuralNetwork GetTheBestOne(IList<INeuralNetwork> neuralNetworks)
         {
-            return OrderList(neuralNetworks).First();
+            return Roulette(neuralNetworks).First();
         }
 
-        public void Mutate(IList<INeuralNetwork> neuralNetworks)
+        public void ToMutate(IList<INeuralNetwork> neuralNetworks)
         {
-            List<INeuralNetwork> orderedNeuralNetworks = OrderList(neuralNetworks);
+            List<INeuralNetwork> orderedNeuralNetworks = Roulette(neuralNetworks);
 
-            Itarate(orderedNeuralNetworks);
+            Iterate(orderedNeuralNetworks);
         }
 
-        private static List<INeuralNetwork> OrderList(IList<INeuralNetwork> neuralNetworks)
+        private static List<INeuralNetwork> Roulette(IList<INeuralNetwork> neuralNetworks)
         {
-            return neuralNetworks.OrderBy(x => x.Fitness).ToList();
+            var sumOfFitnesses = neuralNetworks.Select(x => x.Fitness).Sum();
+
+            return neuralNetworks.OrderBy(x => Math.Abs(x.Fitness / sumOfFitnesses)).ToList();
         }
 
-        private void Itarate(List<INeuralNetwork> orderedNeuralNetworks)
+        private void Iterate(List<INeuralNetwork> orderedNeuralNetworks)
         {
             for (var i = 1; i < orderedNeuralNetworks.Count; i++)
             {
-                Mutate(orderedNeuralNetworks[i], orderedNeuralNetworks[0]);
+                Mutate(orderedNeuralNetworks[i], GetOneOfTwoParents(orderedNeuralNetworks));
             }
+        }
+
+        private static INeuralNetwork GetOneOfTwoParents(List<INeuralNetwork> orderedNeuralNetworks)
+        {
+            return orderedNeuralNetworks.Take(2).OrderBy(x => Guid.NewGuid()).First();
         }
 
         private void Mutate(INeuralNetwork target, INeuralNetwork source)

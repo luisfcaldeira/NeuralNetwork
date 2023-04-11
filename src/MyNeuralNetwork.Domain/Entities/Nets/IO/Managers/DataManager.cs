@@ -35,7 +35,7 @@ namespace MyNeuralNetwork.Domain.Entities.Nets.IO.Managers
             return _inputInserters;
         }
 
-        public List<ExpectedInserter> GetExpectedInserters()
+        public List<ExpectedInserter> GetExpectedResults()
         {
             return _expectedInserters;
         }

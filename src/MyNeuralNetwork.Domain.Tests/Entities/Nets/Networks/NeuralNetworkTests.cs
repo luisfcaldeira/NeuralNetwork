@@ -23,7 +23,7 @@ namespace MyNeuralNetwork.Domain.Tests.Entities.Nets.Networks
         [Test]
         public void TestIfGetNextLayerCorrectly()
         {
-            var network = NetworkGeneratorForTests.GiveMeOne(new int[] { 1, 1, 1 });
+            var network = NetworkGenerator.GiveMeOne(new int[] { 1, 1, 1 });
 
             var numberOfLayer = 0;
             foreach (var layer in network.GetNextLayer()) {
@@ -34,7 +34,7 @@ namespace MyNeuralNetwork.Domain.Tests.Entities.Nets.Networks
         [Test]
         public void TestIfPredictFunctionWorks()
         {
-            var ngen = new NeuronGenerator();
+            var ngen = new Domain.Entities.Nets.Neurons.NeuronGenerator();
             ngen.WeightConfiguration.SetMaxAndMin(1, 1);
             ngen.BiasConfiguration.SetMaxAndMin(0, 0);
 
@@ -46,35 +46,15 @@ namespace MyNeuralNetwork.Domain.Tests.Entities.Nets.Networks
 
             Assert.That(result[0], Is.EqualTo(1));
         }
+
         [Test]
         public void TestXor()
         {
-            var ngen = new NeuronGenerator();
+            var ngen = new Domain.Entities.Nets.Neurons.NeuronGenerator();
             var nngen = new NNGenerator(ngen, new LayersLinker());
 
-            var neuralNetwork = nngen.Generate<SynapseManager, Tanh>(new int[] {2, 6, 1});
-
-            var dataManager = new DataManager();
-
-            dataManager.Inputs(2)
-                .AddInput(1)
-                .AddInput(1);
-            dataManager.Expecteds(1).AddExpected(0);
-
-            dataManager.Inputs(2)
-                .AddInput(0)
-                .AddInput(1);
-            dataManager.Expecteds(1).AddExpected(1);
-
-            dataManager.Inputs(2)
-                .AddInput(1)
-                .AddInput(0);
-            dataManager.Expecteds(1).AddExpected(1);
-
-            dataManager.Inputs(2)
-                .AddInput(0)
-                .AddInput(0);
-            dataManager.Expecteds(1).AddExpected(0);
+            var neuralNetwork = nngen.Generate<SynapseManager, Tanh>(new int[] { 2, 6, 1 });
+            DataManager dataManager = DataManagerGenerator.ForXor();
 
             var trainer = new Trainer(dataManager, neuralNetwork, new FeedForward(), new Backpropagation(), new TestLogger(10000));
 
@@ -101,10 +81,11 @@ namespace MyNeuralNetwork.Domain.Tests.Entities.Nets.Networks
             TestContext.WriteLine(result4[0]);
         }
 
+
         [Test]
         public void TestIfItIsSortedCorrectly()
         {
-            var ngen = new NeuronGenerator();
+            var ngen = new Domain.Entities.Nets.Neurons.NeuronGenerator();
             var nngen = new NNGenerator(ngen, new LayersLinker());
             var fitnessWinnerNet = nngen.Generate<SynapseManager, Tanh>(new int[] { 2, 6, 1 });
             fitnessWinnerNet.Fitness = 1000;

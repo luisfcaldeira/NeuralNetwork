@@ -14,8 +14,8 @@ namespace MyNeuralNetwork.Domain.Tests.Entities.Nets.Layers
         {
             NeuronCollection neuronCollection = new NeuronCollection
             {
-                NeuronGeneratorForTests.MakeEmptyNeuron(), 
-                NeuronGeneratorForTests.MakeEmptyNeuron(), 
+                NeuronGenerator.MakeEmptyNeuron(), 
+                NeuronGenerator.MakeEmptyNeuron(), 
             };
 
             var layerCounter = new LayerCounter();

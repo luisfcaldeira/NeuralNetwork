@@ -17,7 +17,7 @@ namespace MyNeuralNetwork.Infra.Services.Tests.Persistences
         {
             var service = GetService();
 
-            var neuralNetwork = NetworkGeneratorForTests.GiveMeOne(new int[] { 1, 2, 3 });
+            var neuralNetwork = NetworkGenerator.GiveMeOne(new int[] { 1, 2, 3 });
             
             service.Save(neuralNetwork);
 
