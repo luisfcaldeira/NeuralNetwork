@@ -2,6 +2,7 @@
 using MyNeuralNetwork.Domain.Entities.Nets.IO.Managers;
 using MyNeuralNetwork.Domain.Entities.Nets.IO.Outputs;
 using MyNeuralNetwork.Domain.Entities.Nets.Networks;
+using MyNeuralNetwork.Domain.Entities.Support.Loggers;
 using MyNeuralNetwork.Domain.Interfaces.Networks.Circuits.Backward;
 using MyNeuralNetwork.Domain.Interfaces.Networks.Circuits.Forward;
 using MyNeuralNetwork.Domain.Interfaces.Services.Loggers;
@@ -29,6 +30,11 @@ namespace MyNeuralNetwork.Domain.Entities.Nets.Trainers
             DataManager = dataManager;
         }
 
+        public Trainer(DataManager dataManager, NeuralNetwork neuralNetwork, ICircuitForward circuitForward, ICircuitBackward circuitBackward) : this(
+                dataManager, neuralNetwork, circuitForward, circuitBackward, new EmptyLogger()
+            )
+        {
+        }
 
         public void Fit(int epochs)
         {
