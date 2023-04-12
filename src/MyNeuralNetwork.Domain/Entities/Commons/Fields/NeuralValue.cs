@@ -12,55 +12,55 @@
         public static NeuralValue<T> operator -(NeuralValue<T> v1, NeuralValue<T> v2)
         {
             T op = (dynamic)v1.Value - (dynamic)v2.Value;
-            return new(op);
+            return new NeuralValue<T>(op);
         }
 
         public static NeuralValue<T> operator +(NeuralValue<T> v1, NeuralValue<T> v2)
         {
             T op = (dynamic)v1.Value + (dynamic)v2.Value;
-            return new(op);
+            return new NeuralValue<T>(op);
         }
 
         public static NeuralValue<T> operator *(NeuralValue<T> v1, NeuralValue<T> v2)
         {
             T op = (dynamic)v1.Value * (dynamic)v2.Value;
-            return new(op);
+            return new NeuralValue<T>(op);
         }
 
         public static NeuralValue<T> operator +(NeuralValue<T> v1, T v2)
         {
             T op = (dynamic)v1.Value + (dynamic)v2;
-            return new(op);
+            return new NeuralValue<T>(op);
         }
 
         public static NeuralValue<T> operator +(T v1, NeuralValue<T> v2)
         {
             T op = (dynamic)v2.Value + (dynamic)v1;
-            return new(op);
+            return new NeuralValue<T>(op);
         }
 
         public static NeuralValue<T> operator *(NeuralValue<T> v1, T v2)
         {
             T op = (dynamic)v1.Value * (dynamic)v2;
-            return new(op);
+            return new NeuralValue<T>(op);
         }
 
         public static NeuralValue<T> operator *(T v1, NeuralValue<T> v2)
         {
             T op = (dynamic)v2.Value * (dynamic)v1;
-            return new(op);
+            return new NeuralValue<T>(op);
         }
 
         public static NeuralValue<T> operator -(NeuralValue<T> v1, T v2)
         {
             T op = (dynamic)v1.Value - (dynamic)v2;
-            return new(op);
+            return new NeuralValue<T>(op);
         }
 
         public static NeuralValue<T> operator -(T v1, NeuralValue<T> v2)
         {
             T op = (dynamic)v1 - (dynamic)v2.Value;
-            return new(op);
+            return new NeuralValue<T>(op);
         }
 
         public override string ToString()

@@ -18,7 +18,7 @@ namespace MyNeuralNetwork.Domain.Entities.Nets.Neurons.Parts
 
         public NeuralDoubleValue GetOutput()
         {
-            return new(NeuronSource.Value.Value * Weight.Value);
+            return new NeuralDoubleValue(NeuronSource.Value.Value * Weight.Value);
         }
 
         public void ChangeWeight(double value)

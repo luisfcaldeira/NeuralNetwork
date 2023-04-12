@@ -14,8 +14,8 @@ namespace MyNeuralNetwork.Domain.Entities.Nets.Generators.Supports
         public LayerCollection Generate(int layers, Func<int, LayerCounter, Layer> createLayersMethod)
         {
             Layer previousLayer = null;
-            LayerCollection layersCollection = new();
-            LayerCounter layerCounter = new();
+            LayerCollection layersCollection = new LayerCollection();
+            LayerCounter layerCounter = new LayerCounter();
 
             for (int i = 0; i < layers; i++)
             {

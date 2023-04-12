@@ -86,7 +86,7 @@ namespace MyNeuralNetwork.Domain.Entities.Nets.Neurons
 
         private static Neuron GenerateNeuron(IActivator activator, ISynapseManager synapseManager, NeuralDoubleValue bias, double learningRate)
         {
-            return new(activator, bias, synapseManager) { LearningRate = learningRate };
+            return new Neuron(activator, bias, synapseManager) { LearningRate = learningRate };
         }
     }
 }

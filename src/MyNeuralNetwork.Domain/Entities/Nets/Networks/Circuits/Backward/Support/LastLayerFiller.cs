@@ -25,7 +25,7 @@ namespace MyNeuralNetwork.Domain.Entities.Nets.Networks.Circuits.Backward.Suppor
 
         private static NeuralDoubleValue CalculateGamma(NeuralDoubleValue neuronValue, NeuralDoubleValue expected)
         {
-            return new(neuronValue.Value - expected.Value);
+            return new NeuralDoubleValue(neuronValue.Value - expected.Value);
         }
     }
 }

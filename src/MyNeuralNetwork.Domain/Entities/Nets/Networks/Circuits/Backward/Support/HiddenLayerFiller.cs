@@ -21,7 +21,7 @@ namespace MyNeuralNetwork.Domain.Entities.Nets.Networks.Circuits.Backward.Suppor
         {
             layer.Neurons.ForEach(myNeuron =>
             {
-                NeuralDoubleValue gammaSum = new();
+                NeuralDoubleValue gammaSum = new NeuralDoubleValue();
 
                 nextLayer.Neurons.ForEach(itsNeuron =>
                 {

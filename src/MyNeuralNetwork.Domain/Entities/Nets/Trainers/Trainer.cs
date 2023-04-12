@@ -13,7 +13,7 @@ namespace MyNeuralNetwork.Domain.Entities.Nets.Trainers
 {
     public class Trainer
     {
-        private NeuralNetwork _neuralNetwork;
+        private readonly NeuralNetwork _neuralNetwork;
         private readonly ICircuitForward _circuitForward;
         private readonly ICircuitBackward _circuitBackward;
         private readonly ITraceLogger _traceLog;

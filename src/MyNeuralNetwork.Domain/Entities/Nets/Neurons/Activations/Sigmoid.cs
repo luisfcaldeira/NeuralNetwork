@@ -14,7 +14,7 @@ namespace MyNeuralNetwork.Domain.Entities.Nets.Neurons.Activations
 
         public NeuralDoubleValue Activate(NeuralDoubleValue x)
         {
-            return new(Activate(x.Value));
+            return new NeuralDoubleValue(Activate(x.Value));
         }
 
         public double Derivative(double x)
@@ -24,7 +24,7 @@ namespace MyNeuralNetwork.Domain.Entities.Nets.Neurons.Activations
 
         public NeuralDoubleValue Derivative(NeuralDoubleValue x)
         {
-            return new(Derivative(x.Value));
+            return new NeuralDoubleValue(Derivative(x.Value));
         }
     }
 }
