@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{BA35C441-45FC-431A-8A5A-56BEC7AA10C0}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MyNeuralNetwork.Unity.Domain</RootNamespace>
+    <AssemblyName>MyNeuralNetwork.Unity.Domain</AssemblyName>
+    <TargetFrameworkVersion>v4.8.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Dtos\Entities\Nets\Layers\LayerDto.cs" />
+    <Compile Include="Dtos\Entities\Nets\Networks\NeuralNetworkDto.cs" />
+    <Compile Include="Dtos\Entities\Nets\Neurons\NeuronDto.cs" />
+    <Compile Include="Dtos\Entities\Nets\Neurons\Parts\SynapseDto.cs" />
+    <Compile Include="Dtos\Entities\Nets\Neurons\Parts\SynapseManagerDto.cs" />
+    <Compile Include="Entities\Commons\Fields\NeuralValue.cs" />
+    <Compile Include="Entities\Commons\Fields\Numerics\NeuralDoubleValue.cs" />
+    <Compile Include="Entities\Commons\Fields\Numerics\NeuralFloatValue.cs" />
+    <Compile Include="Entities\Commons\Fields\Numerics\RandomDoubleValue.cs" />
+    <Compile Include="Entities\Nets\Collections\IO\Inputs\FeedbackCollection.cs" />
+    <Compile Include="Entities\Nets\Collections\IO\Outputs\ExpectedCollection.cs" />
+    <Compile Include="Entities\Nets\Collections\IO\Outputs\OutputCollection.cs" />
+    <Compile Include="Entities\Nets\Collections\Layers\LayerCollection.cs" />
+    <Compile Include="Entities\Nets\Collections\Neurons\NeuronCollection.cs" />
+    <Compile Include="Entities\Nets\Conversors\DtoToNeuralNetwork.cs" />
+    <Compile Include="Entities\Nets\Generators\NNGenerator.cs" />
+    <Compile Include="Entities\Nets\Generators\Supports\LayersLinker.cs" />
+    <Compile Include="Entities\Nets\IO\Inputs\Feedback.cs" />
+    <Compile Include="Entities\Nets\IO\Inputs\Input.cs" />
+    <Compile Include="Entities\Nets\IO\Inputs\InputInserter.cs" />
+    <Compile Include="Entities\Nets\IO\Managers\DataManager.cs" />
+    <Compile Include="Entities\Nets\IO\Outputs\Expected.cs" />
+    <Compile Include="Entities\Nets\IO\Outputs\ExpectedInserter.cs" />
+    <Compile Include="Entities\Nets\IO\Outputs\Output.cs" />
+    <Compile Include="Entities\Nets\Layers\Layer.cs" />
+    <Compile Include="Entities\Nets\Layers\LayerCounter.cs" />
+    <Compile Include="Entities\Nets\Networks\Circuits\Backward\Backpropagation.cs" />
+    <Compile Include="Entities\Nets\Networks\Circuits\Backward\Support\HiddenLayerFiller.cs" />
+    <Compile Include="Entities\Nets\Networks\Circuits\Backward\Support\LastLayerFiller.cs" />
+    <Compile Include="Entities\Nets\Networks\Circuits\Forward\FeedForward.cs" />
+    <Compile Include="Entities\Nets\Networks\NeuralNetwork.cs" />
+    <Compile Include="Entities\Nets\Neurons\Activations\Relu.cs" />
+    <Compile Include="Entities\Nets\Neurons\Activations\Sigmoid.cs" />
+    <Compile Include="Entities\Nets\Neurons\Activations\Tanh.cs" />
+    <Compile Include="Entities\Nets\Neurons\Neuron.cs" />
+    <Compile Include="Entities\Nets\Neurons\NeuronGenerator.cs" />
+    <Compile Include="Entities\Nets\Neurons\Parts\RangeConfiguration.cs" />
+    <Compile Include="Entities\Nets\Neurons\Parts\Synapse.cs" />
+    <Compile Include="Entities\Nets\Neurons\Parts\SynapseManager.cs" />
+    <Compile Include="Entities\Nets\Neurons\Parts\Transmition.cs" />
+    <Compile Include="Entities\Nets\Trainers\Genetics\GeneticTrainer.cs" />
+    <Compile Include="Entities\Nets\Trainers\Genetics\Mutater.cs" />
+    <Compile Include="Entities\Nets\Trainers\Trainer.cs" />
+    <Compile Include="Entities\Support\Loggers\EmptyLogger.cs" />
+    <Compile Include="Entities\Support\MyRandom.cs" />
+    <Compile Include="Entities\Support\ValueInserters\Inserter.cs" />
+    <Compile Include="Interfaces\Generators\ILayersLinker.cs" />
+    <Compile Include="Interfaces\Networks\Circuits\Backward\ICircuitBackward.cs" />
+    <Compile Include="Interfaces\Networks\Circuits\Forward\ICircuitForward.cs" />
+    <Compile Include="Interfaces\Networks\INeuralNetwork.cs" />
+    <Compile Include="Interfaces\Neurons\Activations\IActivator.cs" />
+    <Compile Include="Interfaces\Neurons\INeuronGenerator.cs" />
+    <Compile Include="Interfaces\Neurons\Parts\ISynapseManager.cs" />
+    <Compile Include="Interfaces\Services\Loggers\ITraceLogger.cs" />
+    <Compile Include="Interfaces\Services\Persistences\INeuralNetworkPersistence.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

@@ -31,7 +31,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{A103DBB7-5
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Infra.IoC", "src\Core.Infra.IoC\Core.Infra.IoC.csproj", "{EE49F30D-E72D-4D39-BB6F-74E78604CC3A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Infra.Services.GraphPlotters", "src\Core.Infra.Services.GraphPlotters\Core.Infra.Services.GraphPlotters.csproj", "{2AD1C80B-FB3C-4AF7-9628-20A1C2EF6808}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Infra.Services.GraphPlotters", "src\Core.Infra.Services.GraphPlotters\Core.Infra.Services.GraphPlotters.csproj", "{2AD1C80B-FB3C-4AF7-9628-20A1C2EF6808}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

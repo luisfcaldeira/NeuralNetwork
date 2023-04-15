@@ -116,7 +116,7 @@ namespace MyNeuralNetwork.Domain.Tests.Entities.Nets.Trainers
         [Test]
         public void TestXor()
         {
-            List<INeuralNetwork> nets = new();
+            List<INeuralNetwork> nets = new List<INeuralNetwork>();
             var epochs = 1000;
 
             GenerateAndIncludeNets(nets);
@@ -139,7 +139,7 @@ namespace MyNeuralNetwork.Domain.Tests.Entities.Nets.Trainers
 
         private static void Train(List<INeuralNetwork> nets, int epochs)
         {
-            GeneticTrainer geneticTrainer = new(new Mutater());
+            GeneticTrainer geneticTrainer = new GeneticTrainer(new Mutater());
 
             var dataManager = DataManagerGenerator.ForXor();
             double maxFitness = 1;

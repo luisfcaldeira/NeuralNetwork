@@ -19,8 +19,8 @@ namespace MyNeuralNetwork.Domain.Tests.Entities.Nets.Circuits.Backward
 {
     public class BackpropagationTests
     {
-        FeedForward _feedFoward = new();
-        Backpropagation _backpropagation = new();
+        FeedForward _feedFoward = new FeedForward();
+        Backpropagation _backpropagation = new Backpropagation();
         Expected expected = new Expected(0.5f);
         Input input = new Input(1);
         IActivator _activator = new ActivationTester();

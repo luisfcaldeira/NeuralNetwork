@@ -1,22 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Compile Remove="Entities\Nets\Trainers\Backpropagations\**" />
-    <Compile Remove="Entities\Nets\Trainers\Feedforwards\**" />
-    <EmbeddedResource Remove="Entities\Nets\Trainers\Backpropagations\**" />
-    <EmbeddedResource Remove="Entities\Nets\Trainers\Feedforwards\**" />
-    <None Remove="Entities\Nets\Trainers\Backpropagations\**" />
-    <None Remove="Entities\Nets\Trainers\Feedforwards\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Remove="Entities\Nets\Neurons\Parts\Bias.cs" />
-    <Compile Remove="Entities\Nets\Neurons\Parts\Gamma.cs" />
-    <Compile Remove="Entities\Nets\Neurons\Parts\Weight.cs" />
-  </ItemGroup>
 
 </Project>

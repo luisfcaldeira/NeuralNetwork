@@ -15,12 +15,12 @@ namespace MyNeuralNetwork.Domain.Tests.Entities.Nets.Circuits.Foward
         [Test]
         public void TestIfFeedFowardPassValueThroughTheNetwork()
         {
-            NeuronGenerator neuronGenerator = new();
+            NeuronGenerator neuronGenerator = new NeuronGenerator();
             neuronGenerator.WeightConfiguration.SetMaxAndMin(1, 1);
             neuronGenerator.BiasConfiguration.SetMaxAndMin(0, 0);
 
-            NNGenerator nngen = new(neuronGenerator, new LayersLinker());
-            FeedForward feedFoward = new();
+            NNGenerator nngen = new NNGenerator(neuronGenerator, new LayersLinker());
+            FeedForward feedFoward = new FeedForward();
             var neuralNetwork = nngen.Generate<SynapseManager, ActivationTester>(new int[] { 1, 1, 1 });
             Assert.That(neuralNetwork.Layers.Last().Output.Count, Is.EqualTo(0));
             feedFoward.Send(neuralNetwork, new Input[] { new Input(1) });

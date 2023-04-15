@@ -64,7 +64,7 @@ namespace Core.Infra.IoC.Mappers
                             cfg.CreateMap<INeuralNetwork, NeuralNetworkDto>();
 
                             cfg.CreateMap<Layer, LayerDto>();
-                            cfg.CreateMap<Synapse, SynapseDto>().ForMember(s => s.TargetGuid, opt => opt.MapFrom((x) => x.NeuronSource.Index));
+                            cfg.CreateMap<Synapse, SynapseDto>().ForMember(s => s.TargetGuid, opt => opt.MapFrom((y) => y.NeuronSource.Index));
                         });
                         var executionPlan = mapperConfiguration.BuildExecutionPlan(typeof(NeuralNetwork), typeof(NeuralNetworkDto));
 
