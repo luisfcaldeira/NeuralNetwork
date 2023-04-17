@@ -64,7 +64,7 @@ namespace MyNeuralNetwork.Domain.Tests.Entities.Nets.Trainers
             double expectedResult = 3;
             double quantity = 1000;
             double stdDev = (1 - 0) / Math.Sqrt(12);
-            double expectedMean = 0.5;
+            double expectedMean = 0.9;
             int epochs = 1000;
 
             var nets = new List<INeuralNetwork>();
@@ -80,7 +80,7 @@ namespace MyNeuralNetwork.Domain.Tests.Entities.Nets.Trainers
                 network.Fitness = Math.Abs(result[0] - expectedResult);
             }
 
-            var trainer = new GeneticTrainer(new Mutater(expectedMean, 0, 0));
+            var trainer = new GeneticTrainer(new Mutater(expectedMean, -1, 1));
 
             trainer.ToMutate(nets);
 
@@ -117,11 +117,10 @@ namespace MyNeuralNetwork.Domain.Tests.Entities.Nets.Trainers
         public void TestXor()
         {
             List<INeuralNetwork> nets = new List<INeuralNetwork>();
-            var epochs = 1000;
 
             GenerateAndIncludeNets(nets);
 
-            Train(nets, epochs);
+            Train(nets);
 
             var theBestNet = GeneticTrainer.GetTheBestOne(nets);
 
@@ -131,13 +130,13 @@ namespace MyNeuralNetwork.Domain.Tests.Entities.Nets.Trainers
 
         private static void GenerateAndIncludeNets(List<INeuralNetwork> nets)
         {
-            for (var i = 0; i < 5; i++)
+            for (var i = 0; i < 25; i++)
             {
                 nets.Add(NetworkGenerator.GiveMeOneSigmoid(new int[] { 2, 2, 1 }));
             }
         }
 
-        private static void Train(List<INeuralNetwork> nets, int epochs)
+        private static void Train(List<INeuralNetwork> nets)
         {
             GeneticTrainer geneticTrainer = new GeneticTrainer(new Mutater());
 
@@ -145,7 +144,7 @@ namespace MyNeuralNetwork.Domain.Tests.Entities.Nets.Trainers
             double maxFitness = 1;
             int epochsCounter = 0;
 
-            while (maxFitness > 0.01)
+            while (maxFitness > 0.01 && epochsCounter < 11000)
             {
                 foreach (var net in nets)
                 {

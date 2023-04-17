@@ -6,7 +6,7 @@ namespace MyNeuralNetwork.Domain.Entities.Nets.Trainers.Genetics
 {
     public class Mutater
     {
-        public double ChanceOfMutate { get; set; } = 0.5;
+        public double ChanceOfMutate { get; set; } = 0.9;
         public double Min { get; set; } = -0.01;
         public double Max { get; set; } = 0.01;
 
