@@ -3,6 +3,8 @@ using MyNeuralNetwork.Domain.Dtos.Entities.Nets.Networks;
 using MyNeuralNetwork.Domain.Dtos.Entities.Nets.Neurons;
 using MyNeuralNetwork.Domain.Entities.Nets.Collections.Layers;
 using MyNeuralNetwork.Domain.Entities.Nets.Layers;
+using MyNeuralNetwork.Domain.Entities.Nets.Networks.Circuits.Forward;
+using MyNeuralNetwork.Domain.Entities.Nets.Networks;
 using MyNeuralNetwork.Domain.Entities.Nets.Neurons;
 using MyNeuralNetwork.Domain.Entities.Nets.Neurons.Parts;
 using MyNeuralNetwork.Domain.Interfaces.Generators;
@@ -16,6 +18,13 @@ namespace MyNeuralNetwork.Domain.Entities.Nets.Conversors
         public DtoToNeuralNetwork(ILayersLinker layersLinker)
         {
             _layersLinker = layersLinker;
+        }
+
+        public NeuralNetwork Convert(NeuralNetworkDto neuralNetworkDto)
+        {
+            var layerCollection = GenerateLayerCollection(neuralNetworkDto);
+
+            return new NeuralNetwork(layerCollection, new FeedForward());
         }
 
         public LayerCollection GenerateLayerCollection(NeuralNetworkDto neuralNetworkDto)

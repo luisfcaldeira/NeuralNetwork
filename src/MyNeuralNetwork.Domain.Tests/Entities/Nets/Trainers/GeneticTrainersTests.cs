@@ -1,6 +1,7 @@
 ﻿using MyNeuralNetwork.Domain.Entities.Nets.IO.Inputs;
 using MyNeuralNetwork.Domain.Entities.Nets.Trainers.Genetics;
 using MyNeuralNetwork.Domain.Interfaces.Networks;
+using MyNeuralNetwork.Domain.Interfaces.Trainers.Genetics;
 using MyNeuralNetwork.Tests.Utils;
 using NUnit.Framework;
 using System;
@@ -9,19 +10,16 @@ using System.Linq;
 
 namespace MyNeuralNetwork.Domain.Tests.Entities.Nets.Trainers
 {
-    public class GeneticTrainersTests
+    public  class GeneticTrainersTests
     {
+        protected IGeneticTrainer trainer;
 
-
-        [Test]
-        public void TestIfItMutateTwoNetworks()
+        public virtual void TestIfItMutateTwoNetworks()
         {
             NetworkGenerator.FixedMinBias = 0.5;
             NetworkGenerator.FixedMaxBias = 0.5;
             NetworkGenerator.FixedMinWeight = 0.5;
             NetworkGenerator.FixedMaxWeight = 0.5;
-
-            var trainer = new GeneticTrainer(new Mutater(1, 0, 0));
 
             var nets = new List<INeuralNetwork>()
             {
@@ -58,8 +56,7 @@ namespace MyNeuralNetwork.Domain.Tests.Entities.Nets.Trainers
             });
         }
 
-        [Test]
-        public void TestNeuralNetworkUse()
+        public virtual void TestNeuralNetworkUse()
         {
             double expectedResult = 3;
             double quantity = 1000;
@@ -80,7 +77,7 @@ namespace MyNeuralNetwork.Domain.Tests.Entities.Nets.Trainers
                 network.Fitness = Math.Abs(result[0] - expectedResult);
             }
 
-            var trainer = new GeneticTrainer(new Mutater(expectedMean, -1, 1));
+            var trainer = new RouletteTrainer(new Mutater(expectedMean, -1, 1));
 
             trainer.ToMutate(nets);
 
@@ -103,7 +100,7 @@ namespace MyNeuralNetwork.Domain.Tests.Entities.Nets.Trainers
                 trainer.ToMutate(nets);
             }
 
-            var bestNet = GeneticTrainer.GetTheBestOne(nets);
+            var bestNet = trainer.GetTheBestOne(nets);
 
             var prediction = bestNet.Predict(new Input[] { new Input(1), new Input(2) });
 
@@ -113,8 +110,7 @@ namespace MyNeuralNetwork.Domain.Tests.Entities.Nets.Trainers
             Assert.That(prediction[0], Is.AtMost(3.2));
         }
 
-        [Test]
-        public void TestXor()
+        public virtual void TestXor()
         {
             List<INeuralNetwork> nets = new List<INeuralNetwork>();
 
@@ -122,7 +118,7 @@ namespace MyNeuralNetwork.Domain.Tests.Entities.Nets.Trainers
 
             Train(nets);
 
-            var theBestNet = GeneticTrainer.GetTheBestOne(nets);
+            var theBestNet = trainer.GetTheBestOne(nets);
 
             TryResults(theBestNet);
             AssertTest(theBestNet);
@@ -136,9 +132,9 @@ namespace MyNeuralNetwork.Domain.Tests.Entities.Nets.Trainers
             }
         }
 
-        private static void Train(List<INeuralNetwork> nets)
+        private void Train(List<INeuralNetwork> nets)
         {
-            GeneticTrainer geneticTrainer = new GeneticTrainer(new Mutater());
+            RouletteTrainer geneticTrainer = new RouletteTrainer(new Mutater());
 
             var dataManager = DataManagerGenerator.ForXor();
             double maxFitness = 1;
@@ -165,7 +161,7 @@ namespace MyNeuralNetwork.Domain.Tests.Entities.Nets.Trainers
 
                 epochsCounter++;
                 geneticTrainer.ToMutate(nets);
-                maxFitness = GeneticTrainer.GetTheBestOne(nets).Fitness;
+                maxFitness = trainer.GetTheBestOne(nets).Fitness;
             }
             TestContext.WriteLine($"Epochs {epochsCounter}.");
         }
@@ -198,8 +194,7 @@ namespace MyNeuralNetwork.Domain.Tests.Entities.Nets.Trainers
             TestContext.WriteLine($"false xor false: {Convert.ToBoolean(Math.Round(xor00, 0))} ({xor00})");
         }
 
-        [Test]
-        public void TestChangeRuleTenPercent()
+        public virtual void TestChangeRuleTenPercent()
         {
             var mutater = new Mutater(0.1, 0, 0);
             double count = 0;
@@ -220,8 +215,7 @@ namespace MyNeuralNetwork.Domain.Tests.Entities.Nets.Trainers
             Assert.That(result, Is.LessThan(0.15));
         }
 
-        [Test]
-        public void TestChangeRuleFifthPercent()
+        public virtual void TestChangeRuleFifthPercent()
         {
             var mutater = new Mutater(0.5, 0, 0);
             double count = 0;
