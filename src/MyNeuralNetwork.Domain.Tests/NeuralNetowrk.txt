@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<NeuralNetworkDto xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Layers>
+    <LayerDto>
+      <Neurons>
+        <NeuronDto>
+          <Activator>MyNeuralNetwork.Domain.Entities.Nets.Neurons.Activations.Tanh</Activator>
+          <Index>12</Index>
+          <Bias>0.6237629288243229</Bias>
+          <Synapses>
+            <Synapses>
+              <SynapseDto>
+                <Weight>-0.8059357946007399</Weight>
+                <TargetGuid>12</TargetGuid>
+              </SynapseDto>
+              <SynapseDto>
+                <Weight>0.20770397944539698</Weight>
+                <TargetGuid>12</TargetGuid>
+              </SynapseDto>
+            </Synapses>
+          </Synapses>
+          <LearningRate>0.009999999776482582</LearningRate>
+        </NeuronDto>
+      </Neurons>
+      <Label>0</Label>
+    </LayerDto>
+    <LayerDto>
+      <Neurons>
+        <NeuronDto>
+          <Activator>MyNeuralNetwork.Domain.Entities.Nets.Neurons.Activations.Tanh</Activator>
+          <Index>13</Index>
+          <Bias>-0.04522226564507248</Bias>
+          <Synapses>
+            <Synapses />
+          </Synapses>
+          <LearningRate>0.009999999776482582</LearningRate>
+        </NeuronDto>
+        <NeuronDto>
+          <Activator>MyNeuralNetwork.Domain.Entities.Nets.Neurons.Activations.Tanh</Activator>
+          <Index>14</Index>
+          <Bias>-0.15923490835136023</Bias>
+          <Synapses>
+            <Synapses />
+          </Synapses>
+          <LearningRate>0.009999999776482582</LearningRate>
+        </NeuronDto>
+      </Neurons>
+      <Label>1</Label>
+    </LayerDto>
+  </Layers>
+  <CircuitForward>MyNeuralNetwork.Domain.Entities.Nets.Networks.Circuits.Forward.FeedForward</CircuitForward>
+</NeuralNetworkDto>

@@ -15,7 +15,7 @@ namespace MyNeuralNetwork.Domain.Entities.Nets.Networks
         public LayerCollection Layers { get; protected set; }
         public int CounterOfMutations { get; set; } = 0;
 
-        protected ICircuitForward _circuitForward;
+        public ICircuitForward CircuitForward { get; }
 
         public NeuralNetwork()
         {
@@ -25,7 +25,7 @@ namespace MyNeuralNetwork.Domain.Entities.Nets.Networks
         public NeuralNetwork(LayerCollection layers, ICircuitForward circuitForward)
         {
             Layers = layers;
-            _circuitForward = circuitForward;
+            CircuitForward = circuitForward;
         }
 
         public IEnumerable<Layer> GetNextLayer()
@@ -46,7 +46,7 @@ namespace MyNeuralNetwork.Domain.Entities.Nets.Networks
 
         public double[] Predict(Input[] inputs)
         {
-            _circuitForward.Send(this, inputs);
+            CircuitForward.Send(this, inputs);
 
             return Layers.Last().Output.ToArray();
         }

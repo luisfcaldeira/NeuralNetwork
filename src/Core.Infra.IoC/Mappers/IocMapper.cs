@@ -55,13 +55,15 @@ namespace Core.Infra.IoC.Mappers
                             cfg.CreateMap<NeuralFloatValue, float>().ConvertUsing(f => f.Value);
                             cfg.CreateMap<float, NeuralFloatValue>().ConvertUsing(f => new NeuralFloatValue(f));
 
-                            cfg.CreateMap<Neuron, NeuronDto>();
+                            cfg.CreateMap<Neuron, NeuronDto>()
+                                .ForMember(member => member.Activator, opt => opt.MapFrom(item => item.Activation.GetType().FullName));
 
                             cfg.CreateMap<IActivator, string>().ConstructUsing(c => c.GetType().FullName);
 
                             cfg.CreateMap<ISynapseManager, SynapseManagerDto>();
 
-                            cfg.CreateMap<INeuralNetwork, NeuralNetworkDto>();
+                            cfg.CreateMap<INeuralNetwork, NeuralNetworkDto>()
+                                .ForMember(member => member.CircuitForward, opt => opt.MapFrom(item => item.CircuitForward.GetType().FullName));
 
                             cfg.CreateMap<Layer, LayerDto>();
                             cfg.CreateMap<Synapse, SynapseDto>().ForMember(s => s.TargetGuid, opt => opt.MapFrom((y) => y.NeuronSource.Index));

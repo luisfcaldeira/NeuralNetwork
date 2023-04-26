@@ -4,6 +4,7 @@ using Core.Infra.Services.Persistences;
 using MyNeuralNetwork.Domain.Dtos.Entities.Nets.Networks;
 using MyNeuralNetwork.Domain.Entities.Nets.Networks;
 using MyNeuralNetwork.Tests.Utils;
+using MyNeuralNetwork.Tests.Utils.Activations;
 using NUnit.Framework;
 using System.IO;
 using System.Xml.Serialization;
@@ -28,6 +29,8 @@ namespace MyNeuralNetwork.Infra.Services.Tests.Persistences
             TestBias(neuralNetwork, neuralNetworkDto);
 
             TestWeights(neuralNetwork, neuralNetworkDto);
+
+            TestActivators(neuralNetworkDto);
         }
 
         [Test]
@@ -124,10 +127,19 @@ namespace MyNeuralNetwork.Infra.Services.Tests.Persistences
             });
         }
 
+        private static void TestActivators(NeuralNetworkDto neuralNetworkDto)
+        {
+            Assert.That(neuralNetworkDto.Layers[0].Neurons[0].Activator, Is.Not.Null.And.EqualTo(typeof(ActivationTester).FullName));
+            Assert.That(neuralNetworkDto.Layers[1].Neurons[0].Activator, Is.Not.Null.And.EqualTo(typeof(ActivationTester).FullName));
+            Assert.That(neuralNetworkDto.Layers[1].Neurons[1].Activator, Is.Not.Null.And.EqualTo(typeof(ActivationTester).FullName));
+        }
+
+
         private static NeuralNetworkPersistenceService GetService()
         {
             var mapper = new IocMapper();
             var service = new NeuralNetworkPersistenceService(mapper.GetService<IMapper>());
+            service.Path = "D:\\Projetos\\NeuralNetwork\\NeuralNetwork\\src\\MyNeuralNetwork.Services.Tests\\";
             return service;
         }
     }
