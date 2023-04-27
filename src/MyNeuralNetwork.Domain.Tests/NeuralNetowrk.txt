@@ -5,17 +5,17 @@
       <Neurons>
         <NeuronDto>
           <Activator>MyNeuralNetwork.Domain.Entities.Nets.Neurons.Activations.Tanh</Activator>
-          <Index>12</Index>
-          <Bias>0.6237629288243229</Bias>
+          <Index>0</Index>
+          <Bias>0.4235642034190681</Bias>
           <Synapses>
             <Synapses>
               <SynapseDto>
-                <Weight>-0.8059357946007399</Weight>
-                <TargetGuid>12</TargetGuid>
+                <Weight>-0.5796219392086361</Weight>
+                <TargetGuid>1</TargetGuid>
               </SynapseDto>
               <SynapseDto>
-                <Weight>0.20770397944539698</Weight>
-                <TargetGuid>12</TargetGuid>
+                <Weight>-0.4269212281037591</Weight>
+                <TargetGuid>2</TargetGuid>
               </SynapseDto>
             </Synapses>
           </Synapses>
@@ -28,8 +28,8 @@
       <Neurons>
         <NeuronDto>
           <Activator>MyNeuralNetwork.Domain.Entities.Nets.Neurons.Activations.Tanh</Activator>
-          <Index>13</Index>
-          <Bias>-0.04522226564507248</Bias>
+          <Index>1</Index>
+          <Bias>0.4473775646040514</Bias>
           <Synapses>
             <Synapses />
           </Synapses>
@@ -37,8 +37,8 @@
         </NeuronDto>
         <NeuronDto>
           <Activator>MyNeuralNetwork.Domain.Entities.Nets.Neurons.Activations.Tanh</Activator>
-          <Index>14</Index>
-          <Bias>-0.15923490835136023</Bias>
+          <Index>2</Index>
+          <Bias>-0.3737404149671708</Bias>
           <Synapses>
             <Synapses />
           </Synapses>

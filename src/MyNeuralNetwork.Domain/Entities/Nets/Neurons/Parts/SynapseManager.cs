@@ -62,7 +62,7 @@ namespace MyNeuralNetwork.Domain.Entities.Nets.Neurons.Parts
         {
             foreach (var neuron in neuronsDto)
             {
-                var synapses = Synapses.Where(s => s.NeuronSource.Index.Equals(neuron.Index));
+                var synapses = Synapses.Where(s => s.SourceNeuron.Index.Equals(neuron.Index));
 
                 if (neuron.Synapses != null)
                 {

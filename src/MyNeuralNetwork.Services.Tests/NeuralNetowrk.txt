@@ -6,16 +6,16 @@
         <NeuronDto>
           <Activator>MyNeuralNetwork.Tests.Utils.Activations.ActivationTester</Activator>
           <Index>0</Index>
-          <Bias>-0.9527447459773417</Bias>
+          <Bias>-0.6693634335103582</Bias>
           <Synapses>
             <Synapses>
               <SynapseDto>
-                <Weight>-0.4607404672053892</Weight>
-                <TargetGuid>0</TargetGuid>
+                <Weight>-0.1529234872897487</Weight>
+                <TargetGuid>1</TargetGuid>
               </SynapseDto>
               <SynapseDto>
-                <Weight>-0.8574210334910075</Weight>
-                <TargetGuid>0</TargetGuid>
+                <Weight>-0.16221228419563727</Weight>
+                <TargetGuid>2</TargetGuid>
               </SynapseDto>
             </Synapses>
           </Synapses>
@@ -29,20 +29,20 @@
         <NeuronDto>
           <Activator>MyNeuralNetwork.Tests.Utils.Activations.ActivationTester</Activator>
           <Index>1</Index>
-          <Bias>-0.014493117165017999</Bias>
+          <Bias>0.9159112777144793</Bias>
           <Synapses>
             <Synapses>
               <SynapseDto>
-                <Weight>-0.44913553481805635</Weight>
-                <TargetGuid>1</TargetGuid>
+                <Weight>0.891029918170462</Weight>
+                <TargetGuid>3</TargetGuid>
               </SynapseDto>
               <SynapseDto>
-                <Weight>0.20057332692369734</Weight>
-                <TargetGuid>1</TargetGuid>
+                <Weight>0.25534938579154676</Weight>
+                <TargetGuid>4</TargetGuid>
               </SynapseDto>
               <SynapseDto>
-                <Weight>0.18468344570021178</Weight>
-                <TargetGuid>1</TargetGuid>
+                <Weight>0.1723342285631928</Weight>
+                <TargetGuid>5</TargetGuid>
               </SynapseDto>
             </Synapses>
           </Synapses>
@@ -51,20 +51,20 @@
         <NeuronDto>
           <Activator>MyNeuralNetwork.Tests.Utils.Activations.ActivationTester</Activator>
           <Index>2</Index>
-          <Bias>0.988304812471021</Bias>
+          <Bias>0.9108997201313551</Bias>
           <Synapses>
             <Synapses>
               <SynapseDto>
-                <Weight>0.3593686116705872</Weight>
-                <TargetGuid>2</TargetGuid>
+                <Weight>-0.9535422619662757</Weight>
+                <TargetGuid>3</TargetGuid>
               </SynapseDto>
               <SynapseDto>
-                <Weight>0.35660988548883554</Weight>
-                <TargetGuid>2</TargetGuid>
+                <Weight>-0.017973652427551334</Weight>
+                <TargetGuid>4</TargetGuid>
               </SynapseDto>
               <SynapseDto>
-                <Weight>0.8659483130068999</Weight>
-                <TargetGuid>2</TargetGuid>
+                <Weight>-0.19719190340492165</Weight>
+                <TargetGuid>5</TargetGuid>
               </SynapseDto>
             </Synapses>
           </Synapses>
@@ -78,7 +78,7 @@
         <NeuronDto>
           <Activator>MyNeuralNetwork.Tests.Utils.Activations.ActivationTester</Activator>
           <Index>3</Index>
-          <Bias>-0.23303117432303377</Bias>
+          <Bias>-0.1920702914338197</Bias>
           <Synapses>
             <Synapses />
           </Synapses>
@@ -87,7 +87,7 @@
         <NeuronDto>
           <Activator>MyNeuralNetwork.Tests.Utils.Activations.ActivationTester</Activator>
           <Index>4</Index>
-          <Bias>0.3268772466303298</Bias>
+          <Bias>0.3970984135599218</Bias>
           <Synapses>
             <Synapses />
           </Synapses>
@@ -96,7 +96,7 @@
         <NeuronDto>
           <Activator>MyNeuralNetwork.Tests.Utils.Activations.ActivationTester</Activator>
           <Index>5</Index>
-          <Bias>0.8639410981989473</Bias>
+          <Bias>0.4617594542278296</Bias>
           <Synapses>
             <Synapses />
           </Synapses>

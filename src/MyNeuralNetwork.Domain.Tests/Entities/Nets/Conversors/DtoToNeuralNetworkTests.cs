@@ -103,6 +103,13 @@ namespace MyNeuralNetwork.Domain.Tests.Entities.Nets.Conversors
 
                 Assert.That(result.Layers[1].Neurons[1].Activation.GetType().Name, Is.EqualTo(typeof(Tanh).Name));
                 Assert.That(result.Layers[1].Neurons[1].Activation, Is.Not.Null);
+
+                Assert.That(result.Layers[0].Neurons[0].Synapses.GetSynapse(result.Layers[1].Neurons[0]).Weight.Value, Is.EqualTo(nn.Layers[0].Neurons[0].Synapses.GetSynapse(nn.Layers[1].Neurons[0]).Weight.Value));
+                Assert.That(result.Layers[0].Neurons[0].Synapses.GetSynapse(result.Layers[1].Neurons[1]).Weight.Value, Is.EqualTo(nn.Layers[0].Neurons[0].Synapses.GetSynapse(nn.Layers[1].Neurons[1]).Weight.Value));
+
+                Assert.That(result.Layers[0].Neurons[0].Bias, Is.EqualTo(nn.Layers[0].Neurons[0].Bias));
+                Assert.That(result.Layers[1].Neurons[0].Bias, Is.EqualTo(nn.Layers[1].Neurons[0].Bias));
+                Assert.That(result.Layers[1].Neurons[1].Bias, Is.EqualTo(nn.Layers[1].Neurons[1].Bias));
             });
         }
 

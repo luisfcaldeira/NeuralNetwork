@@ -6,19 +6,19 @@ namespace MyNeuralNetwork.Domain.Entities.Nets.Neurons.Parts
     {
 
         public NeuralDoubleValue Weight { get; internal set; }
-        public Neuron NeuronSource { get; private set; }
+        public Neuron SourceNeuron { get; private set; }
         public Neuron NeighborNeuron { get; private set; }
 
         public Synapse(RandomDoubleValue weight, Neuron neuronSource, Neuron neighborNeuron)
         {
             Weight = new NeuralDoubleValue(weight.Value);
             NeighborNeuron = neighborNeuron;
-            NeuronSource = neuronSource;
+            SourceNeuron = neuronSource;
         }
 
         public NeuralDoubleValue GetOutput()
         {
-            return new NeuralDoubleValue(NeuronSource.Value.Value * Weight.Value);
+            return new NeuralDoubleValue(SourceNeuron.Value.Value * Weight.Value);
         }
 
         public void ChangeWeight(double value)
