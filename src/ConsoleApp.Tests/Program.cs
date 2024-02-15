@@ -23,7 +23,7 @@ namespace ConsoleApp.Example
 
             var nngen = new NNGenerator(ngen, new LayersLinker());
 
-            var neuralNetwork = nngen.Generate<SynapseManager, Tanh>(new int[] { 2, 6, 1 });
+            var neuralNetwork = nngen.Generate<SynapseManager, Tanh>(new int[] { 2, 18, 1 });
 
             var dataManager = GenDataForAndGate();
 
