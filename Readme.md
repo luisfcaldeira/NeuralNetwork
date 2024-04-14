@@ -10,8 +10,16 @@ Tentei deixar as classes o mais autoexplicativo quanto fosse possível, mas poss
 
 ```NeuronGenerator```: ele gera os neurônios pra você. Você poderia gerar neurônio por neurônio se quisesse. Esse projeto: ```MyNeuralNetwork.Tests.Utils``` possui um exemplo de como gerar neurônios. 
 
-```NNGenerator```: ele gera uma rede neural inteira pra você. Você só precisa passar alguns parâmetros para configuração. Se você estiver habituado a usar modelos de redes neurais você vai entender o que está acontoecendo no método ```Generate```. ```Relu``` ou ```Sigmoid``` ou ```Tanh``` são classes de ativação da rede. 
+```NNGenerator```: ele gera uma rede neural inteira pra você. Você só precisa passar alguns parâmetros para configuração. Se você estiver habituado a usar modelos de redes neurais você vai entender o que está acontecendo no método ```Generate```. ```Relu``` ou ```Sigmoid``` ou ```Tanh``` são classes de ativação da rede. 
 
 ```SynapseManager```: ele gerencia a interação entre os neurônios. Ele envia a informação entre as camadas de neurônios e transmite também informações de pesos e bias. Dê uma explorada no código para melhor entendimento. 
 
 ```FeedForward``` e ```Backpropagation```: essas classes não possuem substituições, mas eu deixei acessíveis a mais alto nível caso o usuário quisesse modificar o funcionamento de qualquer uma delas. Se você está habituado ao uso de redes neurais, vai se identificar com os termos. 
+
+## Testes unitários
+
+Existem testes unitários que realizei para testar toda a rede. São ótimos pontos de partida para entendimento do código todo. Recomendo a leitura desses testes e, novamente, sinta-se livre para alterar ou criar novos testes. 
+
+## Requisitos
+
+- Net Standard 2.0
